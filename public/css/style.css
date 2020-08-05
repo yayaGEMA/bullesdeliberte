@@ -66,7 +66,7 @@ body{
     color:#f8f9fa;
 }
 
-.benevole-button .fab{
+.benevole-button .navbar-networks{
     display: none;
 }
 
@@ -359,7 +359,7 @@ footer{
         -ms-border-radius: 5px;
         -o-border-radius: 5px;
         position: relative;
-    }
+}
 
     .navbar-title{
         align-self: flex-start;
@@ -370,7 +370,7 @@ footer{
         color: white !important;
     }
 
-    .benevole-button .fab{
+    .benevole-button .navbar-networks{
         display: inline-block;
         padding: 5px;
     }

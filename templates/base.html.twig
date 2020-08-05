@@ -23,13 +23,22 @@
                     <li class="nav-item active">
                         <a class="nav-link text-light" href="{{ path('main') }}">ACCUEIL<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item benevole-button d-flex align-items-center">
+                    <li class="nav-item benevole-button d-flex align-items-center dropdown">
                         <div class="navbar-networks">
                             <a href="#"><i class="fab fa-facebook"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
                             <a href="#"><i class="fab fa-instagram"></i></a>
                         </div>
-                        <a class="nav-link text-light" href="#">ESPACE BÉNÉVOLE</a>
+                        <a class="nav-link dropdown-toggle text-light w-100" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ESPACE BÉNÉVOLE</a>
+                        <div class="dropdown-menu my-0" aria-labelledby="navbarDropdown">
+                            {% if app.user %}
+                                <a class="dropdown-item" href="#">PROFIL</a>
+                                <a class="dropdown-item" href="{{ path('app_logout') }}">SE DÉCONNECTER</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{{ path('app_register') }}">S'INSCRIRE</a>
+                                <a class="dropdown-item" href="{{ path('app_login') }}">SE CONNECTER</a>
+                            {% endif %}
+                        </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ÉVÉNEMENTS</a>
