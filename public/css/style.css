@@ -66,6 +66,9 @@ body{
     color:#f8f9fa;
 }
 
+.benevole-button .fab{
+    display: none;
+}
 
 /* Bannière */
 .banner{
@@ -79,7 +82,7 @@ body{
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
 }
 .banner-img{
-    background-image: url('../images/fondentete.png');
+    background-image: url('../images/main/fondentete.png');
     background-size: cover;
 }
 
@@ -106,7 +109,7 @@ body{
 
 /* Bienvenue */
 .welcome{
-    background-image: url(../images/gougoutte.png), url(../images/fondbienvenue.png);
+    background-image: url('../images/main/gougoutte.png'), url('../images/main/fondbienvenue.png');
     background-size: 50%, cover;
     background-repeat: no-repeat;
     background-position: 30%, 50%;
@@ -129,7 +132,7 @@ body{
 
 /* Devenir Bénévole */
 .benevole{
-    background-image: url(../images/fondbenevolemobile.png);
+    background-image: url('../images/main/fondbenevolemobile.png');
     background-size: cover;
     color: white !important;
 }
@@ -269,7 +272,7 @@ footer{
     }
 
     .benevole{
-        background-image: url(../images/fondbenevole.png);
+        background-image: url('../images/main/fondbenevole.png');
         background-size: cover;
         background-position: center;
         color: white !important;
@@ -309,6 +312,10 @@ footer{
 
 /* Taille ordi */
 @media screen and (min-width: 1200px){
+    .container-fluid{
+        z-index: 0;
+    }
+
     /* Bannière */
     .banner{
         height: 40vh !important;
@@ -333,7 +340,6 @@ footer{
 
     /* Navbar */
     .navbar{
-        position: absolute;
         z-index: 1;
         width: 95%;
         height: 15vh;
@@ -352,6 +358,7 @@ footer{
         -moz-border-radius: 5px;
         -ms-border-radius: 5px;
         -o-border-radius: 5px;
+        position: relative;
     }
 
     .navbar-title{
@@ -362,6 +369,33 @@ footer{
     .navbar-dark .navbar-nav .nav-link {
         color: white !important;
     }
+
+    .benevole-button .fab{
+        display: inline-block;
+        padding: 5px;
+    }
+
+    .benevole-button{
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #3d3d3d;
+        border-bottom-left-radius: 20px;
+    }
+
+    .benevole-button .nav-link{
+        margin: 0 2vw;
+    }
+
+    .benevole-button .nav-link:hover{
+        background-color: #212121;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+}
 
     /* Bouton */
     .donation img{

@@ -13,7 +13,7 @@
 
         <!-- Navbar -->
         <nav class="navbar navbar-expand-xl navbar-dark px-2 py-0 sticky-top">
-            <a class="navbar-brand text-light navbar-title" href="#"><img src="{{asset('images/main/logobullessite.png')}}" alt="bulles">Les Bulles de Liberté</a>
+            <a class="navbar-brand text-light navbar-title" href="{{ path('main') }}"><img src="{{asset('images/main/logobullessite.png')}}" alt="bulles">Les Bulles de Liberté</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,7 +21,15 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav ml-auto mr-xl-auto mt-2 mb-xl-0">
                     <li class="nav-item active">
-                        <a class="nav-link text-light" href="#">ACCUEIL<span class="sr-only">(current)</span></a>
+                        <a class="nav-link text-light" href="{{ path('main') }}">ACCUEIL<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item benevole-button d-flex align-items-center">
+                        <div class="navbar-networks">
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                        <a class="nav-link text-light" href="#">ESPACE BÉNÉVOLE</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ÉVÉNEMENTS</a>
