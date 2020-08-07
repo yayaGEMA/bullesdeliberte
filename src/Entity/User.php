@@ -42,14 +42,34 @@ class User implements UserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $pseudo;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $registrationDate;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $birthdate;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $bio;
 
     public function getId(): ?int
     {
@@ -141,18 +161,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
     public function getRegistrationDate(): ?\DateTimeInterface
     {
         return $this->registrationDate;
@@ -161,6 +169,66 @@ class User implements UserInterface
     public function setRegistrationDate(\DateTimeInterface $registrationDate): self
     {
         $this->registrationDate = $registrationDate;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getBirthdate(): ?\DateTimeInterface
+    {
+        return $this->birthdate;
+    }
+
+    public function setBirthdate(?\DateTimeInterface $birthdate): self
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    public function setBio(?string $bio): self
+    {
+        $this->bio = $bio;
 
         return $this;
     }

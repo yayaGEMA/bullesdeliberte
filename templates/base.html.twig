@@ -23,14 +23,14 @@
                     <li class="nav-item active">
                         <a class="nav-link text-light" href="{{ path('main') }}">ACCUEIL<span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item benevole-button d-flex align-items-center dropdown">
+                    <li class="nav-item dropdown benevole-button">
                         <div class="navbar-networks">
                             <a href="#"><i class="fab fa-facebook"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
                             <a href="#"><i class="fab fa-instagram"></i></a>
                         </div>
                         <a class="nav-link dropdown-toggle text-light w-100" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ESPACE BÉNÉVOLE</a>
-                        <div class="dropdown-menu my-0" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu my-0 dropdown-benevole" aria-labelledby="navbarDropdown">
                             {% if app.user %}
                                 <a class="dropdown-item" href="#">PROFIL</a>
                                 <a class="dropdown-item" href="{{ path('app_logout') }}">SE DÉCONNECTER</a>
@@ -67,6 +67,22 @@
                 </ul>
             </div>
         </nav>
+
+        <!-- Bannière -->
+        <div class="row">
+            <div class="col-12 banner">
+                <div class="banner-img w-100 h-100 d-flex justify-content-center align-items-center position-relative">
+                    <h1 class="text-light fun-title">LOISIRS POUR TOUS</h1>
+                    <a href="#" class="position-absolute mx-1 mr-xl-3">
+                        <!-- Bouton de don -->
+                        <div class="d-block bg-white donation d-flex justify-content-center align-items-center m-0">
+                            <img src="{{asset('images/main//faireundon.png')}}" alt="Faire un Don">
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <div class="container-fluid h-100">
             {% block body %}{% endblock %}
         </div>

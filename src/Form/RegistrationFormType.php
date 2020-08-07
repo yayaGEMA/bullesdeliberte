@@ -73,18 +73,34 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
 
-            //Champ pseudo
-            ->add('pseudo', TextType::class, [
-                'label' => 'Pseudonyme',
+            //Champ prénom
+            ->add('firstname', TextType::class, [
+                'label' => 'Prénom',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Merci de renseigner un pseudonyme'
+                        'message' => 'Merci de renseigner un prénom'
                     ]),
                     new Length([
                         'min' => 2,
-                        'minMessage' => 'Votre pseudonyme doit contenir au moins {{ limit }} caractères',
+                        'minMessage' => 'Ce champ doit contenir au moins {{ limit }} caractères',
                         'max' => 50,
-                        'maxMessage' => 'Votre pseudonyme doit contenir au maximum {{ limit }} caractères'
+                        'maxMessage' => 'Ce champ doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                ]
+            ])
+
+            //Champ nom
+            ->add('name', TextType::class, [
+                'label' => 'Nom',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de renseigner un nom de famille'
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => 'Ce champ doit contenir au moins {{ limit }} caractères',
+                        'max' => 50,
+                        'maxMessage' => 'Ce champ doit contenir au maximum {{ limit }} caractères'
                     ]),
                 ]
             ])
