@@ -32,7 +32,11 @@
                         <a class="nav-link dropdown-toggle text-light w-100" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ESPACE BÉNÉVOLE</a>
                         <div class="dropdown-menu my-0 dropdown-benevole" aria-labelledby="navbarDropdown">
                             {% if app.user %}
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user mx-1"></i>{{ app.user.firstname }} {{ app.user.name }}
+                                </a>
                                 <a class="dropdown-item" href="#">PROFIL</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ path('app_logout') }}">SE DÉCONNECTER</a>
                             {% else %}
                                 <a class="dropdown-item" href="{{ path('app_register') }}">S'INSCRIRE</a>
