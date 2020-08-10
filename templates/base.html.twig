@@ -72,22 +72,22 @@
             </div>
         </nav>
 
-        <!-- Bannière -->
-        <div class="row">
-            <div class="col-12 banner">
-                <div class="banner-img w-100 h-100 d-flex justify-content-center align-items-center position-relative">
-                    <h1 class="text-light fun-title">LOISIRS POUR TOUS</h1>
-                    <a href="#" class="position-absolute mx-1 mr-xl-3">
-                        <!-- Bouton de don -->
-                        <div class="d-block bg-white donation d-flex justify-content-center align-items-center m-0">
-                            <img src="{{asset('images/main//faireundon.png')}}" alt="Faire un Don">
-                        </div>
-                    </a>
+        <div class="container-fluid h-100">
+            <!-- Bannière -->
+            <div class="row">
+                <div class="col-12 banner px-0">
+                    <div class="banner-img w-100 h-100 d-flex justify-content-center align-items-center">
+                    {% block indexh1 %}{% endblock %}
+                    <a href="#" class="position-absolute mx-1 mr-xl-5">
+                            <!-- Bouton de don -->
+                            <div class="d-block bg-white donation d-flex justify-content-center align-items-center m-0">
+                                <img src="{{asset('images/main//faireundon.png')}}" alt="Faire un Don">
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container-fluid h-100">
             {% block body %}{% endblock %}
         </div>
 

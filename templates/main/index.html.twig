@@ -2,6 +2,25 @@
 
 {% block title %}{% endblock %}
 
+{% block stylesheets %}
+    <style>
+        @media screen and (min-width: 1200px){
+            .banner-img, .banner{
+                height: 40vh !important;
+            }
+            .donation{
+                bottom: 0vw;
+            }
+        }
+    </style>
+{% endblock %}
+
+
+{% block indexh1 %}
+    <!-- Bannière -->
+    <h1 class="text-light fun-title">LOISIRS POUR TOUS</h1>
+{% endblock %}
+
 {% block body %}
     <!-- Bienvenue et Bénévoles -->
     <div class="row welcome-benevole">

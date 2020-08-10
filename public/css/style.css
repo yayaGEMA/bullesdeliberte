@@ -315,12 +315,12 @@ footer{
 
     /* Bannière */
     .banner{
-        height: 40vh !important;
+        height: 20vh !important;
     }
 
     .banner-img{
         position: relative;
-        height: 40vh !important;
+        height: 20vh !important;
         background-position-y: -20vh;
     }
 
@@ -333,6 +333,17 @@ footer{
     .banner-img a{
         align-self: flex-end;
         margin-bottom: 5vh;
+    }
+
+
+    /* Bouton */
+    .donation{
+        position: absolute;
+        right: 2vw;
+    }
+
+    .donation img{
+        width: 140px;
     }
 
     /* Navbar */
@@ -404,11 +415,6 @@ footer{
 
     .dropdown-benevole .dropdown-item:hover{
         background-color: #212121;
-    }
-
-    /* Bouton */
-    .donation img{
-        width: 140px;
     }
 
     /* Bienvenue et welcome */
