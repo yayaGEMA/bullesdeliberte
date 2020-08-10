@@ -263,6 +263,12 @@ footer{
     .welcome{
         margin-left: 10px;
         height: 70%;
+        border: #f8f9fa 1px solid;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
     }
     .welcome p{
         padding: 0 30px;
@@ -281,6 +287,12 @@ footer{
         margin-right: 10px;
         margin-top: 20px;
         height: 27vh;
+        border: #f8f9fa 1px solid;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
     }
 
     /* Cards */
@@ -430,12 +442,6 @@ footer{
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        border: #f8f9fa 1px solid;
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -ms-border-radius: 5px;
-        -o-border-radius: 5px;
 }
     .welcome p{
         font-size: 1.3vw;
@@ -444,12 +450,6 @@ footer{
     .benevole{
         position: relative;
         height: 90%;
-        border: #f8f9fa 1px solid;
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -ms-border-radius: 5px;
-        -o-border-radius: 5px;
         margin-right: 0;
         margin-top: 0;
 
