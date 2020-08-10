@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Mailer\MailerInterface;
+use App\Recaptcha\RecaptchaValidator;
 
 class RegistrationController extends AbstractController
 {
@@ -29,14 +30,23 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/creer-un-compte", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, RecaptchaValidator $recaptcha): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            
+
+            // Si le captcha n'est pas valide, on crée une nouvelle erreur dans le formulaire (ce qui affichera l'erreur)
+            // $request->request->get('g-recaptcha-response')  -----> code envoyé par le captcha dont la méthode verify() a besoin
+            // $request->server->get('REMOTE_ADDR') -----> Adresse IP de l'utilisateur dont la méthode verify() a besoin
+            if(!$recaptcha->verify( $request->request->get('g-recaptcha-response'), $request->server->get('REMOTE_ADDR') )){
+
+                // Ajout d'une nouvelle erreur manuellement dans le formulaire
+                $form->addError(new FormError('Le Captcha doit être validé !'));
+            }
+
             if($form->isValid()){
 
                 // encode the plain password

@@ -7,7 +7,7 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1 class="col-12 col-sm-8 offset-sm-2 col-lg-4 offset-lg-4 text-light text-center mt-3">Créer un compte</h1>
+    <h1 class="col-12 col-sm-8 offset-sm-2 col-lg-4 offset-lg-4 text-light text-center mt-3">Bienvenue parmi les Bulles</h1>
 
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2 col-lg-4 offset-lg-4 text-light">
@@ -17,6 +17,9 @@
                 {{ form_row(registrationForm.email) }}
                 {{ form_row(registrationForm.plainPassword) }}
                 {{ form_row(registrationForm.agreeTerms) }}
+                <div class="form-group d-flex justify-content-center">
+                    <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
+                </div>
             {{ form_end(registrationForm) }}
         </div>
     </div>
@@ -24,4 +27,5 @@
 {% endblock %}
 
 {% block stylesheets %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}

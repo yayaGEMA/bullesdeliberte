@@ -6,3 +6,4 @@ twig:
     form_themes: ['bootstrap_4_layout.html.twig']
     globals:
         site_name: 'Les Bulles de Liberté'
+        google_recaptcha_site_key: '%google_recaptcha_site_key%'
