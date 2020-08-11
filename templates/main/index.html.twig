@@ -23,8 +23,8 @@
 
 {% block body %}
     <!-- Bienvenue et Bénévoles -->
-    <div class="row welcome-benevole">
-        <div class="col-12 col-md-8 col-xl-6 welcome p-3 position-relative">
+    <div class="row welcome-benevole w-100 ml-0">
+        <div class="col-12 col-md-8 col-xl-6 welcome p-3 position-relative w-100">
             <h2>BIENVENUE</h2>
             <p>Notre projet :</p>
             <p class="mb-4">Contribuer à offrir à tous l'accès aux loisirs, la possibilité de partager un moment convivial et privilégié ou...</p>
@@ -34,6 +34,46 @@
             <a href href=""><h2>Devenir</h2>
             <h3>Bénévole</h3></a>
             <a href="#" class="mt-md-5">Rejoignez-nous ></a>
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="row w-100 ml-0">
+        <div class="col-12 h-100 p-0">
+            <div class="card-group">
+                <div class="card p-0">
+                    <img src="{{ asset('images/articles/' ~ index_articles[0].mainPhoto ) }}" class="card-img-top h-100" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+                <div class="card p-0">
+                    <img src="{{ asset('images/articles/' ~ index_articles[1].mainPhoto ) }}" class="card-img-top h-100" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+                <div class="card p-0">
+                    <img src="{{ asset('images/articles/' ~ index_articles[2].mainPhoto ) }}" class="card-img-top h-100" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+                <div class="card p-0">
+                    <img src="{{ asset('images/articles/' ~ index_articles[3].mainPhoto ) }}" class="card-img-top h-100" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

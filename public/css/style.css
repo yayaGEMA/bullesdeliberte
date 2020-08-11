@@ -190,6 +190,7 @@ body{
 /* Footer */
 footer{
     background-color: #3D3D3D;
+    bottom: 0px;
 }
 
 .logo-nb{

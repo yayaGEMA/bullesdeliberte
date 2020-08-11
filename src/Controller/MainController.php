@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use App\Form\ArticleType;
 use Symfony\Component\HttpFoundation\Request;
 use \DateTime;
@@ -18,8 +20,14 @@ class MainController extends AbstractController
      */
     public function index()
     {
+        // Récupération du repository des articles
+        $articleRepo = $this->getDoctrine()->getRepository(Article::class);
+
+        // On demande au repository de nous donner les articles les plus récents
+        $indexArticles = $articleRepo->findFourLatest();
+
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
+            'index_articles' => $indexArticles
         ]);
     }
 
