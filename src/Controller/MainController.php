@@ -11,6 +11,7 @@ use App\Repository\ArticleRepository;
 use App\Form\ArticleType;
 use Symfony\Component\HttpFoundation\Request;
 use \DateTime;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 class MainController extends AbstractController
@@ -88,5 +89,39 @@ class MainController extends AbstractController
         return $this->render('main/createArticle.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/articles/", name="article_list")
+     */
+    public function articleList(Request $request, PaginatorInterface $paginator)
+    {
+
+        // On récupère dans l'url la données GET page (si elle n'existe pas, la valeur retournée par défaut sera la page 1)
+        $requestedPage = $request->query->getInt('page', 1);
+
+        // Si le numéro de page demandé dans l'url est inférieur à 1, erreur 404
+        if($requestedPage < 1){
+            throw new NotFoundHttpException();
+        }
+
+        // Récupération du manager des entités
+        $em = $this->getDoctrine()->getManager();
+
+        // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
+        $query = $em->createQuery('SELECT a FROM App\Entity\Article a');
+
+        // On stocke dans $pageArticles les 10 articles de la page demandée dans l'URL
+        $pageArticles = $paginator->paginate(
+            $query,     // Requête de selection des articles en BDD
+            $requestedPage,     // Numéro de la page dont on veux les articles
+            5      // Nombre d'articles par page
+        );
+
+        // On envoi les articles récupérés à la vue
+        return $this->render('main/articleList.html.twig', [
+            'articles' => $pageArticles
+        ]);
+
     }
 }

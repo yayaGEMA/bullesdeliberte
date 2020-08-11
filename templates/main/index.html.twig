@@ -38,39 +38,55 @@
     </div>
 
     <!-- Cards -->
-    <div class="row w-100 ml-0">
-        <div class="col-12 h-100 p-0">
-            <div class="card-group">
-                <div class="card p-0">
-                    <img src="{{ asset('images/articles/' ~ index_articles[0].mainPhoto ) }}" class="card-img-top h-100" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div class="row w-100 ml-0 my-md-5 position-relative">
+        <div class="w-100 h-100 p-0 mb-5">
+            <div class="card-group col-xl-10 offset-xl-1 p-0 mb-5">
+                <div class="col-12 col-sm-6 col-xl-3 p-0 px-xl-4">
+                    <div class="card p-0 position-relative h-100">
+                        <div class="zoom">
+                            <img src="{{ asset('images/articles/' ~ index_articles[0].mainPhoto ) }}" class="card-img-top h-100" alt="...">
+                        </div>
+                        <div class="card-body position-absolute w-100 d-flex flex-column justify-content-between">
+                            <h5 class="card-title">{{ index_articles[0].title }}</h5>
+                            <p class="card-text d-none d-xl-block">{{ index_articles[0].description|striptags|slice(0, 70) ~ '...' }}</p>
+                            <p class="card-text text-center"><small class="text-muted text-light">Le {{ index_articles[0].dateBeginning|format_datetime('medium', 'short', locale='fr') }}</small></p>
+                        </div>
                     </div>
                 </div>
-                <div class="card p-0">
-                    <img src="{{ asset('images/articles/' ~ index_articles[1].mainPhoto ) }}" class="card-img-top h-100" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <div class="col-12 col-sm-6 col-xl-3 p-0 px-xl-4">
+                    <div class="card p-0 position-relative h-100">
+                        <div class="zoom">
+                            <img src="{{ asset('images/articles/' ~ index_articles[1].mainPhoto ) }}" class="card-img-top h-100" alt="...">
+                        </div>
+                        <div class="card-body position-absolute w-100 d-flex flex-column justify-content-between">
+                            <h5 class="card-title">{{ index_articles[1].title }}</h5>
+                            <p class="card-text d-none d-xl-block">{{ index_articles[1].description|striptags|slice(0, 70) ~ '...' }}</p>
+                            <p class="card-text text-center"><small class="text-muted text-light">Le {{ index_articles[1].dateBeginning|format_datetime('medium', 'short', locale='fr') }}</small></p>
+                        </div>
                     </div>
                 </div>
-                <div class="card p-0">
-                    <img src="{{ asset('images/articles/' ~ index_articles[2].mainPhoto ) }}" class="card-img-top h-100" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <div class="col-12 col-sm-6 col-xl-3 p-0 px-xl-4">
+                    <div class="card p-0 position-relative h-100">
+                        <div class="zoom">
+                            <img src="{{ asset('images/articles/' ~ index_articles[2].mainPhoto ) }}" class="card-img-top h-100" alt="...">
+                        </div>
+                        <div class="card-body position-absolute w-100 d-flex flex-column justify-content-between">
+                            <h5 class="card-title">{{ index_articles[2].title }}</h5>
+                            <p class="card-text d-none d-xl-block">{{ index_articles[2].description|striptags|slice(0, 70) ~ '...' }}</p>
+                            <p class="card-text text-center"><small class="text-muted text-light">Le {{ index_articles[2].dateBeginning|format_datetime('medium', 'short', locale='fr') }}</small></p>
+                        </div>
                     </div>
                 </div>
-                <div class="card p-0">
-                    <img src="{{ asset('images/articles/' ~ index_articles[3].mainPhoto ) }}" class="card-img-top h-100" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <div class="col-12 col-sm-6 col-xl-3 p-0 px-xl-4">
+                    <div class="card p-0 position-relative h-100">
+                        <div class="zoom">
+                            <img src="{{ asset('images/articles/' ~ index_articles[3].mainPhoto ) }}" class="card-img-top h-100" alt="...">
+                        </div>
+                        <div class="card-body position-absolute w-100 d-flex flex-column justify-content-between">
+                            <h5 class="card-title">{{ index_articles[3].title }}</h5>
+                            <p class="card-text d-none d-xl-block">{{ index_articles[3].description|striptags|slice(0, 70) ~ '...' }}</p>
+                            <p class="card-text text-center"><small class="text-muted text-light">Le {{ index_articles[3].dateBeginning|format_datetime('medium', 'short', locale='fr') }}</small></p>
+                        </div>
                     </div>
                 </div>
             </div>

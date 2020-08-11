@@ -34,6 +34,11 @@ body{
     background-color: #212121;
 }
 
+.container-fluid, html{
+    position: relative;
+    min-height: 100%;
+}
+
 /* Navbar */
 .navbar{
     background-color: #212121;
@@ -171,7 +176,8 @@ body{
 .card-img-top{
     object-fit: cover;
     width: 100%;
-    height: 100vw;
+    height: 40vh !important;
+    overflow: hidden;
 }
 
 .card-body{
@@ -181,16 +187,25 @@ body{
 .card-title{
     font-family: 'The Micrander', Arial, Helvetica, sans-serif;
     font-size: 2rem;
+    color: rgb(231, 220, 220);
+    text-align: center;
+}
+
+.text-muted{
+    color: white !important;
+    font-size: 0.8rem;
 }
 
 .card-body a{
     color: white;
 }
 
+
+
 /* Footer */
 footer{
     background-color: #3D3D3D;
-    bottom: 0px;
+    bottom: 0;
 }
 
 .logo-nb{
@@ -317,8 +332,12 @@ footer{
         color: black;
     }
 
+    .card-title{
+        color: black;
+    }
+
     .text-muted{
-        color: white !important;
+        color: black !important;
     }
 }
 
@@ -459,11 +478,12 @@ footer{
     /* Cards */
     .card{
         padding: 50px;
+        border: 1px solid white;
     }
 
-    .item-zoom{
+    .zoom{
         overflow: hidden;
-}
+    }
 
     .card img{
         overflow: hidden;
@@ -475,7 +495,7 @@ footer{
         -moz-transition: all 0.3s;
         -ms-transition: all 0.3s;
         -o-transition: all 0.3s;
-}
+    }
 
     .card img:hover{
             transform: scale(1.1);
@@ -483,7 +503,12 @@ footer{
             -moz-transform: scale(1.1);
             -ms-transform: scale(1.1);
             -o-transform: scale(1.1);
-}
+    }
+
+    .text-muted{
+        font-size: 1rem;
+        bottom: 0;
+    }
 
     /* Footer */
     .logo-nb{

@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Liste des événements à venir{% endblock %}
+
+{% block body %}
+
+<div class="row my-3">
+    <div class="col-12 text-center">
+        <h1 class="text-light">Liste des événements à venir</h1>
+
+        {# Affichage du nombre total d'articles #}
+        <p>Nombre total d'articles : {{ articles.getTotalItemCount }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-8 offset-2">
+
+        <div class="list-group">
+            {# Affichage des articles #}
+            {% for article in articles %}
+                <a href="#" class="list-group-item list-group-item-action">{{ article.title }}</a>
+            {% endfor %}
+        </div>
+
+        <div class="my-3 text-center">
+            <div class="d-inline-block">
+                {# Affichage du menu permettant de naviguer entre les différentes pages #}
+                {{ knp_pagination_render(articles) }}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
