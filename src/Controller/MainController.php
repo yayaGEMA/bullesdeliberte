@@ -92,7 +92,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/articles/", name="article_list")
+     * @Route("/articles/", name="future_list")
      */
     public function articleList(Request $request, PaginatorInterface $paginator)
     {

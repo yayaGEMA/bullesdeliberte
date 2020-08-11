@@ -4,33 +4,43 @@
 
 {% block body %}
 
-<div class="row my-3">
-    <div class="col-12 text-center">
-        <h1 class="text-light">Liste des événements à venir</h1>
-
-        {# Affichage du nombre total d'articles #}
-        <p>Nombre total d'articles : {{ articles.getTotalItemCount }}</p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-8 offset-2">
-
-        <div class="list-group">
-            {# Affichage des articles #}
-            {% for article in articles %}
-                <a href="#" class="list-group-item list-group-item-action">{{ article.title }}</a>
-            {% endfor %}
+    <div class="row my-3">
+        <div class="col-12 text-center">
+            <h1 class="text-light">Liste des événements à venir</h1>
         </div>
+    </div>
 
-        <div class="my-3 text-center">
-            <div class="d-inline-block">
-                {# Affichage du menu permettant de naviguer entre les différentes pages #}
-                {{ knp_pagination_render(articles) }}
+    <div class="row mb-5">
+        <div class="col-12 col-md-6 offset-md-3 mb-5">
+            <div class="list-group">
+                {# Affichage des articles #}
+                {% for article in articles %}
+                <div class="row my-2">
+                    <div class="card my-2 p-0">
+                        <a href="#" class=" d-flex position-relative w-100">
+                            <div class="col-12 col-md-4 d-md-block px-0 zoom">
+                                <img src="{{ asset('images/articles/' ~ article.mainPhoto) }}" alt="..." class="card-img">
+                            </div>
+                            <div class="col-12 col-md-8 d-md-block list-body p-0">
+                                <div class="card-body p-3 h-100 d-flex flex-column justify-content-around">
+                                    <h2 class="card-title list-title">{{ article.title }}</h2>
+                                    <p class="card-text d-none d-lg-block">{{ article.description|striptags|slice(0,200) ~ '...' }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-        </div>
 
+            <div class="my-3 text-center">
+                <div class="d-inline-block mb-5">
+                    {# Affichage du menu permettant de naviguer entre les différentes pages #}
+                    {{ knp_pagination_render(articles) }}
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
 
 {% endblock %}
