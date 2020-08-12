@@ -28,8 +28,8 @@ class ArticleFixtures extends Fixture
                 ->setDescription($faker->paragraph(5))
                 ->setPublicationDate( new DateTime() )
                 ->setMainPhoto($faker->file('public/images/articlesFixtures', 'public/images/articles', false))
-                ->setDateBeginning($faker->dateTimeBetween('now', '+1year'))
-                ->setDateEnd($faker->dateTimeBetween('now', '+1year'))
+                ->setDateBeginning($faker->dateTimeBetween('-1year', '+1year'))
+                ->setDateEnd($faker->dateTimeBetween('-1year', '+1year'))
             ;
 
             // Enregistrement du nouvel article auprès de Doctrine

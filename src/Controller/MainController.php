@@ -92,9 +92,9 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/articles/", name="future_list")
+     * @Route("/evenements-futurs/", name="future_list")
      */
-    public function articleList(Request $request, PaginatorInterface $paginator)
+    public function futureList(Request $request, PaginatorInterface $paginator)
     {
 
         // On récupère dans l'url la données GET page (si elle n'existe pas, la valeur retournée par défaut sera la page 1)
@@ -108,8 +108,11 @@ class MainController extends AbstractController
         // Récupération du manager des entités
         $em = $this->getDoctrine()->getManager();
 
+        $now = date('Y-m-d H:i:s');
+
         // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
-        $query = $em->createQuery('SELECT a FROM App\Entity\Article a');
+        $query = $em->createQuery('SELECT a FROM App\Entity\Article a WHERE a.dateBeginning > :now ORDER BY a.dateBeginning')->setParameter('now', $now);
+
 
         // On stocke dans $pageArticles les 10 articles de la page demandée dans l'URL
         $pageArticles = $paginator->paginate(
@@ -119,9 +122,54 @@ class MainController extends AbstractController
         );
 
         // On envoi les articles récupérés à la vue
-        return $this->render('main/articleList.html.twig', [
+        return $this->render('main/futureList.html.twig', [
             'articles' => $pageArticles
         ]);
 
+    }
+
+    /**
+     * @Route("/evenements-passes/", name="past_list")
+     */
+    public function pastList(Request $request, PaginatorInterface $paginator)
+    {
+
+        // On récupère dans l'url la données GET page (si elle n'existe pas, la valeur retournée par défaut sera la page 1)
+        $requestedPage = $request->query->getInt('page', 1);
+
+        // Si le numéro de page demandé dans l'url est inférieur à 1, erreur 404
+        if($requestedPage < 1){
+            throw new NotFoundHttpException();
+        }
+
+        // Récupération du manager des entités
+        $em = $this->getDoctrine()->getManager();
+
+        $now = date('Y-m-d H:i:s');
+
+        // Création d'une requête qui servira au paginator pour récupérer les articles de la page courante
+        $query = $em->createQuery('SELECT a FROM App\Entity\Article a WHERE a.dateEnd< :now ORDER BY a.dateEnd DESC')->setParameter('now', $now);
+
+
+        // On stocke dans $pageArticles les 10 articles de la page demandée dans l'URL
+        $pageArticles = $paginator->paginate(
+            $query,     // Requête de selection des articles en BDD
+            $requestedPage,     // Numéro de la page dont on veux les articles
+            5      // Nombre d'articles par page
+        );
+
+        // On envoi les articles récupérés à la vue
+        return $this->render('main/pastList.html.twig', [
+            'articles' => $pageArticles
+        ]);
+
+    }
+
+    /**
+     * @Route("/faire-un-don/", name="donation")
+     */
+    public function donation(){
+
+        return $this->render('main/donation.html.twig');
     }
 }

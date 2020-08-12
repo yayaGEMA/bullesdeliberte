@@ -39,6 +39,10 @@ body{
     min-height: 100%;
 }
 
+h1{
+    z-index: 2 !important;
+}
+
 /* Navbar */
 .navbar{
     background-color: #212121;
@@ -248,7 +252,6 @@ footer{
     -webkit-background-clip: text;
 }
 
-
 /* MEDIA QUERIES */
 
 /* Taille tablette */
@@ -423,6 +426,7 @@ footer{
         right: 0;
         background-color: #3d3d3d;
         border-bottom-left-radius: 20px;
+        z-index: 1000;
     }
 
     .benevole-button .nav-link{

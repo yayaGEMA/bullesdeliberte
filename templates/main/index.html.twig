@@ -31,9 +31,9 @@
             <a href="#" class="block position-absolute mx-4 my-2">LIRE PLUS ></a>
         </div>
         <div class="col-12 col-md-4 col-xl-2 offset-xl-1 benevole text-center py-4 py-md-0 d-md-flex flex-column justify-content-center">
-            <a href href=""><h2>Devenir</h2>
+            <a href={% if app.user %}"#"{% else %}"{{ path('app_register') }}"{% endif %}><h2>Devenir</h2>
             <h3>Bénévole</h3></a>
-            <a href="#" class="mt-md-5">Rejoignez-nous ></a>
+            <a href={% if app.user %}"#"{% else %}"{{ path('app_register') }}"{% endif %} class="mt-md-5">Rejoignez-nous ></a>
         </div>
     </div>
 

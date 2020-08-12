@@ -108,6 +108,9 @@ class RegistrationFormType extends AbstractType
             // Bouton de validation
             ->add('save', SubmitType::class, [
                 'label' => 'Créer mon compte',
+                'attr' => [
+                    'class' => 'btn btn-primary col-10 offset-1 col-md-6 offset-md-3'
+                ]
             ])
         ;
     }
