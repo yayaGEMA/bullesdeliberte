@@ -17,7 +17,7 @@
                 {% for article in articles %}
                 <div class="row my-2">
                     <div class="card my-2 p-0">
-                        <a href="#" class=" d-flex position-relative w-100">
+                        <a href="{{ path('event', {slug: article.slug}) }}" class=" d-flex position-relative w-100">
                             <div class="col-12 col-md-4 d-md-block px-0 zoom">
                                 <img src="{{ asset('images/articles/' ~ article.mainPhoto) }}" alt="..." class="card-img">
                             </div>

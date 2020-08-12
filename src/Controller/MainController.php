@@ -166,6 +166,18 @@ class MainController extends AbstractController
     }
 
     /**
+     * Page d'affichage d'un événement en détail
+     *
+     * @Route("/evenement/{slug}/", name="event")
+     */
+    public function eventView(Article $article, Request $request)
+    {
+        return $this->render('main/oneEvent.html.twig', [
+            'event' => $article
+        ]);
+    }
+
+    /**
      * @Route("/faire-un-don/", name="donation")
      */
     public function donation(){

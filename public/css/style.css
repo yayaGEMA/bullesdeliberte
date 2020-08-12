@@ -39,10 +39,6 @@ body{
     min-height: 100%;
 }
 
-h1{
-    z-index: 2 !important;
-}
-
 /* Navbar */
 .navbar{
     background-color: #212121;
@@ -64,6 +60,7 @@ h1{
 .dropdown-menu{
     background-color: #212121;
     border: none;
+    z-index: 1000;
 }
 
 .dropdown-item{
