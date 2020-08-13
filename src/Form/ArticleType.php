@@ -45,9 +45,9 @@ class ArticleType extends AbstractType
                     ]),
                     new Length([
                         'min' => 5,
-                        'minMessage' => 'Le contenu doit contenir au moins {{ limit }} caractères',
+                        'minMessage' => 'Le champ doit contenir au moins {{ limit }} caractères',
                         'max' => 5000,
-                        'maxMessage' => 'Le contenu doit contenir au maximum {{ limit }} caractères'
+                        'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
                     ]),
                 ]
             ])

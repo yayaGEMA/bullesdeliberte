@@ -71,6 +71,11 @@ class User implements UserInterface
      */
     private $bio;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $motivation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -229,6 +234,18 @@ class User implements UserInterface
     public function setBio(?string $bio): self
     {
         $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getMotivation(): ?string
+    {
+        return $this->motivation;
+    }
+
+    public function setMotivation(string $motivation): self
+    {
+        $this->motivation = $motivation;
 
         return $this;
     }

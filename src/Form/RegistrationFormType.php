@@ -17,6 +17,8 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+
 
 class RegistrationFormType extends AbstractType
 {
@@ -101,6 +103,23 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'Ce champ doit contenir au moins {{ limit }} caractères',
                         'max' => 50,
                         'maxMessage' => 'Ce champ doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                ]
+            ])
+
+            // Chanmp motivation
+            ->add('motivation', CKEditorType::class, [
+                'label' => 'Pour quelles raisons voulez-vous rejoindre les Bulles de Liberté ?',
+                'purify_html' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de renseigner vos motivations (au moins 20 caractères)'
+                    ]),
+                    new Length([
+                        'min' => 20,
+                        'minMessage' => 'Le champ doit contenir au moins {{ limit }} caractères',
+                        'max' => '5000',
+                        'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
                     ]),
                 ]
             ])

@@ -11,22 +11,22 @@
     </div>
 
     <div class="row mb-5">
-        <div class="col-12 col-md-6 offset-md-3 mb-5">
+        <div class="col-12 col-md-8 offset-md-2 col-xl-6 offset-xl-3 mb-5">
             <div class="list-group">
                 {# Affichage des articles #}
                 {% for article in articles %}
                 <div class="row my-2">
-                    <div class="card my-2 p-0">
+                    <div class="card my-2 p-0 w-100">
                         <a href="{{ path('event', {slug: article.slug}) }}" class=" d-flex position-relative w-100">
                             <div class="col-12 col-md-4 d-md-block px-0 zoom">
                                 <img src="{{ asset('images/articles/' ~ article.mainPhoto) }}" alt="..." class="card-img">
                             </div>
-                            <div class="col-12 col-md-8 d-md-block list-body p-0">
-                                <div class="card-body p-3 h-100 d-flex flex-column justify-content-around">
+                            <div class="col-12 col-md-8 d-md-block list-body p-0 position-absolute">
+                                <div class="card-body card-list p-3 h-100 d-flex flex-column justify-content-around text-dark">
                                     <h2 class="card-title list-title">{{ article.title }}</h2>
-                                    <p class="card-text text-center">Du {{ article.dateBeginning|format_datetime('short', 'short', locale='fr') }} au {{ article.dateEnd|format_datetime('short', 'short', locale='fr') }}</p>
-                                    <p class="card-text d-none d-lg-block">{{ article.description|striptags|slice(0,200) ~ '...' }}</p>
-                                    <p class="text-right">LIRE PLUS ></p>
+                                    <p class="card-text text-center card-date">Du {{ article.dateBeginning|format_datetime('short', 'short', locale='fr') }}<br>au {{ article.dateEnd|format_datetime('short', 'short', locale='fr') }}</p>
+                                    <p class="card-text d-none d-md-block">{{ article.description|striptags|slice(0,200) ~ '...' }}</p>
+                                    <p class="text-right d-none d-md-block">LIRE PLUS ></p>
                                 </div>
                             </div>
                         </a>
