@@ -14,6 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use \DateTime;
 use App\Entity\User;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Entity\Participation;
+use App\Repository\ParticipationRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class MainController extends AbstractController
@@ -71,6 +75,7 @@ class MainController extends AbstractController
             // Hydratation de l'article
             $newArticle
                 ->setPublicationDate( new DateTime() )
+                ->setParticipations(0)
             ;
 
             // Récupération du manager général des entités
@@ -282,5 +287,81 @@ class MainController extends AbstractController
     public function documentation()
     {
         return $this->render('main/documentation.html.twig');
+    }
+
+    /**
+     * Permet à un user d'ajouter ou d'enlever sa participation
+     *
+     * @Route("/evenement/{id}/participation", name="event_participation")
+     *
+     * @param \App\Entity\Article $article
+     * @param \Doctrine\ORM\EntityManagerInterface $manager
+     * @param \App\Repository\ParticipationRepository $participationRepo
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function participation(Article $article, EntityManagerInterface $manager, ParticipationRepository $participationRepo) : Response
+    {
+        // On récupère l'user
+        $user = $this->getUser();
+
+        // S'il n'est pas connecté
+        if(!$user){
+            // Tableau JSON avec le code d'erreur et le message
+            return $this->json([
+                'code' => 403,
+                'message' => 'Il faut être connecté'
+            ], 403);
+        } else {
+
+            // Si l'user participe déjà, on retire sa participation
+            if($article->willCome($user)){
+                $participation = $participationRepo->findOneBy([
+                    'article' => $article,
+                    'user' => $user
+                ]);
+
+                // On baisse le nb de participations
+                $participations = $article->getParticipationsCounter();
+                $article->setParticipationsCounter(--$participations);
+
+                // On enlève sa participation dans la BDD
+                $manager->remove($participation);
+                $manager->persist($article);
+                $manager->flush();
+
+                // Tableau JSON avec le code de succès et le message
+                return $this->json([
+                    'code' => 200,
+                    'message' => "Participation supprimée",
+                    'participations' => $article->getParticipationsCounter()
+                ], 200);
+
+            // Sinon, il ajoute sa participation
+            } else {
+
+                // On spécifie quel user participe
+                $participation = new Participation();
+                $participation
+                    ->setArticle($article)
+                    ->setUser($user)
+                ;
+
+                // On augmente le nb de participations
+                $participations = $article->getParticipationsCounter();
+                $article->setParticipationsCounter(++$participations);
+
+                // On ajoute sa participation dans la BDD
+                $manager->persist($participation);
+                $manager->persist($article);
+                $manager->flush();
+
+                // Tableau JSON avec le code de succès et le message
+                return $this->json([
+                    'code' => 200,
+                    'message' => 'Participation ajoutée',
+                    'participations' => $article->getParticipationsCounter()
+                ], 200);
+            }
+        }
     }
 }

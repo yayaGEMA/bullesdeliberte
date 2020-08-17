@@ -16,20 +16,26 @@
                 {# Affichage des articles #}
                 {% for article in articles %}
                 <div class="row my-2">
-                    <div class="card my-2 p-0 w-100">
-                        <a href="{{ path('event', {slug: article.slug}) }}" class=" d-flex position-relative w-100">
-                            <div class="col-12 col-md-4 d-md-block px-0 zoom">
-                                <img src="{{ asset('images/articles/' ~ article.mainPhoto) }}" alt="..." class="card-img">
-                            </div>
-                            <div class="col-12 col-md-8 d-md-block list-body p-0 position-absolute">
-                                <div class="card-body card-list p-3 h-100 d-flex flex-column justify-content-around text-dark">
+                    <div class="card my-2 p-0 w-100 d-flex flex-row">
+                        <div class="col-12 col-md-4 d-md-block px-0 zoom">
+                            <a href="{{ path('event', {slug: article.slug}) }}" class="w-100 h-100 d-block">
+                                <img src="{{ asset('images/articles/' ~ article.mainPhoto) }}" alt="card-img" class="card-img">
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-8 d-md-block list-body p-0">
+                            <div class="card-body card-list p-3 h-100 text-dark rounded-0 d-flex flex-column justify-content-between">
+                                <a href="{{ path('event', {slug: article.slug}) }}" class="w-100 h-75 d-flex flex-column justify-content-around">
                                     <h2 class="card-title list-title">{{ article.title }}</h2>
                                     <p class="card-text text-center card-date">Du {{ article.dateBeginning|format_datetime('short', 'short', locale='fr') }}<br>au {{ article.dateEnd|format_datetime('short', 'short', locale='fr') }}</p>
-                                    <p class="card-text d-none d-md-block">{{ article.description|striptags|slice(0,200) ~ '...' }}</p>
-                                    <p class="text-right d-none d-md-block">LIRE PLUS ></p>
+                                    <p class="card-text d-none d-md-block text-dark">{{ article.description|striptags|slice(0,200) ~ '...' }}</p>
+                                </a>
+                                <div class="text-right d-block position-relative">
+                                    <a href="{{ path('event_participation', {id: article.id}) }}" class="d-none d-md-inline-block">
+                                        <p class="btn btn-primary">JE PARTICIPE !</p>
+                                    </a>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}

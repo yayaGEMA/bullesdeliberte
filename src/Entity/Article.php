@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -53,6 +55,21 @@ class Article
      * @Gedmo\Slug(fields={"title"})
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article")
+     */
+    private $participations;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $participations_counter;
+
+    public function __construct()
+    {
+        $this->participations = new ArrayCollection();
+    }
 
     public function getSlug(): ?string
     {
@@ -139,6 +156,65 @@ class Article
     public function setDateEnd(\DateTimeInterface $dateEnd): self
     {
         $this->dateEnd = $dateEnd;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Participation[]
+     */
+    public function getParticipations(): Collection
+    {
+        return $this->participations;
+    }
+
+    public function addParticipation(Participation $participation): self
+    {
+        if (!$this->participations->contains($participation)) {
+            $this->participations[] = $participation;
+            $participation->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipation(Participation $participation): self
+    {
+        if ($this->participations->contains($participation)) {
+            $this->participations->removeElement($participation);
+            // set the owning side to null (unless already changed)
+            if ($participation->getArticle() === $this) {
+                $participation->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Permet de savoir si un User participera à cet article
+     * 
+     * @param User $user
+     * @return boolean
+     */
+    public function willCome(User $user) : bool
+    {
+        foreach ($this->participations as $participation){
+            if($participation->getUser() === $user){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getParticipationsCounter(): ?int
+    {
+        return $this->participations_counter;
+    }
+
+    public function setParticipationsCounter(int $participations_counter): self
+    {
+        $this->participations_counter = $participations_counter;
 
         return $this;
     }
