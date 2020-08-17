@@ -276,7 +276,7 @@ footer{
     padding: 8px 10px;
 }
 
-/* Page de création d'article */
+/* Page de création et modification d'article */
 
 #article_dateBeginning, #article_dateEnd{
     display: flex;
@@ -288,7 +288,7 @@ footer{
     margin: 2px;
 }
 
-#article_save{
+#article_save, #edit_article_save{
     width: 100%;
     margin-top: 20px;
 }

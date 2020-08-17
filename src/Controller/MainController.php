@@ -180,8 +180,11 @@ class MainController extends AbstractController
      */
     public function eventView(Article $article, Request $request)
     {
+        $now = date('Y-m-d H:i:s');
+
         return $this->render('main/oneEvent.html.twig', [
-            'event' => $article
+            'event' => $article,
+            'now' => $now
         ]);
     }
 
@@ -211,7 +214,7 @@ class MainController extends AbstractController
             $this->addFlash('success', 'Article modifié avec succès !');
 
             // Redirection vers la page du bien modifié
-            return $this->redirectToRoute('article', ['slug' => $article->getSlug()]);
+            return $this->redirectToRoute('event', ['slug' => $article->getSlug()]);
 
         }
 

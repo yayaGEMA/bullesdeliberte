@@ -4,18 +4,29 @@
 
 {% block body %}
 
+    <div class="row d-flex justify-content-center">
+        <div class="col-10 offset-1 col-md-3 col-xl-2 ml-0 ml-md-2 text-center alert alert-success mt-3">
+            {% if event.dateEnd > date() %}
+                <a href="{{path('future_list')}}">Retour à la liste des événements à venir</a>
+            {% else %}
+                <a href="{{path('past_list')}}">Retour à la liste des événements passés</a>
+            {% endif %}
+            <!--Bouton pour modif ou supprimer l'article-->
+        </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="col-10 offset-1 col-md-3 col-xl-2 ml-0 ml-md-2 alert alert-primary mt-md-3 d-flex align-items-center justify-content-center">
+                <a href="{{path('edit', {slug: event.slug, csrf_token: csrf_token('edit' ~ event.slug) }) }}">Modifier l'article</a>
+            </div>
+            <div class="col-10 offset-1 col-md-3 col-xl-2 ml-0 ml-md-2 alert alert-danger mt-md-3 d-flex align-items-center justify-content-center">
+                <a href="{{path('delete', {id: event.id, csrf_token: csrf_token('delete_' ~ event.id )}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">Supprimer l'article</a>
+            </div>
+        {% endif %}
+    </div>
+
     <div class="row my-3">
         <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
             <h1 class="text-light fun-title">{{ event.title }}</h1>
         </div>
-    </div>
-
-    <div class="row article-view">
-        <!--Bouton pour modif ou supprimer l'article-->
-        {% if is_granted('ROLE_ADMIN') %}
-            <p class="col-12 col-md-2 offset-md-5 text-center alert alert-primary"><a href="{{path('edit', {slug: event.slug, csrf_token: csrf_token('edit' ~ event.slug) }) }}">Modifier l'article</a></p>
-            <p class="col-12 col-md-2 offset-md-5 text-center alert alert-danger"><a href="{{path('delete', {id: event.id, csrf_token: csrf_token('delete_' ~ event.id )}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">Supprimer l'article</a></p>
-        {% endif %}
     </div>
 
 {% endblock %}
