@@ -9,8 +9,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Form\ArticleType;
+use App\Form\EditArticleType;
 use Symfony\Component\HttpFoundation\Request;
 use \DateTime;
+use App\Entity\User;
 use Knp\Component\Pager\PaginatorInterface;
 
 
@@ -33,6 +35,8 @@ class MainController extends AbstractController
     }
 
     /**
+     * Page de création d'un "article" ou "event"
+     *
      * @Route("/ajouter/", name="new_article")
      * @Security("is_granted('ROLE_ADMIN')")
      */
@@ -92,6 +96,8 @@ class MainController extends AbstractController
     }
 
     /**
+     * Page des événements à venir
+     *
      * @Route("/evenements-futurs/", name="future_list")
      */
     public function futureList(Request $request, PaginatorInterface $paginator)
@@ -129,6 +135,8 @@ class MainController extends AbstractController
     }
 
     /**
+     * Page des événements passés
+     *
      * @Route("/evenements-passes/", name="past_list")
      */
     public function pastList(Request $request, PaginatorInterface $paginator)
@@ -178,10 +186,98 @@ class MainController extends AbstractController
     }
 
     /**
+     * Page user permettant de modifier un event existant via son slug passé dans l'url
+     *
+     * @Route("/{slug}/modifier/", name="edit")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function articleEdit(Article $article, request $request)
+    {
+
+        // Création du formulaire de modification (c'est le même que le formulaire permettant de créer un nouveau article, sauf qu'il sera déjà rempli avec les données de "$article")
+        $form = $this->createForm(EditArticleType::class, $article);
+
+        // Liaison des données de requête (POST) avec le formulaire
+        $form->handleRequest($request);
+
+        // Si le formulaire est envoyé et n'a pas d'erreur
+        if($form->isSubmitted() && $form->isValid()){
+
+            // Sauvegarde des changements faits via le manager général des entités
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            // Message flash de type "success"
+            $this->addFlash('success', 'Article modifié avec succès !');
+
+            // Redirection vers la page du bien modifié
+            return $this->redirectToRoute('article', ['slug' => $article->getSlug()]);
+
+        }
+
+        // Appel de la vue en lui envoyant le formulaire à afficher
+        return $this->render('main/editArticle.html.twig', [
+            'form' => $form->createView(),
+        ]);
+
+    }
+
+    /**
+     * Page admin servant à supprimer un article via son id passé dans l'url
+     *
+     * @Route("/article/suppression/{id}/", name="delete")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function articleDelete(Article $article, Request $request){
+
+        // Si le token CSRF passé dans l'url n'est pas le token valide, message d'erreur
+        if(!$this->isCsrfTokenValid('delete_'. $article->getId(), $request->query->get('csrf_token'))){
+
+            $this->addFlash('error', 'Token sécurité invalide, veuillez réessayer.');
+
+        } else {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($article);
+            $entityManager->flush();
+
+            // Message flash de type "success" pour indiquer la réussite de la suppression
+            $this->addFlash('success', 'Article supprimé avec succès !');
+
+        }
+
+        // Redirection de l'utilisateur sur la liste des articles
+        return $this->redirectToRoute('main');
+    }
+
+    /**
+     * Page de don
+     *
      * @Route("/faire-un-don/", name="donation")
      */
     public function donation(){
 
         return $this->render('main/donation.html.twig');
+    }
+
+    /**
+     * Page de profil
+     *
+     * @Route("/mon-profil/", name="profil")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function profil(Request $request)
+    {
+        return $this->render('main/profil.html.twig');
+    }
+
+    /**
+     * Page de documentation
+     *
+     * @Route("/documentation/", name="documentation")
+     */
+    public function documentation()
+    {
+        return $this->render('main/documentation.html.twig');
     }
 }

@@ -8,18 +8,20 @@
     </style>
 {% endblock %}
 
-{% block title %}Nouvel article{% endblock %}
+{% block title %}Modifier un article{% endblock %}
 
 {% block body %}
 
-    <h1 class="text-light text-center mt-4">Ajout d'évènement</h1>
+    <div class="row">
+        <h1 class="col-12 text-center text-light my-4">Modifier un article</h1>
+    </div>
 
     <div class="row mb-5">
-        <div class="col-10 offset-1 text-light mb-5 text-center">
+        <div class="col-12 col-md-8 offset-md-2 text-light mb-5">
+            {# Affichage du form de création d'un new article #}
             {{ form_start(form) }}
                 {{form_row(form.title)}}
                 {{form_row(form.description)}}
-                {{form_row(form.mainPhoto)}}
                 <div class="row mx-1 d-flex justify-content-around">
                     {{form_row(form.dateBeginning)}}
                     {{form_row(form.dateEnd)}}

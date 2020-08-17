@@ -16,8 +16,7 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Validator\Type\UploadValidatorExtension;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
-
-class ArticleType extends AbstractType
+class EditArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -51,24 +50,6 @@ class ArticleType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('mainPhoto', FileType::class, [
-                'label' => 'Sélectionnez une image',
-                'attr' => [
-                    'accept' => 'image/jpeg, image/png'
-                ],
-                'constraints' => [
-                    new File([
-                        'maxSize' => '20M',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/jpg',
-                        ],
-                        'mimeTypesMessage' => 'L\'image doit être de type jpg ou png',
-                        'maxSizeMessage' => 'Fichier trop volumineux : ({{ size }} {{ suffix }}). La taille maximum autorisée est {{ limit }} {{ suffix }}',
-                    ]),
-                ]
-            ])
             ->add('dateBeginning', DateTimeType::class, [
                 'label' => 'Date et heure de début'
             ])
@@ -76,7 +57,7 @@ class ArticleType extends AbstractType
                 'label' => 'Date et heure de fin'
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Ajouter un article'
+                'label' => 'Modifier l\'article'
             ])
         ;
     }

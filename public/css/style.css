@@ -276,6 +276,23 @@ footer{
     padding: 8px 10px;
 }
 
+/* Page de création d'article */
+
+#article_dateBeginning, #article_dateEnd{
+    display: flex;
+    justify-content: center;
+}
+
+#article_dateBeginning .form-control, #article_dateEnd .form-control{
+    width: auto !important;
+    margin: 2px;
+}
+
+#article_save{
+    width: 100%;
+    margin-top: 20px;
+}
+
 
 /* MEDIA QUERIES */
 

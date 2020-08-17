@@ -67,11 +67,6 @@ class User implements UserInterface
     private $phone;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $bio;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $motivation;
@@ -222,18 +217,6 @@ class User implements UserInterface
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getBio(): ?string
-    {
-        return $this->bio;
-    }
-
-    public function setBio(?string $bio): self
-    {
-        $this->bio = $bio;
 
         return $this;
     }

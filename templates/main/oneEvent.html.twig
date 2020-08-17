@@ -10,6 +10,12 @@
         </div>
     </div>
 
-    <div></div>
+    <div class="row article-view">
+        <!--Bouton pour modif ou supprimer l'article-->
+        {% if is_granted('ROLE_ADMIN') %}
+            <p class="col-12 col-md-2 offset-md-5 text-center alert alert-primary"><a href="{{path('edit', {slug: event.slug, csrf_token: csrf_token('edit' ~ event.slug) }) }}">Modifier l'article</a></p>
+            <p class="col-12 col-md-2 offset-md-5 text-center alert alert-danger"><a href="{{path('delete', {id: event.id, csrf_token: csrf_token('delete_' ~ event.id )}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">Supprimer l'article</a></p>
+        {% endif %}
+    </div>
 
 {% endblock %}

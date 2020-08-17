@@ -32,9 +32,7 @@
                         <a class="nav-link dropdown-toggle text-light w-100" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ESPACE BÉNÉVOLE</a>
                         <div class="dropdown-menu my-0 dropdown-benevole" aria-labelledby="navbarDropdown">
                             {% if app.user %}
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user mx-1"></i>{{ app.user.firstname }} {{ app.user.name }}
-                                </a>
+                                <a class="dropdown-item" href="{{ path('profil') }}">{{ app.user.firstname }} {{ app.user.name }} - PROFIL</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ path('app_logout') }}">SE DÉCONNECTER</a>
                             {% else %}
@@ -48,6 +46,9 @@
                         <div class="dropdown-menu my-0" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ path('future_list') }}">À VENIR</a>
                             <a class="dropdown-item" href="{{ path('past_list') }}">PASSÉS</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="dropdown-item" href="{{ path('new_article') }}">AJOUTER</a>
+                            {% endif %}
                         </div>
                     </li>
                     <li class="nav-item">
@@ -62,7 +63,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="#">DOCUMENTATION</a>
+                        <a class="nav-link text-light" href="{{path('documentation')}}">DOCUMENTATION</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" href="#">CONTACT</a>
@@ -118,7 +119,7 @@
                                 <a href="#" class="py-0">Coin Presse</a>
                             </div>
                         </li>
-                        <li><a href="#">DOCUMENTATION</a></li>
+                        <li><a href="{{path('documentation')}}">DOCUMENTATION</a></li>
                         <li><a href="#">CONTACT</a></li>
                         <li><a href="#">MENTIONS LÉGALES</a></li>
                     </ul>
