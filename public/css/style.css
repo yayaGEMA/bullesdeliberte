@@ -292,6 +292,10 @@ footer{
     margin-top: 20px;
 }
 
+.description{
+    color: white !important;
+}
+
 
 /* MEDIA QUERIES */
 

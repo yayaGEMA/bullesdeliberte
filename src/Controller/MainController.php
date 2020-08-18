@@ -280,6 +280,36 @@ class MainController extends AbstractController
     }
 
     /**
+     * Page de présentation de l'association
+     *
+     * @Route("/presentation/", name="presentation")
+     */
+    public function presentation()
+    {
+        return $this->render('main/presentation.html.twig');
+    }
+
+    /**
+     * Page de présentation des membres de l'association
+     *
+     * @Route("/qui-sommes-nous/", name="qui-sommes-nous")
+     */
+    public function quiSommesNous()
+    {
+        return $this->render('main/quiSommesNous.html.twig');
+    }
+
+    /**
+     * Page d'articles de presse
+     *
+     * @Route("/coin-presse/", name="coin-presse")
+     */
+    public function coinPresse()
+    {
+        return $this->render('main/coinPresse.html.twig');
+    }
+
+    /**
      * Page de documentation
      *
      * @Route("/documentation/", name="documentation")

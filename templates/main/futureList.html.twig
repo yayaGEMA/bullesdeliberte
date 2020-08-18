@@ -30,6 +30,7 @@
                                     <p class="card-text d-none d-md-block text-dark">{{ article.description|striptags|slice(0,200) ~ '...' }}</p>
                                 </a>
                                 {# Bouton de participation #}
+                                {% if app.user %}
                                 <div class="text-right d-block position-relative">
                                     <span class="p-count">{{ article.participationsCounter }} participant{% if article.participationsCounter > 1 %}s{% endif %}</span>
                                     <a href="{{ path('event_participation', {id: article.id}) }}" class="d-none d-md-inline-block participation-link">
@@ -40,6 +41,7 @@
                                         {% endif %}
                                     </a>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

@@ -57,9 +57,9 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">L'ASSOCIATION</a>
                         <div class="dropdown-menu my-0" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">PRÉSENTATION</a>
-                            <a class="dropdown-item" href="#">QUI SOMMES-NOUS</a>
-                            <a class="dropdown-item" href="#">COIN PRESSE</a>
+                            <a class="dropdown-item" href="{{ path('presentation')}}">PRÉSENTATION</a>
+                            <a class="dropdown-item" href="{{ path('qui-sommes-nous')}}">QUI SOMMES-NOUS</a>
+                            <a class="dropdown-item" href="{{ path('coin-presse')}}">COIN PRESSE</a>
                         </div>
                     </li>
                     <li class="nav-item">
@@ -113,10 +113,10 @@
                         <li><a href="#">GALERIE</a></li>
                         <li>
                             <div class="d-flex flex-column text-center">
-                                <a href="#" class="py-0">L'ASSOCIATION</a>
-                                <a href="#" class="py-0">Présentation</a>
-                                <a href="#" class="py-0">Qui sommes-nous</a>
-                                <a href="#" class="py-0">Coin Presse</a>
+                                <a href="{{ path('presentation')}}" class="py-0">L'ASSOCIATION</a>
+                                <a href="{{ path('presentation')}}" class="py-0">Présentation</a>
+                                <a href="{{ path('qui-sommes-nous')}}" class="py-0">Qui sommes-nous</a>
+                                <a href="{{ path('coin-presse')}}" class="py-0">Coin Presse</a>
                             </div>
                         </li>
                         <li><a href="{{path('documentation')}}">DOCUMENTATION</a></li>
