@@ -29,9 +29,15 @@
                                     <p class="card-text text-center card-date">Du {{ article.dateBeginning|format_datetime('short', 'short', locale='fr') }}<br>au {{ article.dateEnd|format_datetime('short', 'short', locale='fr') }}</p>
                                     <p class="card-text d-none d-md-block text-dark">{{ article.description|striptags|slice(0,200) ~ '...' }}</p>
                                 </a>
+                                {# Bouton de participation #}
                                 <div class="text-right d-block position-relative">
-                                    <a href="{{ path('event_participation', {id: article.id}) }}" class="d-none d-md-inline-block">
-                                        <p class="btn btn-primary">JE PARTICIPE !</p>
+                                    <span class="p-count">{{ article.participationsCounter }} participant{% if article.participationsCounter > 1 %}s{% endif %}</span>
+                                    <a href="{{ path('event_participation', {id: article.id}) }}" class="d-none d-md-inline-block participation-link">
+                                        {% if app.user and article.willCome(app.user) %}
+                                            <p class="btn btn-secondary participation">Participation ajoutée</p>
+                                        {% else %}
+                                            <p class="btn btn-primary participation">JE PARTICIPE !</p>
+                                        {% endif %}
                                     </a>
                                 </div>
                             </div>
@@ -51,4 +57,8 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/axios.min.js') }}"></script>
 {% endblock %}
