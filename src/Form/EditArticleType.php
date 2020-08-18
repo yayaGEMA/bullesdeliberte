@@ -50,6 +50,12 @@ class EditArticleType extends AbstractType
                     ]),
                 ]
             ])
+            // Champ "gallery" non lié à la BDD
+            ->add('gallery', FileType::class, [
+                'label' => 'Sélectionnez une galerie d\'images',
+                'multiple' => true,
+                'mapped' => false,
+            ])
             ->add('dateBeginning', DateTimeType::class, [
                 'label' => 'Date et heure de début'
             ])

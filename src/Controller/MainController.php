@@ -13,11 +13,13 @@ use App\Form\EditArticleType;
 use Symfony\Component\HttpFoundation\Request;
 use \DateTime;
 use App\Entity\User;
+use App\Entity\Gallery;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Participation;
 use App\Repository\ParticipationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 class MainController extends AbstractController
@@ -72,10 +74,31 @@ class MainController extends AbstractController
 
             $newArticle->setMainPhoto($newFileName);
 
+            // On récupère les photos de la gallerie transmises
+            $gallery = $form->get('gallery')->getData();
+
+            // On boucle sur les photos
+            foreach($gallery as $galleryImage){
+
+                // Création d'un nouveau nom aléatoire pour les photos avec leur extension)
+                $newGalleryFileName = md5(time() . rand() . uniqid() ) . '.' . $galleryImage->guessExtension();
+
+                $galleryImage->move(
+                    $this->getParameter('app.article.photo.directory'),
+                    $newGalleryFileName
+                );
+
+                // On stocke le nom de la photo dans la BDD
+                $img = new Gallery();
+                $img->setName($newGalleryFileName);
+                $newArticle->addGallery($img);
+            }
+
             // Hydratation de l'article
             $newArticle
                 ->setPublicationDate( new DateTime() )
-                ->setParticipations(0)
+                ->addParticipation(new Participation() )
+                ->setParticipationsCounter(0)
             ;
 
             // Récupération du manager général des entités
@@ -201,7 +224,6 @@ class MainController extends AbstractController
      */
     public function articleEdit(Article $article, request $request)
     {
-
         // Création du formulaire de modification (c'est le même que le formulaire permettant de créer un nouveau article, sauf qu'il sera déjà rempli avec les données de "$article")
         $form = $this->createForm(EditArticleType::class, $article);
 
@@ -210,6 +232,25 @@ class MainController extends AbstractController
 
         // Si le formulaire est envoyé et n'a pas d'erreur
         if($form->isSubmitted() && $form->isValid()){
+
+            // On récupère les photos de la gallerie transmises
+            $gallery = $form->get('gallery')->getData();
+
+            // On boucle sur les photos
+            foreach($gallery as $galleryImage){
+
+                $newGalleryFileName = md5(time() . rand() . uniqid() ) . '.' . $galleryImage->guessExtension();
+
+                $galleryImage->move(
+                    $this->getParameter('app.article.photo.directory'),
+                    $newGalleryFileName
+                );
+
+                // On stocke le nom de la photo dans la BDD
+                $img = new Gallery();
+                $img->setName($newGalleryFileName);
+                $article->addGallery($img);
+            }
 
             // Sauvegarde des changements faits via le manager général des entités
             $entityManager = $this->getDoctrine()->getManager();
@@ -226,6 +267,7 @@ class MainController extends AbstractController
         // Appel de la vue en lui envoyant le formulaire à afficher
         return $this->render('main/editArticle.html.twig', [
             'form' => $form->createView(),
+            'article' => $article,
         ]);
 
     }
@@ -392,6 +434,36 @@ class MainController extends AbstractController
                     'participations' => $article->getParticipationsCounter()
                 ], 200);
             }
+        }
+    }
+
+    /**
+     * Fonction qui permet de supprimer des images de la gallerie
+     *
+     * @Route("/supprimer-image/{id}", name="delete_gallery_image", methods={"DELETE"})
+     */
+    public function deleteGalleryImage(Gallery $galleryImage, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        // Vérification de la validité du token
+        if($this->isCsrfTokenValid('delete'.$galleryImage->getId(), $data['_token'])){
+            // On récupère le nom de l'image
+            $name = $galleryImage->getName();
+
+            // On supprime le fichier
+            unlink($this->getParameter('app.article.photo.directory').'/'.$name);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->remove($galleryImage);
+
+            $em->flush();
+
+            // On répond en JSON
+            return new JsonResponse(['success' => 1]);
+        } else {
+            return new JsonResponse(['error' => 'Token invalide !'], 400);
         }
     }
 }

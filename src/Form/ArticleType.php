@@ -52,7 +52,7 @@ class ArticleType extends AbstractType
                 ]
             ])
             ->add('mainPhoto', FileType::class, [
-                'label' => 'Sélectionnez une image',
+                'label' => 'Sélectionnez une image principale',
                 'attr' => [
                     'accept' => 'image/jpeg, image/png'
                 ],
@@ -68,6 +68,12 @@ class ArticleType extends AbstractType
                         'maxSizeMessage' => 'Fichier trop volumineux : ({{ size }} {{ suffix }}). La taille maximum autorisée est {{ limit }} {{ suffix }}',
                     ]),
                 ]
+            ])
+            // Champ "gallery" non lié à la BDD
+            ->add('gallery', FileType::class, [
+                'label' => 'Sélectionnez une galerie d\'images',
+                'multiple' => true,
+                'mapped' => false,
             ])
             ->add('dateBeginning', DateTimeType::class, [
                 'label' => 'Date et heure de début'

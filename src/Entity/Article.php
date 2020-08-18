@@ -57,7 +57,7 @@ class Article
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article")
+     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
      */
     private $participations;
 
@@ -66,9 +66,15 @@ class Article
      */
     private $participations_counter;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Gallery::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
+     */
+    private $galleries;
+
     public function __construct()
     {
         $this->participations = new ArrayCollection();
+        $this->galleries = new ArrayCollection();
     }
 
     public function getSlug(): ?string
@@ -215,6 +221,37 @@ class Article
     public function setParticipationsCounter(int $participations_counter): self
     {
         $this->participations_counter = $participations_counter;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Gallery[]
+     */
+    public function getGalleries(): Collection
+    {
+        return $this->galleries;
+    }
+
+    public function addGallery(Gallery $gallery): self
+    {
+        if (!$this->galleries->contains($gallery)) {
+            $this->galleries[] = $gallery;
+            $gallery->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGallery(Gallery $gallery): self
+    {
+        if ($this->galleries->contains($gallery)) {
+            $this->galleries->removeElement($gallery);
+            // set the owning side to null (unless already changed)
+            if ($gallery->getArticle() === $this) {
+                $gallery->setArticle(null);
+            }
+        }
 
         return $this;
     }

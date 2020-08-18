@@ -296,6 +296,10 @@ footer{
     color: white !important;
 }
 
+.delete-cross{
+    top: 0 !important;
+}
+
 
 /* MEDIA QUERIES */
 

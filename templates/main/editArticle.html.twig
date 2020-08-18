@@ -26,6 +26,22 @@
                     {{form_row(form.dateBeginning)}}
                     {{form_row(form.dateEnd)}}
                 </div>
+
+                {# Si la route est "edit", on affiche les images #}
+                {% if app.request.attributes.get('_route') == "edit" %}
+                    <h2>Galerie d'images</h2>
+
+                    <div class="col-12 d-flex flex-wrap">
+                        {% for galleryImage in article.galleries %}
+                            <div>
+                                <img src="{{ asset('images/articles/' ~ galleryImage.name ) }}" alt="Image" width="150px" class="position relative m-1">
+                                <div class="position-absolute bg-white rounded-circle px-1 delete-cross">
+                                    <a href="{{ path('delete_gallery_image', {'id': galleryImage.id}) }}" data-delete data-token="{{ csrf_token('delete'~ galleryImage.id) }}" class="text-danger">X</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {{ form_end(form) }}
         </div>
     </div>
