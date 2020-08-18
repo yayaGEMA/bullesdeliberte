@@ -441,6 +441,7 @@ class MainController extends AbstractController
      * Fonction qui permet de supprimer des images de la gallerie
      *
      * @Route("/supprimer-image/{id}", name="delete_gallery_image", methods={"DELETE"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function deleteGalleryImage(Gallery $galleryImage, Request $request)
     {

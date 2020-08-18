@@ -32,6 +32,9 @@
                     <h2>Galerie d'images</h2>
 
                     <div class="col-12 d-flex flex-wrap">
+                        {% if article.galleries|length < 1 %}
+                        <p class="text-danger">Aucune image dans la galerie pour le moment.</p>
+                        {% endif %}
                         {% for galleryImage in article.galleries %}
                             <div>
                                 <img src="{{ asset('images/articles/' ~ galleryImage.name ) }}" alt="Image" width="150px" class="position relative m-1">
