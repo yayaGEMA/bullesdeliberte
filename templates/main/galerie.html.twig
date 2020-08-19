@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Galerie{% endblock %}
+
+{% block body %}
+
+    <div class="row my-3 w-100">
+        <div class="col-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 text-center">
+            <h1 class="text-light">Galerie photos</h1>
+        </div>
+    </div>
+
+    {% for article in articles %}
+        <div class="row mx-0 my-2">
+            <div class="col-12 col-md-8 offset-md-2">
+                <a href="{{ path('event', {slug:article.slug}) }}"><h2 class="text-light">{{ article.title }}</h2></a>
+            </div>
+            <div class="col-12 col-md-8 offset-md-2 mb-2 d-flex flex-wrap">
+                {% for galleryImage in article.galleries %}
+                    <img src="{{ asset('images/articles/' ~ galleryImage.name ) }}" alt="image-{{ article.slug }}-{{ galleryImage.id }}" class="gallery-img">
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="my-3 text-center">
+        <div class="d-inline-block mb-5">
+            {# Affichage du menu permettant de naviguer entre les différentes pages #}
+            {{ knp_pagination_render(articles) }}
+        </div>
+    </div>
+
+{% endblock %}

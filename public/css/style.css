@@ -300,6 +300,13 @@ footer{
     top: 0 !important;
 }
 
+/* Page de galerie */
+
+.gallery-img{
+    max-width: 100vw;
+    margin: 1vh 0;
+    cursor: pointer;
+}
 
 /* MEDIA QUERIES */
 
@@ -613,6 +620,11 @@ footer{
 
     .sitemap ul li a:hover{
         background-color: #212121;
+    }
+
+    .gallery-img{
+        max-width: 15vw;
+        margin: 0.5vw;
     }
 
 }

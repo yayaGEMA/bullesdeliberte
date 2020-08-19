@@ -362,6 +362,42 @@ class MainController extends AbstractController
     }
 
     /**
+     * Page de galerie
+     *
+     * @Route("/galerie/", name="galerie")
+     */
+    public function galerie(Request $request, PaginatorInterface $paginator)
+    {
+        // On récupère dans l'url la données GET page (si elle n'existe pas, la valeur retournée par défaut sera la page 1)
+        $requestedPage = $request->query->getInt('page', 1);
+
+        // Si le numéro de page demandé dans l'url est inférieur à 1, erreur 404
+        if($requestedPage < 1){
+            throw new NotFoundHttpException();
+        }
+
+        // Récupération du manager des entités
+        $em = $this->getDoctrine()->getManager();
+
+        // Récupération du repository des articles
+        $articleRepo = $this->getDoctrine()->getRepository(Article::class);
+
+        // On demande au repository de nous donner les articles ayant une galerie
+        $allArticlesWithGallery = $articleRepo->findAllWithGallery();
+
+        //On stocke dans $pageArticles les 10 articles de la page demandée dans l'URL
+        $pageArticles = $paginator->paginate(
+            $allArticlesWithGallery,     // selection des articles
+            $requestedPage,     // Numéro de la page dont on veux les articles
+            5      // Nombre d'articles par page
+        );
+
+        return $this->render('main/galerie.html.twig', [
+            'articles' => $pageArticles,
+        ]);
+    }
+
+    /**
      * Permet à un user d'ajouter ou d'enlever sa participation
      *
      * @Route("/evenement/{id}/participation", name="event_participation")
