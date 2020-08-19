@@ -76,3 +76,52 @@ window.onload = () => {
         });
     }
 }
+
+
+////// Système de carousel et overlay
+
+$('.gallery-img').click(function(){
+
+    displayImage( $(this).data('image') );
+});
+
+// Création d'une fonction qui affiche une image dans un overlay avec un croix de fermeture
+function displayImage(imageName){
+
+    // Création d'une div servant d'overlay
+    let overlay = $('<div></div>');
+    overlay.addClass('overlay');
+    $('body').prepend( overlay );
+
+    // Création de l'image
+    let image = $('<img alt="">');
+    image.attr('src', "/images/articles/" + imageName);
+    image.css("max-width", "90vw");
+    image.css("max-height", "90vh");
+    overlay.append( image );
+
+    // Création du bouton de fermeture
+    let closeButton = $('<div></div>');
+    closeButton.text('X');
+    closeButton.addClass('close');
+    overlay.append(closeButton);
+
+    // Application d'un écouteur d'évènement "click" sur le bouton de fermeture
+    closeButton.click(function(){
+
+        // Appel de la fonction permettant de supprimer l'overlay
+        removeImage();
+    });
+
+    $(document).keyup(function(e) {
+        if (e.key === "Escape"){
+           removeImage();
+       }
+   });
+
+}
+
+// Suppression de l'overlay contenant l'image et la croix de fermeture
+function removeImage(){
+    $('.overlay').remove();
+}

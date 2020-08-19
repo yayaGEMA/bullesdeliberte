@@ -17,7 +17,7 @@
             </div>
             <div class="col-12 col-md-8 offset-md-2 mb-2 d-flex flex-wrap">
                 {% for galleryImage in article.galleries %}
-                    <img src="{{ asset('images/articles/' ~ galleryImage.name ) }}" alt="image-{{ article.slug }}-{{ galleryImage.id }}" class="gallery-img">
+                    <img src="{{ asset('images/articles/' ~ galleryImage.name ) }}" alt="image-{{ article.slug }}-{{ galleryImage.id }}" class="gallery-img" data-image="{{ galleryImage.name }}">
                 {% endfor %}
             </div>
         </div>
