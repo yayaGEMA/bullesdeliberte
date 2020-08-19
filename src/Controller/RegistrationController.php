@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
 use \DateTime;
+use App\Form\EditProfileFormType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,11 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Mailer\MailerInterface;
 use App\Recaptcha\RecaptchaValidator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+
 
 class RegistrationController extends AbstractController
 {
@@ -106,5 +112,44 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_register');
+    }
+
+    /**
+     * Page permettant à l'user de modifier des informations de profil
+     *
+     * @Route("/modifier-profil/{user_id}/", name="profile-edit")
+     * @Security("is_granted('ROLE_USER')")
+     *
+     * @param \App\Entity\User $user
+     * @param \Doctrine\ORM\EntityManagerInterface $manager
+     * @Entity("user", expr="repository.find(user_id)")
+     */
+    public function profileEdit(User $user, Request $request, EntityManagerInterface $em)
+    {
+        // Création du formulaire de modification
+        $form = $this->createForm(EditProfileFormType::class, $user);
+
+        // Liaison des données de requêtes (POST) avec le formulaire
+        $form->handleRequest($request);
+
+        // Si le formulaire est envoyé et n'a pas d'erreur
+        if($form->isSubmitted() && $form->isValid()){
+
+            // Sauvegarde des changements via le manager des entités
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            // Message flash de type "success"
+            $this->addFlash('success', 'Informations modifiées avec succès !');
+
+            // Redirection vers la page de profil
+            return $this->redirectToRoute('profil');
+        }
+
+        // Appel de la vue en lui envoyant le formulaire à afficher
+        return $this->render('main/editProfile.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
+        ]);
     }
 }

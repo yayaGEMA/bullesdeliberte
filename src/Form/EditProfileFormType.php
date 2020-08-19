@@ -22,60 +22,11 @@ use Symfony\Component\Validator\Constraints\Regex;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 
-class RegistrationFormType extends AbstractType
+class EditProfileFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-            // Champ email
-            ->add('email', EmailType::class,[
-                'label' => 'Adresse Email*',
-                'constraints' => [
-                    new Email([
-                        'message' => 'L\'adresse email {{ value }} n\'est pas une adresse valide'
-                    ]),
-                    new NotBlank([
-                        'message' => 'Merci de renseigner une adresse email'
-                    ])
-                ],
-            ])
-
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'En cochant cette case, vous acceptez nos Règles et Conditions',
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'Vous devez accepter nos Règles et Conditions.',
-                    ]),
-                ],
-            ])
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'Le mot de passe ne correspond pas à sa confirmation',
-                'first_options' => [
-                    'label' => 'Mot de passe*',
-                ],
-                'second_options' => [
-                    'label' => 'Confirmation du mot de passe*'
-                ],
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Merci d\'entrer un mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caractères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                    new Regex([
-                        'pattern' => "/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ !\"\#\$%&\'\(\)*+,\-.\/:;<=>?@[\\^\]_`\{|\}~])^.{8,60}$/",
-                        'message' => 'Votre mot de passe doit contenir obligatoirement une minuscule, une majuscule, un chiffre et un caractère spécial'
-                    ])
-                ],
-            ])
 
             //Champ prénom
             ->add('firstname', TextType::class, [
@@ -128,26 +79,9 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Date de naissance',
             ])
 
-            // Champ motivation
-            ->add('motivation', CKEditorType::class, [
-                'label' => 'Pour quelles raisons voulez-vous rejoindre les Bulles de Liberté ?*',
-                'purify_html' => true,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Merci de renseigner vos motivations (au moins 20 caractères)'
-                    ]),
-                    new Length([
-                        'min' => 20,
-                        'minMessage' => 'Le champ doit contenir au moins {{ limit }} caractères',
-                        'max' => '5000',
-                        'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
-                    ]),
-                ]
-            ])
-
             // Bouton de validation
             ->add('save', SubmitType::class, [
-                'label' => 'Créer mon compte',
+                'label' => 'Enregistrer les modifications',
                 'attr' => [
                     'class' => 'btn btn-primary col-10 offset-1 col-md-6 offset-md-3'
                 ]

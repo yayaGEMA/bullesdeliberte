@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .donation img{
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Modifier vos informations{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <h1 class="col-12 text-center text-light my-4">Modifier vos informations</h1>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-10 offset-1 col-md-8 offset-md-2 col-xl-4 offset-xl-4 text-light mb-5">
+            {# Affichage du form de création d'un new article #}
+            {{ form_start(form) }}
+                {{form_row(form.firstname)}}
+                {{form_row(form.name)}}
+                {{form_row(form.phone)}}
+                {{form_row(form.birthdate)}}
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

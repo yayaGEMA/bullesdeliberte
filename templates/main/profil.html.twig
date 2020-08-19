@@ -30,10 +30,16 @@
             <ul class="list-group col-12 col-md-8 p-0 btn-lg">
                 <li class="list-group-item">Adresse Email : <span class="font-weight-bold">{{ app.user.email }}</span></li>
                 <li class="list-group-item">Date d'inscription : <span class="font-weight-bold">{{ app.user.registrationDate|date('d/m/Y') }}</span></li>
-                <li class="list-group-item">Numéro de téléphone : <span class="font-weight-bold"></span></li>
-                <li class="list-group-item">Date de naissance : <span class="font-weight-bold">{{ app.user.birthdate }}</span></li>
+                <li class="list-group-item">Date de naissance : <span class="font-weight-bold{% if app.user.birthdate is null %} font-italic{% endif %}">{{ app.user.birthdate|date('d/m/Y') }}{% if app.user.birthdate is null %}Non renseigné{% endif %}</span></li>
+                <li class="list-group-item">Numéro de téléphone : <span class="font-weight-bold{% if app.user.phone is null %} font-italic{% endif %}">{{ app.user.phone }}{% if app.user.phone is null %}Non renseigné{% endif %}</span></li>
                 <li class="list-group-item">Compte : <span class="font-weight-bold">{{ is_granted('ROLE_ADMIN') ? 'Administrateur' : 'Membre' }}</span></li>
             </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-10 offset-1 col-md-6 offset-md-3 d-flex justify-content-center">
+            <a href="{{ path('profile-edit', {user_id: app.user.id}) }}" class="btn btn-primary">Modifier vos informations</a>
         </div>
     </div>
 
