@@ -15,13 +15,14 @@
             <div class="col-12 col-md-8 offset-md-2">
                 <a href="{{ path('event', {slug:article.slug}) }}"><h2 class="text-light">{{ article.title }}</h2></a>
             </div>
-            <div class="col-12 col-md-8 offset-md-2 mb-2 d-flex flex-wrap">
+            <div class="col-12 col-md-8 offset-md-2 mb-2 d-flex flex-wrap img-parent">
                 {% for galleryImage in article.galleries %}
-                    <img src="{{ asset('images/articles/' ~ galleryImage.name ) }}" alt="image-{{ article.slug }}-{{ galleryImage.id }}" class="gallery-img" data-image="{{ galleryImage.name }}">
+                    <img src="{{ asset('images/articles/' ~ galleryImage.name ) }}" alt="image-{{ article.slug }}-{{ galleryImage.id }}" class="gallery-img" data-image="{{ galleryImage.name }}" data-number="{{ loop.index }}" data-artnumber="{{ article.id }}" id="art-{{ article.id }}-img-{{ loop.index }}">
                 {% endfor %}
             </div>
         </div>
     {% endfor %}
+
 
     <div class="my-3 text-center">
         <div class="d-inline-block mb-5">

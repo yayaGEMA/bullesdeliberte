@@ -82,23 +82,46 @@ window.onload = () => {
 
 $('.gallery-img').click(function(){
 
-    displayImage( $(this).data('image') );
+    displayImage($(this).data('image'), $(this).data('artnumber'), $(this).data('number') );
 });
 
 // Création d'une fonction qui affiche une image dans un overlay avec un croix de fermeture
-function displayImage(imageName){
+function displayImage(imageName, artnumber, arrayNumber){
+
+    // On récupère l'id de l'élément cliqué
+    let idName = `#art-${artnumber}-img-${arrayNumber}`;
+
+    // On récupère le nom de chaque img dans la galerie de l'article dans un array
+    let imgArray = [];
+    $(idName).siblings().add(idName).each(function(){
+        imgArray.push($(this).data('image'));
+    });
 
     // Création d'une div servant d'overlay
     let overlay = $('<div></div>');
     overlay.addClass('overlay');
     $('body').prepend( overlay );
 
-    // Création de l'image
-    let image = $('<img alt="">');
-    image.attr('src', "/images/articles/" + imageName);
-    image.css("max-width", "90vw");
-    image.css("max-height", "90vh");
-    overlay.append( image );
+    // Création des div de carousel
+    let carouselSlide = $('<div id="carouselExample" class="carousel slide w-50" data-ride="carousel"><div class="carousel-inner"></div><a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">Previous</span></a><a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">Next</span></a></div>');
+    overlay.append(carouselSlide);
+
+    $.each(imgArray, function(i, l ){
+        // Création d'une div carousel-item autant qu'il y a d'images dans l'article
+        let carouselItem = $('<div></div>');
+        carouselItem.addClass('carousel-item item-' + i);
+        $('.carousel-inner').append(carouselItem);
+
+        // Création de l'image
+        let image = $('<img alt="carousel-'+ i + '">');
+        image.attr('src', `/images/articles/${l}`);
+        image.addClass('d-block w-100');
+        $('.item-' + i).append( image );
+    });
+
+    // Ajout de la class active à l'image cliquée
+    let itemActive = '.item-'+(arrayNumber-1);
+    $(itemActive).addClass('active');
 
     // Création du bouton de fermeture
     let closeButton = $('<div></div>');
@@ -107,17 +130,18 @@ function displayImage(imageName){
     overlay.append(closeButton);
 
     // Application d'un écouteur d'évènement "click" sur le bouton de fermeture
-    closeButton.click(function(){
+    $(".close").click(function(){
 
         // Appel de la fonction permettant de supprimer l'overlay
         removeImage();
     });
 
+    // On ajoute la fonction sur la touche ECHAP également
     $(document).keyup(function(e) {
-        if (e.key === "Escape"){
+        if (e.key === 37){
            removeImage();
        }
-   });
+    });
 
 }
 
