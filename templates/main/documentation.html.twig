@@ -40,11 +40,19 @@
     {# Affichage des documents #}
     {% for document in documents %}
         <div class="row w-100 my-2 mx-0">
-            <div class="col-10 offset-1 col-md-4 offset-md-4">
+            <div class="col-10 offset-1 col-md-4 offset-md-4 d-flex justify-content-between">
                 <a href="{{ asset('files/' ~ document.slug ~ '.' ~ document.extension ) }}" download><i class="far fa-file-alt"></i> {{ document.name }}</a>
+                <a href="{{ path('delete_doc', {'id': document.id}) }}" data-delete data-token="{{ csrf_token('delete'~ document.id) }}" class="text-danger">Supprimer</a>
             </div>
         </div>
     {% endfor %}
+
+    <div class="my-3 text-center">
+        <div class="d-inline-block mb-5">
+            {# Affichage du menu permettant de naviguer entre les différentes pages #}
+            {{ knp_pagination_render(documents) }}
+        </div>
+    </div>
 
     <div class="row w-100 my-5 mx-0">
         <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center mb-5">

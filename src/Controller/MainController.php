@@ -531,7 +531,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * Fonction qui permet de supprimer des images de la gallerie
+     * Fonction qui permet de supprimer des images de la galerie
      *
      * @Route("/supprimer-image/{id}", name="delete_gallery_image", methods={"DELETE"})
      * @Security("is_granted('ROLE_ADMIN')")
@@ -551,6 +551,37 @@ class MainController extends AbstractController
             $em = $this->getDoctrine()->getManager();
 
             $em->remove($galleryImage);
+
+            $em->flush();
+
+            // On répond en JSON
+            return new JsonResponse(['success' => 1]);
+        } else {
+            return new JsonResponse(['error' => 'Token invalide !'], 400);
+        }
+    }
+
+    /**
+     * Fonction qui permet de supprimer des docs de la documentation
+     *
+     * @Route("/supprimer-doc/{id}", name="delete_doc", methods={"DELETE"})
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function deleteDoc(Document $document, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        // Vérification de la validité du token
+        if($this->isCsrfTokenValid('delete'.$document->getId(), $data['_token'])){
+            // On récupère le nom de l'image
+            $name = $document->getSlug().'.'. $document->getExtension();
+
+            // On supprime le fichier
+            unlink($this->getParameter('app.document.directory').'/'.$name);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->remove($document);
 
             $em->flush();
 
