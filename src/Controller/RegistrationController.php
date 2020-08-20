@@ -22,6 +22,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class RegistrationController extends AbstractController
@@ -152,4 +153,37 @@ class RegistrationController extends AbstractController
             'user' => $user,
         ]);
     }
+
+    /**
+     * Page servant à supprimer son compte via son id passé dans l'url
+     *
+     * @Route("/supprimer-compte/{id}/", name="account-delete")
+     * @Security("is_granted('ROLE_USER')")
+     */
+    public function accountDelete(User $user, Request $request){
+
+        // Si le token CSRF passé dans l'url n'est pas le token valide, message d'erreur
+        if(!$this->isCsrfTokenValid('account_delete_'. $user->getId(), $request->query->get('csrf_token'))){
+
+            $this->addFlash('error', 'Token sécurité invalide, veuillez réessayer.');
+
+        } else {
+
+            $session = $this->get('session');
+            $session = new Session();
+            $session->invalidate();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($user);
+            $entityManager->flush();
+
+            // Message flash de type "success" pour indiquer la réussite de la suppression
+            $this->addFlash('success', 'Compte supprimé avec succès !');
+
+        }
+
+        // Redirection de l'utilisateur sur la liste des articles
+        return $this->redirectToRoute('main');
+    }
+
 }

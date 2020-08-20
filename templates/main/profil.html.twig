@@ -19,12 +19,12 @@
     {% include 'partials/flashes/success.html.twig' %}
 
     {# H1 #}
-    <div class="row w-100">
+    <div class="row m-0">
         <h1 class="text-center text-light col-12 col-md-6 offset-md-3 my-4">Gestion du profil</h1>
         <h2 class="text-center text-light col-12 col-md-6 offset-md-3 my-4">{{ app.user.firstname }} {{ app.user.name }}</h2>
     </div>
 
-    <div class="row w-100">
+    <div class="row m-0">
         <div class="col-12 col-md-6 offset-md-3 d-flex justify-content-center align-items-center mb-4">
             {# Infos du compte #}
             <ul class="list-group col-12 col-md-8 p-0 btn-lg">
@@ -37,9 +37,12 @@
         </div>
     </div>
 
-    <div class="row w-100">
+    <div class="row mx-0 mb-4">
         <div class="col-10 offset-1 col-md-6 offset-md-3 d-flex justify-content-center">
             <a href="{{ path('profile-edit', {user_id: app.user.id}) }}" class="btn btn-primary">Modifier vos informations</a>
+        </div>
+        <div class="col-10 offset-1 col-md-6 offset-md-3 d-flex justify-content-center my-4">
+            <a href="{{ path('account-delete', {id: app.user.id, csrf_token: csrf_token('account_delete_' ~ app.user.id )}) }}" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr(e) de vouloir supprimer votre compte ? Cette action est irréversible !')">Supprimer votre compte</a>
         </div>
     </div>
 

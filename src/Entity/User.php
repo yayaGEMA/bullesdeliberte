@@ -59,7 +59,7 @@ class User implements UserInterface
     private $firstname;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="date")
      */
     private $birthdate;
 

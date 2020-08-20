@@ -125,7 +125,7 @@ class RegistrationFormType extends AbstractType
 
             // Champ date de naissance
             ->add('birthdate', BirthdayType::class, [
-                'label' => 'Date de naissance',
+                'label' => 'Date de naissance*',
             ])
 
             // Champ motivation
