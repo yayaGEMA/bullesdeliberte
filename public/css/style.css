@@ -108,6 +108,7 @@ body{
     -o-border-radius: 50%;
     line-height: 0.5;
     color: #CE0000;
+    z-index: 500;
 }
 .donation img{
     width: 70px;

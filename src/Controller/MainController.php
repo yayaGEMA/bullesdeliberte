@@ -20,6 +20,8 @@ use App\Repository\ParticipationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\Document;
+use App\Form\DocumentType;
 
 
 class MainController extends AbstractController
@@ -356,9 +358,64 @@ class MainController extends AbstractController
      *
      * @Route("/documentation/", name="documentation")
      */
-    public function documentation()
+    public function documentation(Request $request, PaginatorInterface $paginator)
     {
-        return $this->render('main/documentation.html.twig');
+        $newDocument = new Document();
+
+        $form = $this->createForm(DocumentType::class, $newDocument);
+
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $file = $form->get('file')->getData();
+
+            function slugify($text){
+            $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+            $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+            $text = preg_replace('~[^-\w]+~', '', $text);
+            $text = trim($text, '-');
+            $text = preg_replace('~-+~', '-', $text);
+            $text = strtolower($text);
+            return $text;
+            }
+
+            $extensionName = $file->guessExtension();
+
+            $slugName = slugify($form->get('name')->getData()) . '.' . $extensionName;
+
+            $file->move(
+                $this->getParameter('app.document.directory'),
+                $slugName
+            );
+
+            $newDocument->setExtension($extensionName);
+
+            $em->persist($newDocument);
+            $em->flush();
+
+            $this->addFlash('success', 'Document ajouté avec succès !');
+
+            return $this->redirectToRoute('documentation');
+        }
+
+        $requestedPage = $request->query->getInt('page', 1);
+        if($requestedPage < 1){
+            throw new NotFoundHttpException();
+        }
+
+        $query = $em->createQuery('SELECT d FROM App\Entity\Document d ORDER BY d.name');
+
+        $pageDocuments = $paginator->paginate(
+            $query, $requestedPage, 20
+        );
+
+        return $this->render('main/documentation.html.twig', [
+            'documents' => $pageDocuments,
+            'form' => $form->createView()
+        ]);
     }
 
     /**

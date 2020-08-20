@@ -4,14 +4,52 @@
 
 {% block body %}
 
-    <div class="row w-100 my-3">
-        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
-            <h1 class="text-light">Documentation</h1>
+    {# Affichage des messages flashs de type "success" si il y en a #}
+    {% include 'partials/flashes/success.html.twig' %}
+
+    {# Affichage des messages flashs de type "error" si il y en a #}
+    {% include 'partials/flashes/error.html.twig' %}
+
+    <div class="row w-100 my-3 mx-0">
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
+            <h1 class="text-light text-center">Documentation</h1>
         </div>
     </div>
 
-    <div class="row w-100">
-        <div class="col-8 offset-2"></div>
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="row w-100 mx-0">
+        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
+            <h2 class="text-light">Ajouter un nouveau document</h2>
+        </div>
+    </div>
+
+    <div class="row w-100 mx-0">
+        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-light my-4">
+            {{ form(form) }}
+        </div>
+    </div>
+
+    {% endif %}
+
+    <div class="row w-100 mb-5 mx-0">
+        <div class="col-12 col-lg-4 offset-lg-4 text-center">
+            <h2 class="text-light">Liste des documents disponibles</h2>
+        </div>
+    </div>
+
+    {# Affichage des documents #}
+    {% for document in documents %}
+        <div class="row w-100 my-2 mx-0">
+            <div class="col-10 offset-1 col-md-4 offset-md-4">
+                <a href="{{ asset('files/' ~ document.slug ~ '.' ~ document.extension ) }}" download><i class="far fa-file-alt"></i> {{ document.name }}</a>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row w-100 my-5 mx-0">
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center mb-5">
+            <p class="text-light text-center">Vous avez besoin d'un document qui ne se trouve pas dans cette liste ? Merci de nous <a href="#">contacter</a>.</p>
+        </div>
     </div>
 
 {% endblock %}
