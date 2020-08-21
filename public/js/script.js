@@ -149,3 +149,19 @@ function displayImage(imageName, artnumber, arrayNumber){
 function removeImage(){
     $('.overlay').remove();
 }
+
+///// Affichage du nom de fichier dans le input de type file
+
+$('.custom-file-input').on('change', function(event) {
+    let inputFile = event.currentTarget;
+    // S'il y a plus d'un fichier sélectionné...
+    if(inputFile.files.length > 1){
+        // On affiche le nombre
+        $(inputFile).parent().find('.custom-file-label').html(inputFile.files.length + ' fichiers sélectionnés');
+        // Sinon on affiche le nom
+    } else {
+        $(inputFile).parent()
+        .find('.custom-file-label')
+        .html(inputFile.files[0].name);
+    }
+});

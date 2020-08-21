@@ -45,7 +45,7 @@ class DocumentType extends AbstractType
                         'mimeTypesMessage' => 'Seuls les formats jpeg et pdf sont acceptés',
                         'maxSizeMessage' => 'Fichier trop volumineux : ({{ size }} {{ suffix }}). La taille maximum autorisée est {{ limit }} {{ suffix }}',
                     ])
-                ],
+                ]
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Ajouter un document',

@@ -12,11 +12,11 @@
 
 {% block body %}
 
-    <div class="row w-100">
+    <div class="row w-100 ml-0">
         <h1 class="col-12 text-center text-light my-4">Modifier un article</h1>
     </div>
 
-    <div class="row w-100 mb-5">
+    <div class="row w-100 mb-5 ml-0">
         <div class="col-12 col-md-8 offset-md-2 text-light mb-5">
             {# Affichage du form de création d'un new article #}
             {{ form_start(form) }}
@@ -31,7 +31,7 @@
                 {% if app.request.attributes.get('_route') == "edit" %}
                     <h2>Galerie d'images</h2>
 
-                    <div class="col-12 d-flex flex-wrap">
+                    <div class="col-12 d-flex flex-wrap p-0">
                         {% if article.galleries|length < 1 %}
                         <p class="text-danger">Aucune image dans la galerie pour le moment.</p>
                         {% endif %}
