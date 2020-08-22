@@ -4,19 +4,19 @@
 
 {% block body %}
 
-    <div class="row w-100 my-3">
+    <div class="row w-100 my-3 ml-0">
         <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
             <h1 class="text-light">Liste des événements passés</h1>
         </div>
     </div>
 
-    <div class="row w-100 mb-5">
+    <div class="row w-100 mb-5 ml-0">
         <div class="col-12 col-md-8 offset-md-2 col-xl-6 offset-xl-3 mb-5">
             <div class="list-group">
                 {# Affichage des articles #}
                 {% for article in articles %}
-                <div class="row w-100 my-2">
-                    <div class="card my-2 p-0 w-100">
+                <div class="row w-100 my-2 ml-0">
+                    <div class="card my-2 p-0 w-100 rounded">
                         <a href="{{ path('event', {slug: article.slug}) }}" class=" d-flex position-relative w-100">
                             <div class="col-12 col-md-4 d-md-block px-0 zoom">
                                 <img src="{{ asset('images/articles/' ~ article.mainPhoto) }}" alt="..." class="card-img">

@@ -10,7 +10,7 @@
     {# Affichage des messages flashs de type "error" si il y en a #}
     {% include 'partials/flashes/error.html.twig' %}
 
-    <div class="row w-100 d-flex justify-content-center">
+    <div class="row w-100 d-flex justify-content-center ml-0">
         <div class="col-10 offset-1 col-md-3 col-xl-2 ml-0 ml-md-2 text-center alert alert-success mt-3">
             {% if event.dateEnd > date() %}
                 <a href="{{path('future_list')}}">Retour à la liste des événements à venir</a>
@@ -29,13 +29,13 @@
         {% endif %}
     </div>
 
-    <div class="row w-100 my-3">
+    <div class="row w-100 my-3 ml-0">
         <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
             <h1 class="text-light fun-title">{{ event.title }}</h1>
         </div>
     </div>
 
-    <div class="row w-100">
+    <div class="row w-100 ml-0">
         <div class="col-8 offset-2 col-lg-4 offset-lg-4">
             <p class="description">{{ event.description|purify }}</p>
         </div>

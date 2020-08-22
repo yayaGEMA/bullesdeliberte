@@ -4,40 +4,40 @@
 
 {% block body %}
 
-    <div class="row w-100 my-3">
+    <div class="row w-100 my-3 ml-0">
         <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
             <h1 class="text-light">Liste des événements à venir</h1>
         </div>
     </div>
 
-    <div class="row w-100 mb-5">
+    <div class="row w-100 mb-5 ml-0">
         <div class="col-12 col-md-8 offset-md-2 col-xl-6 offset-xl-3 mb-5">
             <div class="list-group">
                 {# Affichage des articles #}
                 {% for article in articles %}
-                <div class="row w-100 my-2">
-                    <div class="card my-2 p-0 w-100 d-flex flex-row">
+                <div class="row w-100 my-2 ml-0">
+                    <div class="card my-2 p-0 w-100 d-flex flex-row rounded">
                         <div class="col-12 col-md-4 d-md-block px-0 zoom">
                             <a href="{{ path('event', {slug: article.slug}) }}" class="w-100 h-100 d-block">
                                 <img src="{{ asset('images/articles/' ~ article.mainPhoto) }}" alt="card-img" class="card-img">
                             </a>
                         </div>
-                        <div class="col-12 col-md-8 d-md-block list-body p-0">
-                            <div class="card-body card-list p-3 h-100 text-dark rounded-0 d-flex flex-column justify-content-between">
+                        <div class="col-12 col-md-8 d-md-block list-body p-0 position-absolute">
+                            <div class="card-body card-list p-3 h-100 text-dark rounded-0 d-flex flex-column justify-content-around">
                                 <a href="{{ path('event', {slug: article.slug}) }}" class="w-100 h-75 d-flex flex-column justify-content-around">
-                                    <h2 class="card-title list-title">{{ article.title }}</h2>
+                                    <h2 class="card-title list-title mt-md-5 mt-lg-0">{{ article.title }}</h2>
                                     <p class="card-text text-center card-date">Du {{ article.dateBeginning|format_datetime('short', 'short', locale='fr') }}<br>au {{ article.dateEnd|format_datetime('short', 'short', locale='fr') }}</p>
-                                    <p class="card-text d-none d-md-block text-dark">{{ article.description|striptags|slice(0,200) ~ '...' }}</p>
+                                    <p class="card-text d-none d-md-block text-dark">{{ article.description|striptags|slice(0,150) ~ '...' }}</p>
                                 </a>
                                 {# Bouton de participation #}
                                 {% if app.user %}
-                                <div class="text-right d-block position-relative">
+                                <div class="text-right d-none d-md-block position-relative">
                                     <span class="p-count">{{ article.participationsCounter }} participant{% if article.participationsCounter > 1 %}s{% endif %}</span>
-                                    <a href="{{ path('event_participation', {id: article.id}) }}" class="d-none d-md-inline-block participation-link">
+                                    <a href="{{ path('event_participation', {id: article.id}) }}" class="d-none d-md-inline-block participation-link h-75">
                                         {% if app.user and article.willCome(app.user) %}
-                                            <p class="btn btn-secondary participation">Participation ajoutée</p>
+                                            <p class="btn btn-secondary participation m-0">Participation ajoutée</p>
                                         {% else %}
-                                            <p class="btn btn-primary participation">JE PARTICIPE !</p>
+                                            <p class="btn btn-primary participation m-0">JE PARTICIPE !</p>
                                         {% endif %}
                                     </a>
                                 </div>
