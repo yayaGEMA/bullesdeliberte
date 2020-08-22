@@ -480,16 +480,17 @@ class MainController extends AbstractController
 
             // Si l'user participe déjà, on retire sa participation
             if($article->willCome($user)){
+
                 $participation = $participationRepo->findOneBy([
                     'article' => $article,
                     'user' => $user
                 ]);
 
                 // On baisse le nb de participations
-                $participations = $article->getParticipationsCounter();
-                $article->setParticipationsCounter(--$participations);
+                $participationsCounter = $article->getParticipationsCounter();
+                $article->setParticipationsCounter(--$participationsCounter);
 
-                // On enlève sa participation dans la BDD
+                // On enlève cette participation dans la BDD
                 $manager->remove($participation);
                 $manager->persist($article);
                 $manager->flush();
@@ -512,8 +513,8 @@ class MainController extends AbstractController
                 ;
 
                 // On augmente le nb de participations
-                $participations = $article->getParticipationsCounter();
-                $article->setParticipationsCounter(++$participations);
+                $participationsCounter = $article->getParticipationsCounter();
+                $article->setParticipationsCounter(++$participationsCounter);
 
                 // On ajoute sa participation dans la BDD
                 $manager->persist($participation);

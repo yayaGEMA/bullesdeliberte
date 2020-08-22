@@ -108,7 +108,6 @@ body{
     -o-border-radius: 50%;
     line-height: 0.5;
     color: #CE0000;
-    z-index: 500;
 }
 .donation img{
     width: 70px;
@@ -516,7 +515,6 @@ footer{
         right: 0;
         background-color: #3d3d3d;
         border-bottom-left-radius: 20px;
-        z-index: 1000;
     }
 
     .benevole-button .nav-link{

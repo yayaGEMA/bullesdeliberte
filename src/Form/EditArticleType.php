@@ -45,12 +45,31 @@ class EditArticleType extends AbstractType
                     new Length([
                         'min' => 5,
                         'minMessage' => 'Le champ doit contenir au moins {{ limit }} caractères',
+                        'max' => 10000,
+                        'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                ]
+            ])
+            ->add('details', CKEditorType::class, [
+                'label' => 'Détails',
+                'purify_html' => true,
+                'constraints' => [
+                    new Length([
                         'max' => 5000,
                         'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
                     ]),
                 ]
             ])
-            // Champ "gallery" non lié à la BDD
+            ->add('missions', CKEditorType::class, [
+                'label' => 'Missions (bénévoles)',
+                'purify_html' => true,
+                'constraints' => [
+                    new Length([
+                        'max' => 5000,
+                        'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
+                    ]),
+                ]
+            ])
             ->add('gallery', FileType::class, [
                 'label' => 'Sélectionnez une galerie d\'images',
                 'multiple' => true,

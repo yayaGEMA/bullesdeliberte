@@ -25,11 +25,11 @@ class ArticleFixtures extends Fixture
             // Hydratation du nouvel article
             $newArticle
                 ->setTitle('Article ' . $i) 
-                ->setDescription($faker->paragraph(5))
+                ->setDescription($faker->realText($maxNbChars = 200, $indexSize = 2))
                 ->setPublicationDate( new DateTime() )
                 ->setMainPhoto($faker->file('public/images/articlesFixtures', 'public/images/articles', false))
                 ->setDateBeginning($faker->dateTimeBetween('-1year', '+1year'))
-                ->setDateEnd($faker->dateTimeBetween('-1year', '+1year'))
+                ->setDateEnd($faker->dateTimeInInterval($newArticle->getDateBeginning(), '+5 days'))
                 ->setParticipationsCounter(0)
             ;
 

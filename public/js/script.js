@@ -9,13 +9,8 @@ function onClickBtnLike(event){
     // On récupère l'url
     let url = this.href;
 
-    // On sélectionne le span contenant le nombre de likes...
-    let spanCount = this.querySelector(".p-count");
-    // ... ainsi que l'icône du pouce en l'air
-    let button = this.querySelector(".participation");
-
-    // Grâce au bundle axios, installé en CDN dans ArticleList.hmtl.twig...
-    axios.get(url).then(function(response){
+    // Grâce au bundle axios, installé en CDN...
+    axios.get(url).then(function(){
 
         location.reload();
 
@@ -36,6 +31,18 @@ function onClickBtnLike(event){
 document.querySelectorAll(".participation-link").forEach(function(link){
     link.addEventListener('click', onClickBtnLike);
 });
+
+// Au passage de la souris sur le bouton "Participation ajoutée", on change le bouton
+document.querySelectorAll(".participated").forEach(function(e){
+    e.addEventListener('mouseenter', function(mouse){
+        mouse.target.classList.replace("btn-secondary", "btn-danger");
+        mouse.target.textContent = "Annuler ma participation";
+    });
+    e.addEventListener('mouseleave', function(mouse){
+        mouse.target.classList.replace("btn-danger", "btn-secondary");
+        mouse.target.textContent = "Participation ajoutée";
+    });
+})
 
 
 
@@ -99,7 +106,7 @@ function displayImage(imageName, artnumber, arrayNumber){
 
     // Création d'une div servant d'overlay
     let overlay = $('<div></div>');
-    overlay.addClass('overlay');
+    overlay.addClass('overlay d-none d-md-flex');
     $('body').prepend( overlay );
 
     // Création des div de carousel

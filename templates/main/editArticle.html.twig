@@ -26,6 +26,8 @@
                     {{form_row(form.dateBeginning)}}
                     {{form_row(form.dateEnd)}}
                 </div>
+                {{form_row(form.details)}}
+                {{form_row(form.missions)}}
 
                 {# Si la route est "edit", on affiche les images #}
                 {% if app.request.attributes.get('_route') == "edit" %}

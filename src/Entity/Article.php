@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\User;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -57,7 +58,7 @@ class Article
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article")
      */
     private $participations;
 
@@ -70,6 +71,16 @@ class Article
      * @ORM\OneToMany(targetEntity=Gallery::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
      */
     private $galleries;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $details;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $missions;
 
     public function __construct()
     {
@@ -198,7 +209,7 @@ class Article
     }
 
     /**
-     * Permet de savoir si un User participera à cet article
+     * Permet de savoir si un User participera à cet événement
      * 
      * @param User $user
      * @return boolean
@@ -252,6 +263,30 @@ class Article
                 $gallery->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDetails(): ?string
+    {
+        return $this->details;
+    }
+
+    public function setDetails(?string $details): self
+    {
+        $this->details = $details;
+
+        return $this;
+    }
+
+    public function getMissions(): ?string
+    {
+        return $this->missions;
+    }
+
+    public function setMissions(?string $missions): self
+    {
+        $this->missions = $missions;
 
         return $this;
     }

@@ -13,32 +13,132 @@
     <div class="row w-100 d-flex justify-content-center ml-0">
         <div class="col-10 offset-1 col-md-3 col-xl-2 ml-0 ml-md-2 text-center alert alert-success mt-3">
             {% if event.dateEnd > date() %}
-                <a href="{{path('future_list')}}">Retour à la liste des événements à venir</a>
+                <a class="text-decoration-none text-dark font-weight-bold" href="{{path('future_list')}}">Retour à la liste des événements à venir</a>
             {% else %}
-                <a href="{{path('past_list')}}">Retour à la liste des événements passés</a>
+                <a class="text-decoration-none text-dark font-weight-bold" href="{{path('past_list')}}">Retour à la liste des événements passés</a>
             {% endif %}
             <!--Bouton pour modif ou supprimer l'article-->
         </div>
         {% if is_granted('ROLE_ADMIN') %}
             <div class="col-10 offset-1 col-md-3 col-xl-2 ml-0 ml-md-2 alert alert-primary mt-md-3 d-flex align-items-center justify-content-center">
-                <a href="{{path('edit', {slug: event.slug, csrf_token: csrf_token('edit' ~ event.slug) }) }}">Modifier l'article</a>
+                <a href="{{path('edit', {slug: event.slug, csrf_token: csrf_token('edit' ~ event.slug) }) }}" class="text-decoration-none text-dark font-weight-bold">Modifier l'article</a>
             </div>
             <div class="col-10 offset-1 col-md-3 col-xl-2 ml-0 ml-md-2 alert alert-danger mt-md-3 d-flex align-items-center justify-content-center">
-                <a href="{{path('delete', {id: event.id, csrf_token: csrf_token('delete_' ~ event.id )}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">Supprimer l'article</a>
+                <a href="{{path('delete', {id: event.id, csrf_token: csrf_token('delete_' ~ event.id )}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')" class="text-decoration-none text-dark font-weight-bold">Supprimer l'article</a>
             </div>
         {% endif %}
     </div>
 
+    {# Titre #}
     <div class="row w-100 my-3 ml-0">
-        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
-            <h1 class="text-light fun-title">{{ event.title }}</h1>
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
+            <h1 class="text-light">{{ event.title }}</h1>
+        </div>
+    </div>
+
+    {# Dates #}
+    <div class="row w-100 my-3 ml-0">
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
+            <h4 class="text-light">Du {{ event.dateBeginning|format_datetime('short', 'short', locale='fr') }}<br>au {{ event.dateEnd|format_datetime('short', 'short', locale='fr') }}</h4>
+        </div>
+    </div>
+
+    {# Photo principale #}
+    <div class="row w-100 ml-0">
+        <div class="col-12 col-md-8 offset-md-2">
+            <img src="{{ asset('images/articles/' ~ event.mainPhoto) }}" alt="event-img" class="card-img">
+        </div>
+    </div>
+
+    <div class="row w-100 ml-0 mt-4">
+        <div class="col-8 offset-2 col-lg-4 offset-lg-4
+        d-flex flex-column flex-md-row">
+            <div class="description">{{ event.description|purify }}</div>
+        </div>
+    </div>
+
+    <hr class="bg-light col-lg-4 offset-lg-4">
+
+    {# Détails #}
+    <div class="row w-100 ml-0">
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
+            <h4 class="text-light">Détails</h4>
         </div>
     </div>
 
     <div class="row w-100 ml-0">
-        <div class="col-8 offset-2 col-lg-4 offset-lg-4">
-            <p class="description">{{ event.description|purify }}</p>
+        <div class="col-8 offset-2 col-lg-4 offset-lg-4
+        d-flex flex-column flex-md-row">
+            <div class="description">{{ event.details|purify }}</div>
         </div>
     </div>
 
+    <hr class="bg-light col-lg-4 offset-lg-4">
+
+    {# Partie bénévoles #}
+    {% if app.user %}
+    <div class="row w-100 ml-0">
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
+            <h4 class="text-light">Missions Bénévoles</h4>
+        </div>
+    </div>
+
+    <div class="row w-100 ml-0">
+        <div class="col-8 offset-2 col-lg-4 offset-lg-4
+        d-flex flex-column flex-md-row">
+            <div class="description">{{ event.missions|purify }}</div>
+        </div>
+    </div>
+
+    <div class="row w-100 ml-0 mt-4">
+        <div class="col-10 col-md-4 offset-md-4 offset-1 d-flex flex-column">
+            <a href="{{ path('event_participation', {id: event.id}) }}" class="d-inline-block participation-link h-75 text-center">
+                {% if app.user and event.willCome(app.user) %}
+                    <p class="btn btn-secondary participation m-0 w-100 participated">Participation ajoutée</p>
+                {% else %}
+                    <p class="btn btn-primary participation m-0 w-100">JE PARTICIPE !</p>
+                {% endif %}
+            </a>
+
+            <span class="p-count text-light text-center mt-2">{{ event.participationsCounter }} participant{% if event.participationsCounter > 1 %}s{% endif %}</span>
+        </div>
+    </div>
+
+    {% endif %}
+
+    <hr class="bg-light col-lg-4 offset-lg-4">
+
+    {# Partie admin avec liste de bénévoles #}
+    {% if is_granted('ROLE_ADMIN') %}
+
+    <div class="row w-100 ml-0">
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
+            <h4 class="text-light">Section Admin</h4>
+        </div>
+    </div>
+
+    <hr class="bg-light col-lg-4 offset-lg-4">
+
+    {% endif %}
+
+    {# Galerie photos #}
+    {% if event.galleries is not null %}
+        <div class="row w-100 ml-0 mt-4">
+            <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
+                <h4 class="text-light">Galerie photos</h4>
+            </div>
+        </div>
+        <div class="row w-100 ml-0 mb-5">
+            <div class="col-12 col-md-8 offset-md-2 mb-2 d-flex flex-wrap img-parent mb-5 justify-content-center">
+                {% for galleryImage in event.galleries %}
+                    <img src="{{ asset('images/articles/' ~ galleryImage.name ) }}" alt="image-{{ event.slug }}-{{ galleryImage.id }}" class="gallery-img" data-image="{{ galleryImage.name }}" data-number="{{ loop.index }}" data-artnumber="{{ event.id }}" id="art-{{ event.id }}-img-{{ loop.index }}">
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/axios.min.js') }}"></script>
 {% endblock %}
