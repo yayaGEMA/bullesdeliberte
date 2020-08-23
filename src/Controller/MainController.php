@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Document;
 use App\Form\DocumentType;
+use App\Entity\PageText;
+use App\Form\PageTextType;
 
 class MainController extends AbstractController
 {
@@ -327,9 +329,49 @@ class MainController extends AbstractController
      *
      * @Route("/presentation/", name="presentation")
      */
-    public function presentation()
+    public function presentation(Request $request)
     {
-        return $this->render('main/presentation.html.twig');
+        // On récupère le repo des pageText
+        $pageTextRepo = $this->getDoctrine()->getRepository(PageText::class);
+
+        $textToDisplay = $pageTextRepo->findOneBy(['page' => 'presentation'], [ 'id' => 'DESC']);
+
+        // Création d'un texte vide
+        $newPageText = new PageText();
+
+        // Nouveau formulaire
+        $form = $this->createForm(PageTextType::class, $newPageText);
+
+        // Remplissage du traitement du form
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $newPageText->setPage('presentation')
+            ->setContent($form->get('content')->getData());
+
+            // On supprime les éventuels anciens contenus ayant le même nom de page
+            $textsToDelete = $pageTextRepo->findBy(['page' => 'presentation']);
+
+            // Récupération de l'entitymanager
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newPageText);
+            foreach($textsToDelete as $textToDelete){
+                $em->remove($textToDelete);
+            }
+            $em->flush();
+
+            // Message de succès
+            $this->addFlash('success', 'Contenu de la page mis à jour !');
+
+            // Redirection
+            return $this->redirectToRoute('presentation');
+        }
+
+        return $this->render('main/presentation.html.twig', [
+            'form' => $form->createView(),
+            'text' => $textToDisplay
+        ]);
     }
 
     /**
@@ -337,9 +379,50 @@ class MainController extends AbstractController
      *
      * @Route("/qui-sommes-nous/", name="qui-sommes-nous")
      */
-    public function quiSommesNous()
+    public function quiSommesNous(Request $request)
     {
-        return $this->render('main/quiSommesNous.html.twig');
+        // On récupère le repo des pageText
+        $pageTextRepo = $this->getDoctrine()->getRepository(PageText::class);
+
+        $textToDisplay = $pageTextRepo->findOneBy(['page' => 'qui-sommes-nous'], [ 'id' => 'DESC']);
+
+        // Création d'un texte vide
+        $newPageText = new PageText();
+
+        // Nouveau formulaire
+        $form = $this->createForm(PageTextType::class, $newPageText);
+
+        // Remplissage du traitement du form
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $newPageText->setPage('qui-sommes-nous')
+            ->setContent($form->get('content')->getData());
+
+            // On supprime les éventuels anciens contenus ayant le même nom de page
+            $textsToDelete = $pageTextRepo->findBy(['page' => 'qui-sommes-nous']);
+
+
+            // Récupération de l'entitymanager
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newPageText);
+            foreach($textsToDelete as $textToDelete){
+                $em->remove($textToDelete);
+            }
+            $em->flush();
+
+            // Message de succès
+            $this->addFlash('success', 'Contenu de la page mis à jour !');
+
+            // Redirection
+            return $this->redirectToRoute('qui-sommes-nous');
+        }
+
+        return $this->render('main/quiSommesNous.html.twig', [
+            'form' => $form->createView(),
+            'text' => $textToDisplay
+        ]);
     }
 
     /**

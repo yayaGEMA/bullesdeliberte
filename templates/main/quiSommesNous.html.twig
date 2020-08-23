@@ -4,11 +4,46 @@
 
 {% block body %}
 
+    {# Affichage des messages flashs de type "success" si il y en a #}
+    {% include 'partials/flashes/success.html.twig' %}
+
+    {# Affichage des messages flashs de type "error" si il y en a #}
+    {% include 'partials/flashes/error.html.twig' %}
+
     <div class="row w-100 my-3 ml-0">
         <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
             <h1 class="text-light">Qui Sommes-Nous</h1>
         </div>
     </div>
+
+    <div class="row w-100 my-3 ml-0">
+        <div class="col-10 offset-1 col-lg-6 offset-md-3">
+            <div class="description">
+                {% if text is null %}
+                    <p class="text-light text-center">Aucun contenu dans la page pour le moment !</p>
+                {% else %}
+                    {{ text.content|purify }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <hr class="bg-light col-lg-4 offset-lg-4 ml-auto">
+
+        <div class="row w-100 my-3 ml-0">
+            <div class="col-8 offset-2 text-center">
+                <h3 class="text-danger">Changer le contenu de la page (réservé aux admins)</h3>
+            </div>
+        </div>
+
+        <div class="row w-100 my-3 ml-0">
+            <div class="col-12 col-lg-6 offset-lg-3 text-light">
+                {{ form(form) }}
+            </div>
+        </div>
+    {% endif %}
+
 
 
 

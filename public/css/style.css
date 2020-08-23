@@ -39,6 +39,10 @@ body{
     min-height: 100%;
 }
 
+.alert{
+    z-index: -1;
+}
+
 /* Navbar */
 .navbar{
     background-color: #212121;
@@ -168,6 +172,10 @@ body{
 .benevole h3{
     font-family: 'Courier New', Courier, monospace;
     font-size: 2.5rem;
+}
+
+.benevole-button{
+    z-index: 1000;
 }
 
 /* Cards */
