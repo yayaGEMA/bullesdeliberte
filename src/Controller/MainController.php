@@ -452,8 +452,6 @@ class MainController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
 
-            $newSiteText->setPage(1);
-
             $file = $form->get('file')->getData();
 
             function slugify($text){
