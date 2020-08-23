@@ -23,7 +23,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Document;
 use App\Form\DocumentType;
 
-
 class MainController extends AbstractController
 {
     /**
@@ -369,6 +368,8 @@ class MainController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         if($form->isSubmitted() && $form->isValid()){
+
+            $newSiteText->setPage(1);
 
             $file = $form->get('file')->getData();
 

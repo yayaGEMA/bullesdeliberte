@@ -4,14 +4,14 @@
 
 {% block body %}
 
-    <div class="row my-3 w-100">
+    <div class="row my-3 w-100 ml-0">
         <div class="col-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 text-center">
             <h1 class="text-light">Galerie photos</h1>
         </div>
     </div>
 
     {% for article in articles %}
-        <div class="row mx-0 my-2">
+        <div class="row mx-0 my-2 ml-0">
             <div class="col-12 col-md-8 offset-md-2">
                 <a href="{{ path('event', {slug:article.slug}) }}"><h2 class="text-light">{{ article.title }}</h2></a>
             </div>
