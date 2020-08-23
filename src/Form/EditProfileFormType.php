@@ -79,6 +79,26 @@ class EditProfileFormType extends AbstractType
                 'label' => 'Date de naissance',
             ])
 
+            // Champ modifier le mdp
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => [
+                    'constraints' => [
+                        new Length([
+                            'min' => 6,
+                            'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caractères',
+                            'max' => 4096,
+                        ]),
+                    ],
+                    'label' => 'Nouveau mot de passe',
+                ],
+                'second_options' => [
+                    'label' => 'Retaper le même mot de passe',
+                ],
+                'invalid_message' => 'Les mots de passe ne concordent pas',
+                'mapped' => false,
+            ])
+
             // Bouton de validation
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer les modifications',

@@ -125,7 +125,7 @@ class RegistrationController extends AbstractController
      * @param \Doctrine\ORM\EntityManagerInterface $manager
      * @Entity("user", expr="repository.find(user_id)")
      */
-    public function profileEdit(User $user, Request $request, EntityManagerInterface $em)
+    public function profileEdit(User $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder)
     {
         // Création du formulaire de modification
         $form = $this->createForm(EditProfileFormType::class, $user);
@@ -135,6 +135,16 @@ class RegistrationController extends AbstractController
 
         // Si le formulaire est envoyé et n'a pas d'erreur
         if($form->isSubmitted() && $form->isValid()){
+
+            // Définition du nouveau mdp
+            $newPassword = $form->get('plainPassword')->getData();
+
+            if(!$newPassword == null){
+                // On hash le nouveau mdp
+                $hashOfNewPassword = $encoder->encodePassword($user, $newPassword);
+                
+                $user->setPassword( $hashOfNewPassword );
+            }
 
             // Sauvegarde des changements via le manager des entités
             $em = $this->getDoctrine()->getManager();
