@@ -435,6 +435,11 @@ footer{
     .card-date{
         font-size: 1rem;
     }
+
+    /* Evénement */
+    .event-img{
+        max-height: 100vh;
+    }
 }
 
 

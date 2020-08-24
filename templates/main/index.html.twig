@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Les Bulles de Liberté - Bienvenue !{% endblock %}
 
 {% block stylesheets %}
     <style>
@@ -36,7 +36,7 @@
             <h2>BIENVENUE</h2>
             <p>Notre projet :</p>
             <p class="mb-4">Contribuer à offrir à tous l'accès aux loisirs, la possibilité de partager un moment convivial et privilégié ou...</p>
-            <a href="#" class="block position-absolute mx-4 my-2">LIRE PLUS ></a>
+            <a href="{{ path('presentation') }}" class="block position-absolute mx-4 my-2 mb-xl-4">LIRE PLUS ></a>
         </div>
         <div class="col-12 col-md-4 col-xl-2 offset-xl-1 benevole text-center py-4 py-md-0 d-md-flex flex-column justify-content-center">
             <a href={% if app.user %}"#"{% else %}"{{ path('app_register') }}"{% endif %}><h2>Devenir</h2>
