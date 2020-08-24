@@ -45,7 +45,9 @@
         <div class="row w-100 my-2 mx-0">
             <div class="col-10 offset-1 col-md-4 offset-md-4 d-flex justify-content-between">
                 <a href="{{ asset('files/' ~ document.slug ~ '.' ~ document.extension ) }}" download><i class="far fa-file-alt"></i> {{ document.name }}</a>
+                {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('delete_doc', {'id': document.id}) }}" data-delete data-token="{{ csrf_token('delete'~ document.id) }}" class="text-danger">Supprimer</a>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
@@ -59,7 +61,7 @@
 
     <div class="row w-100 my-5 mx-0">
         <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center mb-5">
-            <p class="text-light text-center">Vous avez besoin d'un document qui ne se trouve pas dans cette liste ? Merci de nous <a href="#">contacter</a>.</p>
+            <p class="text-light text-center">Vous avez besoin d'un document qui ne se trouve pas dans cette liste ? Merci de nous <a href="{{ path('contact') }}">contacter</a>.</p>
         </div>
     </div>
 

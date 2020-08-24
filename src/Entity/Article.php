@@ -58,7 +58,7 @@ class Article
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article")
+     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article", cascade={"persist"})
      */
     private $participations;
 

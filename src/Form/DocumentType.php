@@ -34,15 +34,16 @@ class DocumentType extends AbstractType
                 ]
             ])
             ->add('file', FileType::class, [
-                'label' => 'Sélectionnez un fichier (formats acceptés : .jpeg, .pdf)',
+                'label' => 'Sélectionnez un fichier (formats acceptés : .jpeg, .png, .pdf)',
                 'constraints' => [
                     new File([
                         'maxSize' => '2M',
                         'mimeTypes' => [
                             'application/pdf',
-                            'image/jpeg'
+                            'image/jpeg',
+                            'image/png'
                         ],
-                        'mimeTypesMessage' => 'Seuls les formats jpeg et pdf sont acceptés',
+                        'mimeTypesMessage' => 'Seuls les formats jpeg, png et pdf sont acceptés',
                         'maxSizeMessage' => 'Fichier trop volumineux : ({{ size }} {{ suffix }}). La taille maximum autorisée est {{ limit }} {{ suffix }}',
                     ])
                 ]
