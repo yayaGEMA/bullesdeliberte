@@ -27,7 +27,8 @@ function onClickBtnLike(event){
     });
 }
 
-// On sélectionne les boutons de like et on leur ajoute un écouteur d'évènement au clic, en appelant la fonction qu'on a créé ci-dessus
+// On sélectionne les boutons de participation et on leur ajoute un écouteur
+// d'évènement au clic, en appelant la fonction qu'on a créé ci-dessus
 document.querySelectorAll(".participation-link").forEach(function(link){
     link.addEventListener('click', onClickBtnLike);
 });
