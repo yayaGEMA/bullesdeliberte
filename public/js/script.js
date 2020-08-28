@@ -1,7 +1,7 @@
 // Système de participations
 
 // Fonction permettant de gérer les participations
-function onClickBtnLike(event){
+function onClickBtn(event){
 
     // On empêche le chargement de la page de participation, créée dans le MainController
     event.preventDefault();
@@ -30,7 +30,7 @@ function onClickBtnLike(event){
 // On sélectionne les boutons de participation et on leur ajoute un écouteur
 // d'évènement au clic, en appelant la fonction qu'on a créé ci-dessus
 document.querySelectorAll(".participation-link").forEach(function(link){
-    link.addEventListener('click', onClickBtnLike);
+    link.addEventListener('click', onClickBtn);
 });
 
 // Au passage de la souris sur le bouton "Participation ajoutée", on change le bouton

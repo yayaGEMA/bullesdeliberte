@@ -99,7 +99,7 @@
             <div class="col-10 col-md-4 offset-md-4 offset-1 d-flex flex-column mb-4">
                 <a href="{{ path('event_participation', {id: event.id}) }}" class="d-inline-block participation-link h-75 text-center">
                     {% if app.user and event.willCome(app.user) %}
-                        <p class="btn btn-secondary participation m-0 w-100">Participation ajoutée</p>
+                        <p class="btn btn-secondary participation m-0 participated w-100">Participation ajoutée</p>
                     {% else %}
                         <p class="btn btn-primary participation m-0 w-100">JE PARTICIPE !</p>
                     {% endif %}

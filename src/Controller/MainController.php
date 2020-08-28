@@ -80,6 +80,9 @@ class MainController extends AbstractController
             // On récupère les photos de la gallerie transmises
             $gallery = $form->get('gallery')->getData();
 
+            // Récupération du manager général des entités
+            $entityManager = $this->getDoctrine()->getManager();
+
             // On boucle sur les photos
             foreach($gallery as $galleryImage){
 
@@ -95,20 +98,23 @@ class MainController extends AbstractController
                 $img = new Gallery();
                 $img->setName($newGalleryFileName);
                 $newArticle->addGallery($img);
+
+                $entityManager->persist($img);
             }
+
+            $participation = new Participation();
 
             // Hydratation de l'article
             $newArticle
                 ->setPublicationDate( new DateTime() )
-                ->addParticipation(new Participation() )
+                ->addParticipation($participation )
                 ->setParticipationsCounter(0)
             ;
 
-            // Récupération du manager général des entités
-            $entityManager = $this->getDoctrine()->getManager();
-
             // Persistance de l'article auprès de Doctrine
             $entityManager->persist($newArticle);
+            $entityManager->persist($participation);
+
 
             // Sauvegarder en bdd
             $entityManager->flush();

@@ -58,7 +58,7 @@ class Article
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article", orphanRemoval=true)
      */
     private $participations;
 
@@ -68,7 +68,7 @@ class Article
     private $participations_counter;
 
     /**
-     * @ORM\OneToMany(targetEntity=Gallery::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Gallery::class, mappedBy="article", orphanRemoval=true)
      */
     private $galleries;
 

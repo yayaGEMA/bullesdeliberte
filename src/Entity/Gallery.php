@@ -55,4 +55,5 @@ class Gallery
 
         return $this;
     }
+
 }
