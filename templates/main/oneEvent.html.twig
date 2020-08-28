@@ -105,7 +105,11 @@
                     {% endif %}
                 </a>
 
-                <span class="p-count text-light text-center mt-2">{{ event.participationsCounter }} participant{% if event.participationsCounter > 1 %}s{% endif %}</span>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <span class="p-count text-light text-center mt-2">
+                        {{ event.participationsCounter }} participant{% if event.participationsCounter > 1 %}s{% endif %}
+                    </span>
+                {% endif %}
             </div>
         </div>
 

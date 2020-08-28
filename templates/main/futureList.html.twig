@@ -32,7 +32,11 @@
                                 {# Bouton de participation #}
                                 {% if app.user %}
                                 <div class="text-right d-none d-md-block position-relative">
-                                    <span class="p-count">{{ article.participationsCounter }} participant{% if article.participationsCounter > 1 %}s{% endif %}</span>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <span class="p-count">
+                                            {{ article.participationsCounter }} participant{% if article.participationsCounter > 1 %}s{% endif %}
+                                        </span>
+                                    {% endif %}
                                     <a href="{{ path('event_participation', {id: article.id}) }}" class="d-none d-md-inline-block participation-link h-75">
                                         {% if app.user and article.willCome(app.user) %}
                                             <p class="btn btn-secondary participation m-0 participated">Participation ajoutée</p>
