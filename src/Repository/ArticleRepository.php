@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\ENtity\Gallery;
 use Doctrine\ORM\Query\Expr\Join;
+use \DateTime;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -26,8 +27,13 @@ class ArticleRepository extends ServiceEntityRepository
     */
     public function findFourLatest() : array
     {
+        $datetime = new DateTime();
+        $now = date_format($datetime, 'Y-m-d H:i:s');
+
         // Retourne ce que la requête DQL aura trouvé en BDD
         return $this->createQueryBuilder('a')   // a = alias de la table "article"
+        ->where('a.dateBeginning > :now')
+        ->setParameter('now', $now)
         ->orderBy('a.dateBeginning', 'ASC')
         ->setMaxResults(4)
         ->getQuery()    // Execution de la requête
