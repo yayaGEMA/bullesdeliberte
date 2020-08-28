@@ -1,15 +1,15 @@
-// Système de likes
+// Système de participations
 
-// Fonction permettant de gérer les likes
+// Fonction permettant de gérer les participations
 function onClickBtnLike(event){
 
-    // On empêche le chargement de la page de like, créée dans le ArticleController
+    // On empêche le chargement de la page de participation, créée dans le MainController
     event.preventDefault();
 
     // On récupère l'url
     let url = this.href;
 
-    // Grâce au bundle axios, installé en CDN...
+    // Grâce au bundle axios...
     axios.get(url).then(function(){
 
         location.reload();
