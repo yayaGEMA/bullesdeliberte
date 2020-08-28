@@ -145,7 +145,7 @@ function displayImage(imageName, artnumber, arrayNumber){
 
     // On ajoute la fonction sur la touche ECHAP également
     $(document).keyup(function(e) {
-        if (e.key === 37){
+        if (e.key === 27 || e.key === "Escape"){
            removeImage();
        }
     });
