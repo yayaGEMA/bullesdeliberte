@@ -245,6 +245,9 @@ class MainController extends AbstractController
             // On récupère les photos de la gallerie transmises
             $gallery = $form->get('gallery')->getData();
 
+            // Sauvegarde des changements faits via le manager général des entités
+            $entityManager = $this->getDoctrine()->getManager();
+
             // On boucle sur les photos
             foreach($gallery as $galleryImage){
 
@@ -259,10 +262,10 @@ class MainController extends AbstractController
                 $img = new Gallery();
                 $img->setName($newGalleryFileName);
                 $article->addGallery($img);
+
+                $entityManager->persist($img);
             }
 
-            // Sauvegarde des changements faits via le manager général des entités
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
             // Message flash de type "success"

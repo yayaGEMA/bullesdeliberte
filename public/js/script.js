@@ -90,11 +90,11 @@ window.onload = () => {
 
 $('.gallery-img').click(function(){
 
-    displayImage($(this).data('image'), $(this).data('artnumber'), $(this).data('number') );
+    displayImage($(this).data('artnumber'), $(this).data('number') );
 });
 
 // Création d'une fonction qui affiche une image dans un overlay avec un croix de fermeture
-function displayImage(imageName, artnumber, arrayNumber){
+function displayImage(artnumber, arrayNumber){
 
     // On récupère l'id de l'élément cliqué
     let idName = `#art-${artnumber}-img-${arrayNumber}`;
