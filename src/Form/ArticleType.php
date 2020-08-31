@@ -93,6 +93,7 @@ class ArticleType extends AbstractType
                 'label' => 'Sélectionnez une galerie d\'images',
                 'multiple' => true,
                 'mapped' => false,
+                'required' => false,
             ])
             ->add('dateBeginning', DateTimeType::class, [
                 'label' => 'Date et heure de début'

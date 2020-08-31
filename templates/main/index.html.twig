@@ -49,6 +49,7 @@
     <div class="row w-100 ml-0 my-md-5 position-relative">
         <div class="w-100 h-100 p-0">
             <div class="card-group col-xl-10 offset-xl-1 p-0">
+                {# Pour chaque article envoyé par le Repo, on crée une card #}
                 {% for article in index_articles %}
                     <div class="col-12 col-sm-6 col-xl-3 p-0 px-xl-4">
                         <a href="{{ path('event', {slug: article.slug}) }}">
@@ -65,6 +66,24 @@
                         </a>
                     </div>
                 {% endfor %}
+                {# s'il n'y a pas 4 articles... #}
+                {% if index_articles|length < 4 %}
+                {# on en crée des faux jusqu'à en avoir 4 #}
+                    {% for i in 1..(4 - index_articles|length) %}
+                        <div class="col-12 col-sm-6 col-xl-3 p-0 px-xl-4">
+                            <div class="card p-0 position-relative h-100">
+                                <div class="zoom">
+                                    <img src="{{ asset('images/main/fakeArticles/eventToCome' ~ loop.index ~ '.jpg' ) }}" class="card-img-top h-100" alt="...">
+                                </div>
+                                <div class="card-body position-absolute w-100 d-flex flex-column justify-content-between">
+                                    <h5 class="card-title">Événement à venir</h5>
+                                    <p class="card-text d-none d-xl-block">Un nouvel événement arrivera prochainement...</p>
+                                    <p class="card-text text-center"></p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
