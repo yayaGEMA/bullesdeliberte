@@ -12,10 +12,22 @@
 
     <div class="row w-100 my-3 ml-0">
         <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-light">
-            {{ form(form) }}
+            {{ form_start(form) }}
+            {{ form_row(form.objet) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.content) }}
+            <div class="form-group d-flex justify-content-center">
+                <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
+            </div>
+            {{ form_end(form) }}
         </div>
     </div>
 
 
 
+{% endblock %}
+
+{% block stylesheets %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}
