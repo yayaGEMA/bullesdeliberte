@@ -39,6 +39,11 @@ class Document
      */
     private $extension;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $size;
+
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -88,6 +93,18 @@ class Document
     public function setExtension(string $extension): self
     {
         $this->extension = $extension;
+
+        return $this;
+    }
+
+    public function getSize(): ?string
+    {
+        return $this->size;
+    }
+
+    public function setSize(string $size): self
+    {
+        $this->size = $size;
 
         return $this;
     }

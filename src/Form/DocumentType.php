@@ -37,7 +37,7 @@ class DocumentType extends AbstractType
                 'label' => 'Sélectionnez un fichier (formats acceptés : .jpeg, .png, .pdf)',
                 'constraints' => [
                     new File([
-                        'maxSize' => '2M',
+                        'maxSize' => '10M',
                         'mimeTypes' => [
                             'application/pdf',
                             'image/jpeg',

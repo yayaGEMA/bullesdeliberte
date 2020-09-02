@@ -43,14 +43,26 @@
     {# Affichage des documents #}
     {% for document in documents %}
         <div class="row w-100 my-2 mx-0">
-            <div class="col-10 offset-1 col-md-4 offset-md-4 d-flex justify-content-between">
+            <div class="col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 d-flex justify-content-between">
                 <a href="{{ asset('files/' ~ document.slug ~ '.' ~ document.extension ) }}" download><i class="far fa-file-alt"></i> {{ document.name }}</a>
                 {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('delete_doc', {'id': document.id}) }}" data-delete data-token="{{ csrf_token('delete'~ document.id) }}" class="text-danger">Supprimer</a>
                 {% endif %}
             </div>
+            <div class="col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+                <p class="font-italic text-light small my-auto">(format : {{document.extension}}, taille : {{document.size}})</p>
+            </div>
         </div>
     {% endfor %}
+
+    {# Si aucun document à afficher #}
+    {% if documents|length < 1 %}
+        <div class="row w-100 mb-5 mx-0">
+            <div class="col-12 col-lg-4 offset-lg-4 text-center">
+                <p class="text-light">Aucun document pour le moment.</p>
+            </div>
+        </div>
+    {% endif %}
 
     <div class="my-3 text-center">
         <div class="d-inline-block mb-5">

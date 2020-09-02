@@ -23,6 +23,14 @@
         </div>
     {% endfor %}
 
+    {# Si aucune photo à afficher #}
+        {% if galleryIsNull|length < 1 %}
+        <div class="row w-100 my-5 mx-0">
+            <div class="col-12 col-lg-4 offset-lg-4 text-center">
+                <p class="text-light">Aucun photo dans la galerie pour le moment.</p>
+            </div>
+        </div>
+    {% endif %}
 
     <div class="my-3 text-center">
         <div class="d-inline-block mb-5">

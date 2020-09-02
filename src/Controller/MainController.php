@@ -477,12 +477,34 @@ class MainController extends AbstractController
 
             $slugName = slugify($form->get('name')->getData()) . '.' . $extensionName;
 
+            $fileSize = $file->getClientSize();
+
+            /** Fonction pour convertir la taille des fichiers de documentation */
+            function convertOctet($val , $type_val , $type_wanted)
+            {
+                $tab_val = array("o", "ko", "Mo");
+                if (!(in_array($type_val, $tab_val) && in_array($type_wanted, $tab_val)))
+                return 0;
+                $tab = array_flip($tab_val);
+                $diff = $tab[$type_val] - $tab[$type_wanted];
+                if ($diff > 0)
+                return ($val * pow(1024, $diff));
+                if ($diff < 0)
+                return ($val / pow(1024, -$diff));
+                return ($val);
+            }
+
+            $fileSizeAndValue = round(convertOctet($fileSize, 'o', 'Mo'), 2) . 'Mo';
+
             $file->move(
                 $this->getParameter('app.document.directory'),
                 $slugName
             );
 
-            $newDocument->setExtension($extensionName);
+            $newDocument
+                ->setExtension($extensionName)
+                ->setSize($fileSizeAndValue)
+            ;
 
             $em->persist($newDocument);
             $em->flush();
@@ -533,6 +555,10 @@ class MainController extends AbstractController
         // On demande au repository de nous donner les articles ayant une galerie
         $allArticlesWithGallery = $articleRepo->findAllWithGallery();
 
+        // On demande au GalleryRepo de récupérer toutes les photos au cas où il n'y en ait aucun, pour afficher un message
+        $galleryRepo = $this->getDoctrine()->getRepository(Gallery::class);
+        $galleryIsNull = $galleryRepo->findAll();
+
         //On stocke dans $pageArticles les 10 articles de la page demandée dans l'URL
         $pageArticles = $paginator->paginate(
             $allArticlesWithGallery,     // selection des articles
@@ -542,6 +568,7 @@ class MainController extends AbstractController
 
         return $this->render('main/galerie.html.twig', [
             'articles' => $pageArticles,
+            'galleryIsNull' => $galleryIsNull
         ]);
     }
 
