@@ -26,9 +26,9 @@
                     </li>
                     <li class="nav-item dropdown benevole-button">
                         <div class="navbar-networks">
-                            <a href="https://www.facebook.com/lesbullesdeliberte/"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.facebook.com/lesbullesdeliberte/" title="Lien vers notre page Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" title="Lien vers notre page Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" title="Lien vers notre compte Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
                         <a class="nav-link dropdown-toggle text-light w-100" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% if app.user %}{{ app.user.firstname }} {{ app.user.name }}{% else %}ESPACE BÉNÉVOLE{% endif %}</a>
                         <div class="dropdown-menu my-0 dropdown-benevole" aria-labelledby="navbarDropdown">
@@ -79,7 +79,7 @@
                 <div class="col-12 banner px-0">
                     <div class="banner-img w-100 h-100 d-flex justify-content-center align-items-center">
                     {% block indexh1 %}{% endblock %}
-                    <a href="{{ path('donation') }}" class="position-absolute mx-1 mr-xl-5">
+                    <a href="{{ path('donation') }}" class="position-absolute mx-1 mr-xl-5" title="Lien vers la page de don">
                             <!-- Bouton de don -->
                             <div class="d-block bg-white donation d-flex justify-content-center align-items-center m-0">
                                 <img src="{{asset('images/main//faireundon.png')}}" alt="Faire un Don">
