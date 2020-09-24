@@ -89,7 +89,7 @@ body{
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
 }
 .banner-img{
-    background-image: url("../images/main/fondentete.png");
+    background-image: url("../images/main/fondbulle.png");
     background-size: cover;
 }
 
@@ -116,8 +116,8 @@ body{
 
 /* Bienvenue */
 .welcome{
-    background-image: url('../images/main/gougoutte.png'), url('../images/main/fondbienvenue.png');
-    background-size: 50%, cover;
+    background-image: url('../images/main/fondbienvenue.png');
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: 30%, 50%;
 }
@@ -379,6 +379,11 @@ footer{
     }
     .welcome p{
         padding: 0 30px;
+        font-size: 1rem;
+    }
+
+    .welcome h2{
+        font-size: 2rem;
     }
 
     .welcome-benevole a{
@@ -449,7 +454,6 @@ footer{
     .banner-img{
         position: relative;
         height: 20vh !important;
-        background-position-y: -20vh;
     }
 
     .fun-title{
@@ -501,6 +505,7 @@ footer{
     .navbar-title{
         align-self: flex-start;
         font-size: 3rem;
+        text-shadow: 0.5px 0.5px 1px black;
     }
 
     .navbar-dark .navbar-nav .nav-link {
@@ -557,7 +562,10 @@ footer{
         height: 90%;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+    }
+
+    .welcome h2{
+        font-size: 2.5rem;
     }
 
     .welcome p{

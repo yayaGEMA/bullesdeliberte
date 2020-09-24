@@ -102,7 +102,7 @@ class ArticleType extends AbstractType
                 'label' => 'Date et heure de fin'
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Ajouter un article'
+                'label' => 'Ajouter un événement'
             ])
         ;
     }

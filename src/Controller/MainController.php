@@ -24,6 +24,9 @@ use App\Entity\Document;
 use App\Form\DocumentType;
 use App\Entity\PageText;
 use App\Form\PageTextType;
+use App\Entity\Reunion;
+use App\Entity\ReunionRepository;
+use App\Form\ReunionType;
 
 class MainController extends AbstractController
 {
@@ -442,6 +445,44 @@ class MainController extends AbstractController
     public function coinPresse()
     {
         return $this->render('main/coinPresse.html.twig');
+    }
+
+    /**
+     * Page des réunions
+     *
+     * @Route("/reunions/", name="reunions")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function reunions(Request $request)
+    {
+        // Création d'une réunion vide
+        $newReunion = new Reunion();
+
+        // Formulaire
+        $form = $this->createForm(ReunionType::class, $newReunion);
+
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+
+        // Si le formulaire est OK et envoyé
+        if($form->isSubmitted() && $form->isValid()){
+
+            $em->persist($newReunion);
+            $em->flush();
+            $this->addFlash('success', 'Réunion ajoutée avec succès !');
+            return $this->redirectToRoute('reunions');
+        }
+
+        // On récupère le repo des réunions
+        $reuRepo = $this->getDoctrine()->getRepository(Reunion::class);
+
+        $reunions = $reuRepo->findAll();
+
+        return $this->render('main/reunions.html.twig', [
+            'reunions' => $reunions,
+            'form' => $form->createView()
+        ]);
     }
 
     /**

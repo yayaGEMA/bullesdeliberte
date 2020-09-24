@@ -1,0 +1,132 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Réunions{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .autocomplete>.form-group{
+            position: relative;
+            margin-bottom: 0;
+        }
+        .card-title, .card-text{
+            font-family:inherit !important;
+        }
+        .card-title{
+            font-size:1.2rem;
+            color: black;
+        }
+        .card-body{
+            z-index: 12;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+        }
+        .card-body:hover{
+            background-color: wheat;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    {# Affichage des messages flashs de type "success" si il y en a #}
+    {% include 'partials/flashes/success.html.twig' %}
+
+    {# Affichage des messages flashs de type "error" si il y en a #}
+    {% include 'partials/flashes/error.html.twig' %}
+
+    <div class="row w-100 my-3 ml-0">
+        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
+            <h1 class="text-light">Réunions</h1>
+        </div>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="row w-100 mx-0">
+        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
+            <h2 class="text-light">Ajouter une nouvelle réunion</h2>
+        </div>
+    </div>
+
+    <div class="row w-100 mx-0">
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-light my-4">
+            {{ form_start(form) }}
+                {{ form_row(form.datetime) }}
+                <div class="autocomplete mb-3">
+                    {{ form_row(form.place) }}
+                    <div class="card position-absolute d-none p-0 w-100 col-11" id="match-list"></div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    {% endif %}
+
+    <div class="row w-100 ml-0">
+        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
+            {# Affichage des réunions futures #}
+            <h2 class="text-light">Prochaine{% if reunions|length > 1 %}s{% endif %} réunion{% if reunions|length > 1 %}s{% endif %}</h2>
+
+            {% for reunion in reunions %}
+                {% if reunion.title is not null %}
+                    <h3 class="text-danger">{{ reunion.title }}</h3>
+                {% endif %}
+            {% endfor %}
+
+            {# Si aucune réunion à afficher #}
+            {% if reunions|length < 1 %}
+        <div class="row w-100 mb-5 mx-0">
+            <div class="col-12 col-lg-6 offset-lg-3 text-center">
+                <p class="text-light">Aucune réunion prévue pour le moment.</p>
+            </div>
+        </div>
+    {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+
+    {# GeoAPI #}
+    <script>
+
+        let apiUrl = 'https://api-adresse.data.gouv.fr/search/?q='
+        let format = '&type=&autocomplete=1'
+        let place = $('#reunion_place');
+        let matchList = $('#match-list');
+
+        place.on('keyup', function(){
+
+            matchList.html('');
+            let suggestions = [];
+            let inputValue = $(this).val();
+            let url = apiUrl+inputValue+format;
+
+            if(inputValue.length === 0){
+                matchList.addClass('d-none');
+            } else {
+                matchList.removeClass('d-none');
+                fetch(url, {method: 'GET'}).then(response => response.json()).then(results => {
+                    $.each(results["features"], function(key,value){
+                        let name = value.properties.label;
+                        let context = value. properties.context;
+                        suggestions.push(name + ', ' + context);
+                        matchList.append('<div class="card-body p-1 text-center rounded-0 border"><h5 class="card-title mb-1">' + name + '</h5><p class="card-text">' + context + '</p></div>');
+                    });
+
+                });
+            }
+        });
+
+        $(document).on('click', '.card-body', function(){
+            let content = $(this).children('.card-title').text();
+            place.val(content);
+            matchList.addClass('d-none');
+        });
+
+    </script>
+
+{% endblock %}
