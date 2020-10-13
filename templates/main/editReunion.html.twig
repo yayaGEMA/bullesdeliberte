@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier une réunion{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .autocomplete>.form-group{
+            position: relative;
+            margin-bottom: 0;
+        }
+        .card-title, .card-text{
+            font-family:inherit !important;
+        }
+        .card-title{
+            font-size:1.2rem;
+            color: black;
+        }
+        .card-body{
+            z-index: 12;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+        }
+        .card-body:hover{
+            background-color: wheat;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    {# Affichage des messages flashs de type "success" si il y en a #}
+    {% include 'partials/flashes/success.html.twig' %}
+
+    {# Affichage des messages flashs de type "error" si il y en a #}
+    {% include 'partials/flashes/error.html.twig' %}
+
+    <div class="row w-100 my-3 ml-0">
+        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
+            <h1 class="text-light">Modifier une réunion</h1>
+        </div>
+    </div>
+
+    <div class="row w-100 mx-0 form-div">
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-light my-4">
+            {{ form_start(form) }}
+                {{ form_row(form.datetime) }}
+                <div class="autocomplete mb-3">
+                    {{ form_row(form.place) }}
+                    <div class="card position-absolute d-none p-0 w-100 col-11" id="match-list"></div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/reunionscript.js') }}"></script>
+{% endblock %}

@@ -24,6 +24,14 @@
         .card-body:hover{
             background-color: wheat;
         }
+        .reunion{
+            margin: 15px 0 !important;
+        }
+        .new-reunion:hover, .edit:hover{
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
     </style>
 {% endblock %}
 
@@ -43,12 +51,12 @@
 
     {% if is_granted('ROLE_ADMIN') %}
     <div class="row w-100 mx-0">
-        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
-            <h2 class="text-light">Ajouter une nouvelle réunion</h2>
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
+            <h2 class="text-light new-reunion">Ajouter une nouvelle réunion</h2>
         </div>
     </div>
 
-    <div class="row w-100 mx-0">
+    <div class="row w-100 mx-0 form-div d-none">
         <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-light my-4">
             {{ form_start(form) }}
                 {{ form_row(form.datetime) }}
@@ -63,15 +71,36 @@
     {% endif %}
 
     <div class="row w-100 ml-0">
-        <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
+        <div class="col-12 col-lg-4 offset-lg-4 text-center">
             {# Affichage des réunions futures #}
             <h2 class="text-light">Prochaine{% if reunions|length > 1 %}s{% endif %} réunion{% if reunions|length > 1 %}s{% endif %}</h2>
 
-            {% for reunion in reunions %}
-                {% if reunion.title is not null %}
-                    <h3 class="text-danger">{{ reunion.title }}</h3>
-                {% endif %}
-            {% endfor %}
+            <div class="row">
+                {% for reunion in reunions %}
+                    <div class="card col-12 py-2 bg-light reunion p-2 my-2">
+                        {% if reunion.title is not null %}
+                            <h3 class="text-danger text-center pt-2">{{ reunion.title }}</h3>
+                        {% else %}
+                            <h3 class="text-danger text-center">Réunion prévue</h3>
+                        {% endif %}
+                        <p>Rendez-vous le <strong><u>{{ reunion.datetime|format_datetime('full', 'none', locale='fr') }}</u></strong> à <strong><u>{{ reunion.datetime|format_datetime('none', 'short', locale='fr') }}</u></strong></p>
+                        <p>à l'adresse : <strong>{{ reunion.place }}</strong></p>
+                        {% if reunion.content is not null %}
+                        {{ reunion.content|purify }}
+                        {% endif %}
+                    </div>
+                    {# Modération admin #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="col-12 text-light">
+                            <a class="edit-link" href="{{ path('edit_reunion',  {id: reunion.id, csrf_token: csrf_token('edit_reunion' ~ reunion.id)}) }}"><p class="edit"><i class="fas fa-edit"></i> Éditer la réunion</p></a>
+                        </div>
+                        <div class="col-12 text-danger">
+                            <a href="{{path('delete_reunion', {id: reunion.id, csrf_token: csrf_token('delete_reunion_' ~ reunion.id )}) }}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réunion ?')" class="text-decoration-none"><p><i class="fas fa-trash-alt"></i> Supprimer la réunion</p></a>
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
 
             {# Si aucune réunion à afficher #}
             {% if reunions|length < 1 %}
@@ -87,46 +116,5 @@
 {% endblock %}
 
 {% block javascripts %}
-
-
-
-    {# GeoAPI #}
-    <script>
-
-        let apiUrl = 'https://api-adresse.data.gouv.fr/search/?q='
-        let format = '&type=&autocomplete=1'
-        let place = $('#reunion_place');
-        let matchList = $('#match-list');
-
-        place.on('keyup', function(){
-
-            matchList.html('');
-            let suggestions = [];
-            let inputValue = $(this).val();
-            let url = apiUrl+inputValue+format;
-
-            if(inputValue.length === 0){
-                matchList.addClass('d-none');
-            } else {
-                matchList.removeClass('d-none');
-                fetch(url, {method: 'GET'}).then(response => response.json()).then(results => {
-                    $.each(results["features"], function(key,value){
-                        let name = value.properties.label;
-                        let context = value. properties.context;
-                        suggestions.push(name + ', ' + context);
-                        matchList.append('<div class="card-body p-1 text-center rounded-0 border"><h5 class="card-title mb-1">' + name + '</h5><p class="card-text">' + context + '</p></div>');
-                    });
-
-                });
-            }
-        });
-
-        $(document).on('click', '.card-body', function(){
-            let content = $(this).children('.card-title').text();
-            place.val(content);
-            matchList.addClass('d-none');
-        });
-
-    </script>
-
+    <script src="{{ asset('js/reunionscript.js') }}"></script>
 {% endblock %}
