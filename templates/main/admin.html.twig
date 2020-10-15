@@ -30,8 +30,8 @@
                         <div class="motivcontent d-flex-column col-12 p-2 bg-light px-0 d-none">
                             {{ user.motivation|purify }}
                             <div class="d-flex ">
-                                <button type="button" class="btn btn-success m-2" onclick="return confirm('Confirmez-vous ce choix ? {{ user.firstname }} {{ user.name }} sera inscrit sur le liste dans la liste des bénévoles.')">Approuver l'inscription</button>
-                                <button type="button" class="btn btn-danger m-2" onclick="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette personne de la liste des bénévoles ?')">Refuser l'inscription</button>
+                                <a href="{{ path('admin-accept', {id: user.id}) }}" type="button" class="btn btn-success m-2" onclick="return confirm('Confirmez-vous ce choix ? {{ user.firstname }} {{ user.name }} sera inscrit sur le liste dans la liste des bénévoles.')">Approuver l'inscription</a>
+                                <a href="{{ path('admin-refuse', {id: user.id}) }}" type="button" class="btn btn-danger m-2" onclick="return confirm('Êtes-vous sûr(e) de vouloir supprimer cette personne de la liste des bénévoles ?')">Refuser l'inscription</a>
                             </div>
                         </div>
                     </div>

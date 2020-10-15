@@ -603,6 +603,44 @@ class MainController extends AbstractController
     }
 
     /**
+     * Fonction qui accepte un user
+     *
+     * @Route("/admin/accepter/{id}/", name="admin-accept")
+     * @Security("is_granted('ROLE_ADMIN')")
+     *
+     * @param \App\Entity\User $user
+     * @param \Doctrine\ORM\EntityManagerInterface $manager
+     */
+    public function acceptUser(User $user, EntityManagerInterface $manager)
+    {
+        $user->setIsVerified(1);
+        $manager->persist($user);
+        $manager->flush();
+
+        // ENVOYER MAIL
+    );
+
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * Fonction qui refuse un user
+     *
+     * @Route("/admin/refuser/{id}/", name="admin-refuse")
+     * @Security("is_granted('ROLE_ADMIN')")
+     *
+     * @param \App\Entity\User $user
+     * @param \Doctrine\ORM\EntityManagerInterface $manager
+     */
+    public function refuseUser(User $user, EntityManagerInterface $manager)
+    {
+        $manager->remove($user);
+        $manager->flush();
+
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
      * Permet à un user d'ajouter ou d'enlever sa participation
      *
      * @Route("/evenement/{id}/participation", name="event_participation")
