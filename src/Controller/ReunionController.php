@@ -41,6 +41,20 @@ class ReunionController extends AbstractController
      */
     public function reunions(Request $request)
     {
+        // On récupère le repo des réunions
+        $reuRepo = $this->getDoctrine()->getRepository(Reunion::class);
+
+        // On demande au repo de nous donner toutes les réus passées d'un jour
+        $pastReunions = $reuRepo->findPastReunions();
+
+        $em = $this->getDoctrine()->getManager();
+
+        // Pour chaque réunion
+        foreach($pastReunions as $pastReunion){
+            $em->remove($pastReunion);
+        }
+        $em->flush();
+
         // Création d'une réunion vide
         $newReunion = new Reunion();
 
@@ -49,7 +63,6 @@ class ReunionController extends AbstractController
 
         $form->handleRequest($request);
 
-        $em = $this->getDoctrine()->getManager();
 
         // Si le formulaire est OK et envoyé
         if($form->isSubmitted() && $form->isValid()){
@@ -59,9 +72,6 @@ class ReunionController extends AbstractController
             $this->addFlash('success', 'Réunion ajoutée avec succès !');
             return $this->redirectToRoute('reunions');
         }
-
-        // On récupère le repo des réunions
-        $reuRepo = $this->getDoctrine()->getRepository(Reunion::class);
 
         $reunions = $reuRepo->findAll();
 

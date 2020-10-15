@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Reunion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use \DateTime;
+
 
 /**
  * @method Reunion|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,21 @@ class ReunionRepository extends ServiceEntityRepository
         parent::__construct($registry, Reunion::class);
     }
 
-    // /**
-    //  * @return Reunion[] Returns an array of Reunion objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Reunion[] Returns an array of Reunion objects
+     */
+    public function findPastReunions() : array
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $datetime = new DateTime();
+        $tomorrow = $datetime->modify('-1 day');
+        date_format($datetime, 'Y-m-d H:i:s');
 
-    /*
-    public function findOneBySomeField($value): ?Reunion
-    {
+        // Retourne ce que la requeête DQL aura trouvé en BDD
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        ->where('r.datetime < :tomorrow')
+        ->setParameter('tomorrow', $tomorrow)
+        ->getQuery()
+        ->getResult()
         ;
     }
-    */
 }

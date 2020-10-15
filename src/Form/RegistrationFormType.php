@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 
 class RegistrationFormType extends AbstractType
@@ -129,9 +130,9 @@ class RegistrationFormType extends AbstractType
             ])
 
             // Champ motivation
-            ->add('motivation', TextareaType::class, [
+            ->add('motivation', CKEditorType::class, [
                 'label' => 'Pour quelles raisons voulez-vous rejoindre les Bulles de Liberté ?*',
-                'attr' => ['rows' => '5'],
+                'purify_html' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de renseigner vos motivations (au moins 20 caractères)'

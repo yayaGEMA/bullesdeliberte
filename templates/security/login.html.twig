@@ -3,6 +3,13 @@
 {% block title %}Se connecter{% endblock %}
 
 {% block body %}
+
+    {# Affichage des messages flashs de type "success" si il y en a #}
+    {% include 'partials/flashes/success.html.twig' %}
+
+    {# Affichage des messages flashs de type "error" si il y en a #}
+    {% include 'partials/flashes/error.html.twig' %}
+
 <form method="POST" class="col-lg-4 offset-lg-4 mt-5">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

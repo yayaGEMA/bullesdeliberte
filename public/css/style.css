@@ -346,6 +346,38 @@ footer{
     font-size: 1.5rem;
 }
 
+/* PAGINATOR */
+
+.pagination{
+    background-color: #3D3D3D;
+}
+.pagination>span{
+    padding: 5px 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.pagination>span>a{
+    text-decoration: none;
+    color: white;
+}
+.pagination>span>a:hover{
+    text-decoration: underline;
+}
+.pagination .current{
+    background-color: white;
+    color: black;
+    font-weight: normal;
+}
+
+/* MOTIVATION ADMIN */
+.motivation{
+    cursor: pointer;
+}
+.motivation:hover{
+    text-decoration: underline;
+}
+
+
 /* MEDIA QUERIES */
 
 /* Taille tablette */

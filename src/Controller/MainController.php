@@ -576,6 +576,33 @@ class MainController extends AbstractController
     }
 
     /**
+     * Page de mentions légales
+     *
+     * @Route("/mentions/", name="mentions")
+     */
+    public function mentions()
+    {
+        return $this->render('main/mentions.html.twig');
+    }
+
+    /**
+     * Page admin d'accès aux inscrits et bénévoles
+     *
+     * @Route("/admin/", name="admin")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function admin()
+    {
+        $userRepo = $this->getDoctrine()->getRepository(User::class);
+        $newUsers = $userRepo->findByValidation();
+
+
+        return $this->render('main/admin.html.twig', [
+            'newUsers' => $newUsers
+        ]);
+    }
+
+    /**
      * Permet à un user d'ajouter ou d'enlever sa participation
      *
      * @Route("/evenement/{id}/participation", name="event_participation")

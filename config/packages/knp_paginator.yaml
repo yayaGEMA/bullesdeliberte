@@ -7,8 +7,3 @@ knp_paginator:
         distinct: true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
         filter_field_name: filterField  # filter field query parameter name
         filter_value_name: filterValue  # filter value query parameter name
-    template:
-        # On peut activer le visuel de Bootstrap 4 avec :
-        pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
-        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
-        filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template

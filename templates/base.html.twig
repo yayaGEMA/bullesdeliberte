@@ -14,7 +14,7 @@
 
         <!-- Navbar -->
         <nav class="navbar navbar-expand-xl navbar-dark px-2 py-0 sticky-top">
-            <a class="navbar-brand text-light navbar-title" href="{{ path('main') }}"><img src="{{asset('images/main/logobullessite.png')}}" alt="bulles">Les Bulles de Liberté</a>
+            <a class="navbar-brand navbar-title" href="{{ path('main') }}"><img src="{{asset('images/main/logobullessite.png')}}" alt="bulles">Les Bulles de Liberté</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -33,6 +33,7 @@
                         <a class="nav-link dropdown-toggle text-light w-100" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% if app.user %}{{ app.user.firstname }} {{ app.user.name }}{% else %}ESPACE BÉNÉVOLE{% endif %}</a>
                         <div class="dropdown-menu my-0 dropdown-benevole" aria-labelledby="navbarDropdown">
                             {% if app.user %}
+                                {% if is_granted('ROLE_ADMIN') %}<a class="dropdown-item" href="{{ path('admin') }}">ADMIN</a>{% endif %}
                                 <a class="dropdown-item" href="{{ path('reunions') }}">RÉUNIONS</a>
                                 <a class="dropdown-item" href="{{ path('profil') }}">PROFIL</a>
                                 <div class="dropdown-divider"></div>
@@ -123,7 +124,7 @@
                         </li>
                         <li><a href="{{path('documentation')}}">DOCUMENTATION</a></li>
                         <li><a href="{{ path('contact') }}">CONTACT</a></li>
-                        <li><a href="#">MENTIONS LÉGALES</a></li>
+                        <li><a href="{{ path('mentions') }}">MENTIONS LÉGALES</a></li>
                     </ul>
                 </div>
                 <div class="social-networks d-flex">
