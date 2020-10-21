@@ -618,7 +618,6 @@ class MainController extends AbstractController
         $manager->flush();
 
         // ENVOYER MAIL
-    );
 
         return $this->redirectToRoute('admin');
     }

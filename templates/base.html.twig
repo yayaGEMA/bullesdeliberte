@@ -14,7 +14,7 @@
 
         <!-- Navbar -->
         <nav class="navbar navbar-expand-xl navbar-dark px-2 py-0 sticky-top">
-            <a class="navbar-brand navbar-title" href="{{ path('main') }}"><img src="{{asset('images/main/logobullessite.png')}}" alt="bulles">Les Bulles de Liberté</a>
+            <a class="navbar-brand navbar-title my-xl-4" href="{{ path('main') }}"><img src="{{asset('images/main/logobullessite.png')}}" alt="bulles">Les Bulles de Liberté</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,13 +24,17 @@
                     <li class="nav-item active">
                         <a class="nav-link text-light" href="{{ path('main') }}">ACCUEIL<span class="sr-only">(current)</span></a>
                     </li>
+
+                    <li class="nav-item d-xl-none">
+                        <a class="nav-link text-light" href="{{ path('donation') }}">FAIRE UN DON</a>
+                    </li>
+
                     <li class="nav-item dropdown benevole-button">
                         <div class="navbar-networks">
                             <a href="https://www.facebook.com/lesbullesdeliberte/" title="Lien vers notre page Facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" title="Lien vers notre page Twitter"><i class="fab fa-twitter"></i></a>
                             <a href="#" title="Lien vers notre compte Instagram"><i class="fab fa-instagram"></i></a>
                         </div>
-                        <a class="nav-link dropdown-toggle text-light w-100" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% if app.user %}{{ app.user.firstname }} {{ app.user.name }}{% else %}ESPACE BÉNÉVOLE{% endif %}</a>
+                        <a class="nav-link dropdown-toggle text-light w-100 benevole-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% if app.user %}{{ app.user.firstname }} {{ app.user.name }}{% else %}ESPACE BÉNÉVOLE{% endif %}</a>
                         <div class="dropdown-menu my-0 dropdown-benevole" aria-labelledby="navbarDropdown">
                             {% if app.user %}
                                 {% if is_granted('ROLE_ADMIN') %}<a class="dropdown-item" href="{{ path('admin') }}">ADMIN</a>{% endif %}
@@ -44,6 +48,7 @@
                             {% endif %}
                         </div>
                     </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ÉVÉNEMENTS</a>
                         <div class="dropdown-menu my-0" aria-labelledby="navbarDropdown2">
@@ -71,25 +76,21 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ path('contact') }}">CONTACT</a>
                     </li>
+                    <li class="nav-item d-none d-xl-block">
+                        <div class="banner-img w-100 h-100">
+                            <a href="{{ path('donation') }}"title="Lien vers la page de don">
+                                <!-- Bouton de don -->
+                                <div class="d-block bg-white donation m-0">
+                                    <img src="{{asset('images/main//faireundon.png')}}" alt="Faire un Don">
+                                </div>
+                            </a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
 
-        <div class="container-fluid px-0 mb-5">
-            <!-- Bannière -->
-            <div class="row mx-0">
-                <div class="col-12 banner px-0">
-                    <div class="banner-img w-100 h-100 d-flex justify-content-center align-items-center">
-                    {% block indexh1 %}{% endblock %}
-                    <a href="{{ path('donation') }}" class="position-absolute mx-1 mr-xl-5" title="Lien vers la page de don">
-                            <!-- Bouton de don -->
-                            <div class="d-block bg-white donation d-flex justify-content-center align-items-center m-0">
-                                <img src="{{asset('images/main//faireundon.png')}}" alt="Faire un Don">
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="container-fluid px-0 pb-xl-5 mb-xl-5">
 
             {% block body %}{% endblock %}
 
@@ -129,7 +130,6 @@
                 </div>
                 <div class="social-networks d-flex">
                     <a href="https://www.facebook.com/lesbullesdeliberte/"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>

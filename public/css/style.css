@@ -28,6 +28,10 @@
     font-family: 'Suntowns';
     src: url('../fonts/Suntowns/Suntowns.otf');
 }
+@font-face{
+    font-family: 'Oswald';
+    src: url('../fonts/Oswald/Oswald-Regular.ttf')
+}
 
 /* Paramètres généraux */
 body{
@@ -37,7 +41,6 @@ body{
 .container-fluid, html{
     position: relative;
     min-height: 100%;
-    padding-bottom: 10vh;
 }
 
 /* Navbar */
@@ -62,6 +65,7 @@ body{
     background-color: #212121;
     border: none;
     z-index: 1000;
+    font-family: 'Oswald', 'Courier New', Courier, monospace;
 }
 
 .dropdown-item{
@@ -77,6 +81,17 @@ body{
     display: none;
 }
 
+.nav-link{
+    font-family: 'Oswald', 'Courier New', Courier, monospace;
+}
+
+.dropdown-benevole .dropdown-item{
+    color: white !important;
+}
+.dropdown-benevole .dropdown-item:hover{
+    background-color: #212121 !important;
+}
+
 /* Bannière */
 .banner{
     height: 100px;
@@ -87,10 +102,6 @@ body{
     font-size: 6vw;
     margin-bottom: 0;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
-}
-.banner-img{
-    background-image: url("../images/main/fondbulle.png");
-    background-size: cover;
 }
 
 /* Bouton de Don */
@@ -115,38 +126,34 @@ body{
 }
 
 /* Bienvenue */
+.welcome-benevole{
+    background-image: url('../images/main/fondbulle.png');
+    background-position-x: center ;
+}
+
 .welcome{
-    background-image: url('../images/main/fondbienvenue.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 30%, 50%;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .welcome h2, p{
-    font-family: 'Letter Gothic Std', Arial, Helvetica, sans-serif;
+    font-family: 'Oswald', Arial, Helvetica, sans-serif;
 }
 .welcome p{
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 .welcome a{
-    color: #212529;
+    color: white;
+    background-color: #212121;
     right: 0;
     bottom: 0;
-    font-family: 'Goldberg', Arial, Helvetica, sans-serif;
+    font-family: 'Oswald', Arial, Helvetica, sans-serif;
     letter-spacing: 0.1rem;
 }
 
 /* Devenir Bénévole */
 .benevole{
-    background-image: url('../images/main/fondbenevolemobile.png');
-    background-size: cover;
     color: white !important;
-    transition: background-image all 0.3s;
-    -webkit-transition: background-image all 0.3s;
-    -moz-transition: background-image all 0.3s;
-    -ms-transition: background-image all 0.3s;
-    -o-transition: background-image all 0.3s;
 }
 
 .benevole:hover{
@@ -155,20 +162,13 @@ body{
 
 .benevole a{
     color: white;
-    font-family: 'Goldberg', Arial, Helvetica, sans-serif;
-    letter-spacing: 0.1rem;
+    font-family: 'Oswald', Arial, Helvetica, sans-serif;
 }
 
-.benevole h2{
-    font-family: 'Suntowns', Arial, Helvetica, sans-serif;
-    font-size: 4rem;
-    margin-top: -10px;
-    margin-bottom: -20px;
-}
-
-.benevole h3{
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 2.5rem;
+.benevole a h3{
+    font-family: 'Oswald';
+    font-size: 1.7rem;
+    background-color: black;
 }
 
 .benevole-button{
@@ -181,6 +181,7 @@ body{
     margin: 0 !important;
     padding-left: 0;
     padding-right: 0;
+    border: none;
     border-radius: 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -190,8 +191,9 @@ body{
 
 .card-img-top{
     object-fit: cover;
+    border: none;
     width: 100%;
-    height: 40vh !important;
+    height: 50vh !important;
     overflow: hidden;
 }
 
@@ -205,7 +207,7 @@ body{
 }
 
 .card-title{
-    font-family: 'The Micrander', Arial, Helvetica, sans-serif;
+    font-family: 'Oswald', Arial, Helvetica, sans-serif;
     font-size: 2rem;
     color: rgb(231, 220, 220);
     text-align: center;
@@ -227,8 +229,9 @@ body{
 
 /* Footer */
 footer{
-    background-color: #3D3D3D;
+    background-color: #212121;
     bottom: 0;
+    font-family: 'Oswald', 'Courier New', Courier, monospace;
 }
 
 .logo-nb{
@@ -247,9 +250,9 @@ footer{
 }
 
 .address{
-    font-family: 'Letter Gothic Std', Arial, Helvetica, sans-serif;
+    font-family: 'Oswald', 'Courier New', Courier, monospace;
     color: white;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
 }
 
 /* Réseaux sociaux */
@@ -381,34 +384,18 @@ footer{
 /* MEDIA QUERIES */
 
 /* Taille tablette */
-@media screen and (min-width:720px){
-
-    .banner{
-        height: 20vh !important;
-    }
-
-    .banner-img{
-        height: 20vh !important;
-    }
-
-    .card img{
-        height: 50vh;
-    }
-
-
-}
-
-/* 768px */
 @media screen and (min-width:768px){
-    /* Bienvenue et Bénévole */
-    .welcome-benevole{
-        height: 30vh;
+    .navbar-brand{
+        font-size: 4rem;
+        padding-left: 10vw;
     }
 
-    .welcome{
-        margin-left: 10px;
-        height: 80%;
+    /* Bienvenue et Bénévole */
+
+    .welcome-benevole{
+        background-position: center;
     }
+
     .welcome p{
         padding: 0 30px;
         font-size: 1rem;
@@ -423,29 +410,25 @@ footer{
     }
 
     .benevole{
-        background-image: url('../images/main/fondbenevole.png');
-        background-size: cover;
-        background-position: center;
         color: white !important;
-        position: absolute;
-        right: 0;
-        margin-right: 10px;
-        margin-top: 20px;
-        height: 27vh;
     }
+    .benevole a h3{
+        background-color: black !important;
+    }
+
+    .welcome{
+        margin-left: 4vw;
+        margin-top: 2vw;
+        margin-bottom: 2vw;
+    }
+
 
     /* Cards */
     .card{
         background-color: #212121;
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -ms-border-radius: 5px;
-        -o-border-radius: 5px;
         padding: 10px;
-        border: 1px solid white;
         color: white;
-    }
+}
 
     .card a{
         text-decoration: none !important;
@@ -478,28 +461,6 @@ footer{
 /* Taille ordi */
 @media screen and (min-width: 1200px){
 
-    /* Bannière */
-    .banner{
-        height: 20vh !important;
-    }
-
-    .banner-img{
-        position: relative;
-        height: 20vh !important;
-    }
-
-    .fun-title{
-        font-size: 4vw;
-        align-self: flex-end;
-        margin-bottom: 7vh;
-    }
-
-    .banner-img a{
-        align-self: flex-end;
-        margin-bottom: 5vh;
-    }
-
-
     /* Bouton */
     .donation{
         position: absolute;
@@ -512,36 +473,41 @@ footer{
 
     /* Navbar */
     .navbar{
-        position: absolute;
-        z-index: 1;
-        width: 95%;
-        height: 15vh;
-        align-items: flex-end;
-        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
     }
 
     .nav-item{
         padding: 0 10px;
+        background-color: white;
+    }
+    .navbar .nav-link:not(.benevole-link){
+        background-color: white;
+        color: black !important;
+    }
+
+    .nav-link, .dropdown-item{
+        font-size: 1.5rem;
+    }
+
+    .nav-link a{
+        color: black;
     }
 
     .navbar-nav{
         background-color: #212121;
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -ms-border-radius: 5px;
-        -o-border-radius: 5px;
         position: relative;
     }
 
     .navbar-title{
-        align-self: flex-start;
-        font-size: 3rem;
+        align-self: center;
+        font-size: 6rem;
         text-shadow: 0.5px 0.5px 1px black;
+        padding-left: 0;
     }
-
-    .navbar-dark .navbar-nav .nav-link {
-        color: white !important;
+    .navbar-title img{
+        max-height: 8vw;
     }
 
     .benevole-button .navbar-networks{
@@ -554,12 +520,15 @@ footer{
         position: fixed;
         top: 0;
         right: 0;
-        background-color: #3d3d3d;
         border-bottom-left-radius: 20px;
+        background-color: #3d3d3d !important;
+
     }
 
     .benevole-button .nav-link{
         margin: 0 2vw;
+        background-color: #3d3d3d !important;
+
     }
 
     .benevole-button .nav-link:hover{
@@ -575,62 +544,75 @@ footer{
         text-align: end;
         right: 0;
         left: auto;
-        background-color: #3D3D3D;
+        background-color: #3D3D3D !important;
     }
 
-    .dropdown-benevole .dropdown-item:hover{
-        background-color: #212121;
+    .dropdown-benevole a{
+        background-color: #3D3D3D !important;
+        color: white !important;
+    }
+
+    .dropdown-menu:not(.dropdown-benevole){
+        background-color: white !important;
+    }
+
+    .dropdown-menu a{
+        background-color: white;
+        color: black !important;
+    }
+
+    .dropdown-item:focus, .dropdown-item:hover, .nav-link:focus, .nav-link:hover{
+        background-color: whitesmoke;
     }
 
     /* Bienvenue et welcome */
     .welcome-benevole{
-        height: 45vh;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-around;
+        height: 50vh;
     }
 
     .welcome{
-        height: 90%;
         display: flex;
         flex-direction: column;
+        justify-content: space-around;
+        height: 80%;
     }
 
     .welcome h2{
-        font-size: 2.5rem;
+        font-size: 4rem;
+        align-self: center;
     }
 
     .welcome p{
-        font-size: 1.3vw;
+        font-size: 2vw;
+    }
+
+    .welcome a {
+        position: relative !important;
+        align-self: flex-end;
+        font-size: 2rem;
     }
 
     .benevole{
         position: relative;
-        height: 90%;
-        margin-right: 0;
-        margin-top: 0;
+    }
 
+    .benevole a h3{
+        font-size: 3rem;
+    }
+
+    /* DON */
+    .donation{
+        right: auto;
+        bottom: -40px;
     }
 
     /* Cards */
-    .card{
-        padding: 50px;
-        color: black !important;
-    }
 
     .zoom{
         overflow: hidden;
-    }
-
-    .card-body{
-        position: relative !important;
-        background-color: white;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-    }
-
-    .card-title, .text-muted{
-        color: black !important;
     }
 
     .card img{
@@ -684,6 +666,7 @@ footer{
 
     .sitemap ul li a{
         text-decoration: none;
+        font-size: 1.5rem;
         color: white;
         padding: 5px 12px;
         border-radius: 5px;

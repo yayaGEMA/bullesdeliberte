@@ -2,25 +2,6 @@
 
 {% block title %}Les Bulles de Liberté - Bienvenue !{% endblock %}
 
-{% block stylesheets %}
-    <style>
-        @media screen and (min-width: 1200px){
-            .banner-img, .banner{
-                height: 40vh !important;
-            }
-            .donation{
-                bottom: 0vw;
-            }
-        }
-    </style>
-{% endblock %}
-
-
-{% block indexh1 %}
-    <!-- Bannière -->
-    <h1 class="text-light fun-title"><strong>LOISIRS POUR TOUS</strong></h1>
-{% endblock %}
-
 {% block body %}
 
     {# Affichage des messages flashs de type "success" si il y en a #}
@@ -32,26 +13,23 @@
 
     <!-- Bienvenue et Bénévoles -->
     <div class="row welcome-benevole w-100 ml-0">
-        <div class="col-12 col-md-8 col-xl-6 welcome p-3 position-relative w-100">
+        <div class="col-12 col-md-6 col-xl-6 welcome p-3 position-relative w-100">
             <h2>BIENVENUE</h2>
-            <p class="mt-xl-5">Notre projet :</p>
-            <p class="mb-4">Contribuer à offrir à tous l'accès aux loisirs, la possibilité de partager un moment convivial et privilégié ou encore de faire des rencontres...</p>
-            <a href="{{ path('presentation') }}" class="block position-absolute mx-4 my-2 mb-xl-4">LIRE PLUS ></a>
+            <p class="mb-4">Nous avons décidé de créer l'association les Bulles de Liberté (loi 1901) afin de créer des événements, sorties, loisirs, pour des personnes en situation de handicap...</p>
+            <a href="{{ path('presentation') }}" class="block position-absolute mx-4 my-2 mb-xl-4 px-2 rounded">EN SAVOIR PLUS</a>
         </div>
-        <div class="col-12 col-md-4 col-xl-2 offset-xl-1 benevole text-center py-4 py-md-0 d-md-flex flex-column justify-content-center">
-            <a href={% if app.user %}"#"{% else %}"{{ path('app_register') }}"{% endif %}><h2>Devenir</h2>
-            <h3>Bénévole</h3></a>
-            <a href={% if app.user %}"#"{% else %}"{{ path('app_register') }}"{% endif %} class="mt-md-5">Rejoignez-nous ></a>
+        <div class="col-12 col-md-5 benevole text-center py-4 py-md-0 ml-md-3 d-md-flex flex-column justify-content-center">
+            <a class="d-block d-flex justify-content-center mx-3 mx-xl-5" href={% if app.user %}"#"{% else %}"{{ path('app_register') }}"{% endif %}><h3 class="rounded m-0 col-9 col-md-11 col-xl-8 py-1 py-md-2 px-2">DEVENIR BENEVOLE</h3></a>
         </div>
     </div>
 
     <!-- Cards -->
-    <div class="row w-100 ml-0 my-md-5 position-relative">
+    <div class="row w-100 ml-0 position-relative mb-xl-4">
         <div class="w-100 h-100 p-0">
-            <div class="card-group col-xl-10 offset-xl-1 p-0">
+            <div class="card-group col-xl-12 p-0">
                 {# Pour chaque article envoyé par le Repo, on crée une card #}
                 {% for article in index_articles %}
-                    <div class="col-12 col-sm-6 col-xl-3 p-0 px-xl-4">
+                    <div class="col-12 col-sm-6 col-xl-3 p-0">
                         <a href="{{ path('event', {slug: article.slug}) }}">
                             <div class="card p-0 position-relative h-100">
                                 <div class="zoom">
@@ -59,7 +37,6 @@
                                 </div>
                                 <div class="card-body position-absolute w-100 d-flex flex-column justify-content-between">
                                     <h5 class="card-title">{{ article.title }}</h5>
-                                    <p class="card-text d-none d-xl-block">{{ article.description|striptags|slice(0, 70) ~ '...' }}</p>
                                     <p class="card-text text-center"><small class="text-muted text-light">Le {{ article.dateBeginning|format_datetime('medium', 'short', locale='fr') }}</small></p>
                                 </div>
                             </div>
