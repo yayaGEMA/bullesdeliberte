@@ -12,10 +12,10 @@
 
 {% block body %}
 
-    <h1 class="text-light text-center mt-4">Ajout d'évènement</h1>
+    <h1 class="text-body text-center mt-4">Ajout d'évènement</h1>
 
-    <div class="row w-100 ml-0">
-        <div class="col-10 offset-1 col-md-8 offset-md-2 text-light text-center">
+    <div class="row w-100 ml-0 mb-4">
+        <div class="col-10 offset-1 col-md-8 offset-md-2 text-body text-center">
             {{ form_start(form) }}
                 {{form_row(form.title)}}
                 {{form_row(form.description)}}
@@ -26,7 +26,6 @@
                     {{form_row(form.dateEnd)}}
                 </div>
                 {{form_row(form.details)}}
-                {{form_row(form.missions)}}
             {{ form_end(form) }}
         </div>
     </div>

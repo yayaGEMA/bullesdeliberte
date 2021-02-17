@@ -32,14 +32,14 @@
     {# Titre #}
     <div class="row w-100 my-3 ml-0">
         <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
-            <h1 class="text-light">{{ event.title }}</h1>
+            <h1 class="text-body">{{ event.title }}</h1>
         </div>
     </div>
 
     {# Dates #}
     <div class="row w-100 my-3 ml-0">
         <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
-            <h4 class="text-light">Du {{ event.dateBeginning|format_datetime('short', 'short', locale='fr') }}<br>au {{ event.dateEnd|format_datetime('short', 'short', locale='fr') }}</h4>
+            <h4 class="text-body">Du {{ event.dateBeginning|format_datetime('short', 'short', locale='fr') }}<br>au {{ event.dateEnd|format_datetime('short', 'short', locale='fr') }}</h4>
         </div>
     </div>
 
@@ -63,7 +63,7 @@
         {# Détails #}
         <div class="row w-100 ml-0">
             <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
-                <h4 class="text-light">Détails</h4>
+                <h4 class="text-body">Détails</h4>
             </div>
         </div>
 
@@ -75,93 +75,11 @@
         </div>
     {% endif %}
 
-    {# Partie bénévoles #}
-    {% if app.user %}
-        {% if event.missions is not null %}
-            <hr class="bg-light col-lg-4 offset-lg-4 ml-auto">
-
-            <div class="row w-100 ml-0">
-                <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
-                    <h4 class="text-light">Missions Bénévoles</h4>
-                </div>
-            </div>
-
-            <div class="row w-100 ml-0">
-                <div class="col-8 offset-2 col-lg-4 offset-lg-4
-                d-flex flex-column flex-md-row">
-                    <div class="description">{{ event.missions|purify }}</div>
-                </div>
-            </div>
-        {% endif %}
-
-        {% if event.dateEnd > date() %}
-        <div class="row w-100 ml-0 my-4">
-            <div class="col-10 col-md-4 offset-md-4 offset-1 d-flex flex-column mb-4">
-                <a href="{{ path('event_participation', {id: event.id}) }}" class="d-inline-block participation-link h-75 text-center">
-                    {% if app.user and event.willCome(app.user) %}
-                        <p class="btn btn-secondary participation m-0 participated w-100">Participation ajoutée</p>
-                    {% else %}
-                        <p class="btn btn-primary participation m-0 w-100">JE PARTICIPE !</p>
-                    {% endif %}
-                </a>
-
-                {% if is_granted('ROLE_ADMIN') %}
-                    <span class="p-count text-light text-center mt-2">
-                        {{ event.participationsCounter }} participant{% if event.participationsCounter > 1 %}s{% endif %}
-                    </span>
-                {% endif %}
-            </div>
-        </div>
-
-        {% endif %}
-    {% endif %}
-
-    {# Partie admin avec liste de bénévoles #}
-    {% if is_granted('ROLE_ADMIN') and event.participationsCounter > 0 %}
-        <hr class="bg-light col-lg-4 offset-lg-4 ml-auto">
-
-        <div class="row w-100 ml-0">
-            <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
-                <h4 class="text-danger">Section Admin</h4>
-            </div>
-        </div>
-
-        <div class="row w-100 ml-0 mb-4">
-            <div class="col-12 col-md-8 offset-md-2 text-center">
-                <h5 class="text-light">Participants</h5>
-            </div>
-        </div>
-
-        <div class="row w-100 ml-0">
-            <div class="col-12 col-md-4 offset-md-4">
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Prénom NOM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for participation in event.participations %}
-                        <tr>
-                            <th scope="row">{{ loop.index }}</th>
-                            <td>{{ participation.user.firstname }} {{ participation.user.name }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <hr class="bg-light col-lg-4 offset-lg-4 ml-auto">
-
-    {% endif %}
-
     {# Galerie photos #}
     {% if event.galleries|length > 0 %}
         <div class="row w-100 ml-0 mt-4">
             <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
-                <h4 class="text-light">Galerie photos</h4>
+                <h4 class="text-body">Galerie photos</h4>
             </div>
         </div>
         <div class="row w-100 ml-0 mb-5">

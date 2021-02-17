@@ -12,7 +12,7 @@
 
     <div class="row w-100 my-3 ml-0">
         <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
-            <h1 class="text-light">Qui Sommes-Nous</h1>
+            <h1 class="text-body">Qui Sommes-Nous</h1>
         </div>
     </div>
 
@@ -20,7 +20,7 @@
         <div class="col-10 offset-1 col-lg-6 offset-md-3">
             <div class="description">
                 {% if text is null %}
-                    <p class="text-light text-center">Aucun contenu dans la page pour le moment !</p>
+                    <p class="text-body text-center">Aucun contenu dans la page pour le moment !</p>
                 {% else %}
                     {{ text.content|purify }}
                 {% endif %}
@@ -38,7 +38,7 @@
         </div>
 
         <div class="row w-100 my-3 ml-0">
-            <div class="col-12 col-lg-6 offset-lg-3 text-light">
+            <div class="col-12 col-lg-6 offset-lg-3 text-body">
                 {{ form(form) }}
             </div>
         </div>

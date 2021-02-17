@@ -13,11 +13,11 @@
 {% block body %}
 
     <div class="row w-100 ml-0">
-        <h1 class="col-12 text-center text-light my-4">Modifier un article</h1>
+        <h1 class="col-12 text-center text-body my-4">Modifier un article</h1>
     </div>
 
-    <div class="row w-100 ml-0">
-        <div class="col-10 offset-1 col-md-8 offset-md-2 text-light">
+    <div class="row w-100 ml-0 mb-3">
+        <div class="col-10 offset-1 col-md-8 offset-md-2 text-body">
             {# Affichage du form de création d'un new article #}
             {{ form_start(form) }}
                 {{form_row(form.title)}}
@@ -27,7 +27,6 @@
                     {{form_row(form.dateEnd)}}
                 </div>
                 {{form_row(form.details)}}
-                {{form_row(form.missions)}}
 
                 {# Si la route est "edit", on affiche les images #}
                 {% if app.request.attributes.get('_route') == "edit" %}

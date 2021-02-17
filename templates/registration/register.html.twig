@@ -7,26 +7,20 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <div class="row w-100">
-        <h1 class="col-8 offset-2 col-lg-4 offset-lg-4 text-light text-center mt-3">Bienvenue parmi les Bulles</h1>
+    <div class="row w-100 ml-0">
+        <h1 class="col-8 offset-2 col-lg-4 offset-lg-4 text-body text-center mt-3">Bienvenue parmi les Bulles</h1>
     </div>
 
-    <div class="row w-100 my-2">
-        <p class=" col-8 offset-2 col-lg-4 offset-lg-4 text-center text-light small">Tous les champs comportant un astérisque (*) sont obligatoires.</p>
+    <div class="row w-100 my-2 ml-0">
+        <p class=" col-8 offset-2 col-lg-4 offset-lg-4 text-center text-body small">Tous les champs comportant un astérisque (*) sont obligatoires.</p>
     </div>
 
-    <div class="row w-100 mb-5">
-        <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-lg-4 offset-lg-4 text-light mb-5">
+    <div class="row w-100 mb-5 ml-0">
+        <div class="col-12 col-sm-8 offset-sm-2 col-lg-4 offset-lg-4 text-body mb-5">
             {{ form_start(registrationForm) }}
-                {{ form_row(registrationForm.firstname) }}
-                {{ form_row(registrationForm.name) }}
                 {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.phone) }}
-                {{ form_row(registrationForm.birthdate) }}
                 {{ form_row(registrationForm.plainPassword) }}
-                {{ form_row(registrationForm.motivation) }}
-                {{ form_row(registrationForm.agreeTerms) }}
-                <div class="form-group d-flex justify-content-center">
+                <div class="form-group g-recaptcha-parent">
                     <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
                 </div>
             {{ form_end(registrationForm) }}

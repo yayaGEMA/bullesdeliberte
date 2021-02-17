@@ -58,16 +58,6 @@ class Article
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="article", orphanRemoval=true)
-     */
-    private $participations;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $participations_counter;
-
-    /**
      * @ORM\OneToMany(targetEntity=Gallery::class, mappedBy="article", orphanRemoval=true)
      */
     private $galleries;
@@ -77,14 +67,8 @@ class Article
      */
     private $details;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $missions;
-
     public function __construct()
     {
-        $this->participations = new ArrayCollection();
         $this->galleries = new ArrayCollection();
     }
 
@@ -178,65 +162,6 @@ class Article
     }
 
     /**
-     * @return Collection|Participation[]
-     */
-    public function getParticipations(): Collection
-    {
-        return $this->participations;
-    }
-
-    public function addParticipation(Participation $participation): self
-    {
-        if (!$this->participations->contains($participation)) {
-            $this->participations[] = $participation;
-            $participation->setArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipation(Participation $participation): self
-    {
-        if ($this->participations->contains($participation)) {
-            $this->participations->removeElement($participation);
-            // set the owning side to null (unless already changed)
-            if ($participation->getArticle() === $this) {
-                $participation->setArticle(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Permet de savoir si un User participera à cet événement
-     * 
-     * @param User $user
-     * @return boolean
-     */
-    public function willCome(User $user) : bool
-    {
-        foreach ($this->participations as $participation){
-            if($participation->getUser() === $user){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function getParticipationsCounter(): ?int
-    {
-        return $this->participations_counter;
-    }
-
-    public function setParticipationsCounter(int $participations_counter): self
-    {
-        $this->participations_counter = $participations_counter;
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Gallery[]
      */
     public function getGalleries(): Collection
@@ -278,16 +203,5 @@ class Article
 
         return $this;
     }
-
-    public function getMissions(): ?string
-    {
-        return $this->missions;
-    }
-
-    public function setMissions(?string $missions): self
-    {
-        $this->missions = $missions;
-
-        return $this;
-    }
+    
 }

@@ -10,21 +10,21 @@
     {# Affichage des messages flashs de type "error" si il y en a #}
     {% include 'partials/flashes/error.html.twig' %}
 
-    <div class="row w-100 my-3 mx-0">
+    <div class="row w-100 my-3 mx-0 bg-h1">
         <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center">
-            <h1 class="text-light text-center">Documentation</h1>
+            <h1 class="text-body text-center my-2">DOCUMENTATION</h1>
         </div>
     </div>
 
     {% if is_granted('ROLE_ADMIN') %}
     <div class="row w-100 mx-0">
         <div class="col-8 offset-2 col-lg-4 offset-lg-4 text-center">
-            <h2 class="text-light">Ajouter un nouveau document</h2>
+            <h2 class="text-body">Ajouter un nouveau document</h2>
         </div>
     </div>
 
     <div class="row w-100 mx-0">
-        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-light my-4">
+        <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-body my-4">
             {{ form_start(form) }}
                 {{ form_row(form.file) }}
                 {{ form_row(form.name) }}
@@ -36,7 +36,7 @@
 
     <div class="row w-100 mb-5 mx-0">
         <div class="col-12 col-lg-4 offset-lg-4 text-center">
-            <h2 class="text-light">Liste des documents disponibles</h2>
+            <h2 class="text-body">Liste des documents disponibles</h2>
         </div>
     </div>
 
@@ -50,7 +50,7 @@
                 {% endif %}
             </div>
             <div class="col-10 offset-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-                <p class="font-italic text-light small my-auto">(format : {{document.extension}}, taille : {{document.size}})</p>
+                <p class="font-italic text-body small my-auto">(format : {{document.extension}}, taille : {{document.size}})</p>
             </div>
         </div>
     {% endfor %}
@@ -59,7 +59,7 @@
     {% if documents|length < 1 %}
         <div class="row w-100 mb-5 mx-0">
             <div class="col-12 col-lg-4 offset-lg-4 text-center">
-                <p class="text-light">Aucun document pour le moment.</p>
+                <p class="text-body">Aucun document pour le moment.</p>
             </div>
         </div>
     {% endif %}
@@ -73,7 +73,7 @@
 
     <div class="row w-100 my-5 mx-0">
         <div class="col-10 offset-1 col-lg-4 offset-lg-4 text-center mb-5">
-            <p class="text-light text-center">Vous avez besoin d'un document qui ne se trouve pas dans cette liste ? Merci de nous <a href="{{ path('contact') }}">contacter</a>.</p>
+            <p class="text-body text-center">Vous avez besoin d'un document qui ne se trouve pas dans cette liste ? Merci de nous <a href="{{ path('contact') }}">contacter</a>.</p>
         </div>
     </div>
 

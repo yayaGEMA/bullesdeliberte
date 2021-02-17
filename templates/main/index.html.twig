@@ -12,14 +12,40 @@
 
 
     <!-- Bienvenue et Bénévoles -->
+
+    <div class="row w-100 ml-0">
+        <img src="{{ asset('images/main/imagebulleentete.png') }}" alt="img-bulles-entete" class="img-fluid block img-bulles">
+    </div>
+
     <div class="row welcome-benevole w-100 ml-0">
-        <div class="col-12 col-md-6 col-xl-6 welcome p-3 position-relative w-100">
-            <h2>BIENVENUE</h2>
-            <p class="mb-4">Nous avons décidé de créer l'association les Bulles de Liberté (loi 1901) afin de créer des événements, sorties, loisirs, pour des personnes en situation de handicap...</p>
-            <a href="{{ path('presentation') }}" class="block position-absolute mx-4 my-2 mb-xl-4 px-2 rounded">EN SAVOIR PLUS</a>
+        <div class="col-12 col-md-5 col-xl-7 welcome p-3 position-relative w-100">
+            <h2 class="mb-4 text-center">Bienvenue chez les Bulles de Liberté</h2>
+            <p class="mb-0">Nous avons décidé de créer l'association les Bulles de Liberté (loi 1901) afin de créer des événements, sorties, loisirs, pour des personnes en situation de handicap...</p>
+            <p class="mb-4">Nous nous sommes aperçus que les loisirs prenaient de plus en plus de place dans notre société, mais que peu étaient adaptés aux personnes en situation de handicap.</p>
+            <p class="mb-4 d-none d-md-block">Nous souhaitons via nos événements permettre aux personnes de s'évader le temps d'un moment et ainsi partager et échanger avec d'autres membres.</p>
+            <div class="text-center">
+                <a href="{{ path('presentation') }}" class="block px-3 py-2 rounded">EN SAVOIR PLUS</a>
+            </div>
         </div>
-        <div class="col-12 col-md-5 benevole text-center py-4 py-md-0 ml-md-3 d-md-flex flex-column justify-content-center">
-            <a class="d-block d-flex justify-content-center mx-3 mx-xl-5" href={% if app.user %}"#"{% else %}"{{ path('app_register') }}"{% endif %}><h3 class="rounded m-0 col-9 col-md-11 col-xl-8 py-1 py-md-2 px-2">DEVENIR BENEVOLE</h3></a>
+        <div class="col-12 col-md-6 col-xl-4 benevole text-center py-4 py-md-0 ml-md-3 d-flex flex-column justify-content-center">
+            <div class="d-block mx-3 mx-xl-5 bg-white">
+                <h3 class="benevole-title m-0 my-2 rounded">DEVENIR BENEVOLE</h3>
+                <div class="form-div px-2 px-xl-5 d-none d-md-block text-left">
+                    {{ form_start(form) }}
+                    <div class="d-none">
+                        {{ form_row(form.objet) }}
+                    </div>
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.email) }}
+                    <div class="content-form">
+                        {{ form_row(form.content) }}
+                    </div>
+                    <div class="form-group g-recaptcha-parent">
+                        <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}"></div>
+                    </div>
+                {{ form_end(form) }}
+                </div>
+            </div>
         </div>
     </div>
 
@@ -37,7 +63,7 @@
                                 </div>
                                 <div class="card-body position-absolute w-100 d-flex flex-column justify-content-between">
                                     <h5 class="card-title">{{ article.title }}</h5>
-                                    <p class="card-text text-center"><small class="text-muted text-light">Le {{ article.dateBeginning|format_datetime('medium', 'short', locale='fr') }}</small></p>
+                                    <p class="card-text text-center"><small class="text-muted text-body">Le {{ article.dateBeginning|format_datetime('medium', 'short', locale='fr') }}</small></p>
                                 </div>
                             </div>
                         </a>
@@ -47,15 +73,14 @@
                 {% if index_articles|length < 4 %}
                 {# on en crée des faux jusqu'à en avoir 4 #}
                     {% for i in 1..(4 - index_articles|length) %}
-                        <div class="col-12 col-sm-6 col-xl-3 p-0 px-xl-4">
+                        <div class="col-12 col-sm-6 col-xl-3 p-0">
                             <div class="card p-0 position-relative h-100">
                                 <div class="zoom">
                                     <img src="{{ asset('images/main/fakeArticles/eventToCome' ~ loop.index ~ '.jpg' ) }}" class="card-img-top h-100" alt="...">
                                 </div>
                                 <div class="card-body position-absolute w-100 d-flex flex-column justify-content-between">
-                                    <h5 class="card-title">Événement à venir</h5>
-                                    <p class="card-text d-none d-xl-block">Un nouvel événement arrivera prochainement...</p>
-                                    <p class="card-text text-center"></p>
+                                    <h5 class="card-title">ÉVÉNEMENT À VENIR</h5>
+                                    <p class="card-text d-none d-xl-block text-center">Un nouvel événement arrivera prochainement...</p>
                                 </div>
                             </div>
                         </div>
@@ -64,4 +89,13 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/index.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {# Insertion du fichier JS dans le block stylesheets, ce n'est pas une erreur, la documentation de Recaptcha préconise en effet d'intégrer ce fichier JS dans le head #}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 {% endblock %}

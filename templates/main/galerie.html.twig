@@ -6,14 +6,14 @@
 
     <div class="row my-3 w-100 ml-0">
         <div class="col-12 col-md-8 offset-md-2 col-lg-4 offset-lg-4 text-center">
-            <h1 class="text-light">Galerie photos</h1>
+            <h1 class="text-body">Galerie photos</h1>
         </div>
     </div>
 
     {% for article in articles %}
         <div class="row mx-0 my-2 ml-0">
             <div class="col-12 col-md-8 offset-md-2">
-                <a href="{{ path('event', {slug:article.slug}) }}"><h2 class="text-light">{{ article.title }}</h2></a>
+                <a href="{{ path('event', {slug:article.slug}) }}"><h2 class="text-body">{{ article.title }}</h2></a>
             </div>
             <div class="col-12 col-md-8 offset-md-2 mb-2 d-flex flex-wrap img-parent">
                 {% for galleryImage in article.galleries %}
@@ -27,7 +27,7 @@
         {% if galleryIsNull|length < 1 %}
         <div class="row w-100 my-5 mx-0">
             <div class="col-12 col-lg-4 offset-lg-4 text-center">
-                <p class="text-light">Aucun photo dans la galerie pour le moment.</p>
+                <p class="text-body">Aucun photo dans la galerie pour le moment.</p>
             </div>
         </div>
     {% endif %}

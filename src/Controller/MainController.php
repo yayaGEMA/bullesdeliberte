@@ -15,8 +15,6 @@ use \DateTime;
 use App\Entity\User;
 use App\Entity\Gallery;
 use Knp\Component\Pager\PaginatorInterface;
-use App\Entity\Participation;
-use App\Repository\ParticipationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,16 +22,21 @@ use App\Entity\Document;
 use App\Form\DocumentType;
 use App\Entity\PageText;
 use App\Form\PageTextType;
-use App\Entity\Reunion;
-use App\Entity\ReunionRepository;
-use App\Form\ReunionType;
+use Symfony\Component\Mailer\MailerInterface;
+use App\Entity\Contact;
+use App\Form\ContactType;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mime\Address;
+use App\Recaptcha\RecaptchaValidator;
+use Symfony\Component\Form\FormError;
+
 
 class MainController extends AbstractController
 {
     /**
      * @Route("", name="main")
      */
-    public function index()
+    public function index(MailerInterface $mailer, Request $request, RecaptchaValidator $recaptcha)
     {
         // Récupération du repository des articles
         $articleRepo = $this->getDoctrine()->getRepository(Article::class);
@@ -41,8 +44,33 @@ class MainController extends AbstractController
         // On demande au repository de nous donner les articles les plus récents
         $indexArticles = $articleRepo->findFourLatest();
 
+        $contact = new Contact();
+
+        $form = $this->createForm(ContactType::class, $contact);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted())
+        {
+            // Si le captcha n'est pas valide, on crée une nouvelle erreur dans le formulaire (ce qui l'empêchera de créer l'article et affichera l'erreur)
+            // $request->request->get('g-recaptcha-response')  -----> code envoyé par le captcha dont la méthode verify() a besoin
+            // $request->server->get('REMOTE_ADDR') -----> Adresse IP de l'utilisateur dont la méthode verify() a besoin
+            if(!$recaptcha->verify( $request->request->get('g-recaptcha-response'), $request->server->get('REMOTE_ADDR') )){
+
+                // Ajout d'une nouvelle erreur manuellement dans le formulaire
+                $form->addError(new FormError('Le Captcha doit être validé !'));
+            }
+
+            // On remplie la case Objet du form qui est cachée
+
+            if ($form->isValid()){
+                TODO: dump('ok');
+            }
+        }
+
         return $this->render('main/index.html.twig', [
-            'index_articles' => $indexArticles
+            'index_articles' => $indexArticles,
+            'form' => $form->createView()
         ]);
     }
 
@@ -105,19 +133,11 @@ class MainController extends AbstractController
                 $entityManager->persist($img);
             }
 
-            $participation = new Participation();
-
             // Hydratation de l'article
-            $newArticle
-                ->setPublicationDate( new DateTime() )
-                ->addParticipation($participation )
-                ->setParticipationsCounter(0)
-            ;
+            $newArticle->setPublicationDate( new DateTime() );
 
             // Persistance de l'article auprès de Doctrine
             $entityManager->persist($newArticle);
-            $entityManager->persist($participation);
-
 
             // Sauvegarder en bdd
             $entityManager->flush();
@@ -323,17 +343,6 @@ class MainController extends AbstractController
     public function donation(){
 
         return $this->render('main/donation.html.twig');
-    }
-
-    /**
-     * Page de profil
-     *
-     * @Route("/mon-profil/", name="profil")
-     * @Security("is_granted('ROLE_USER')")
-     */
-    public function profil(Request $request)
-    {
-        return $this->render('main/profil.html.twig');
     }
 
     /**
@@ -593,127 +602,7 @@ class MainController extends AbstractController
      */
     public function admin()
     {
-        $userRepo = $this->getDoctrine()->getRepository(User::class);
-        $newUsers = $userRepo->findByValidation();
-
-
-        return $this->render('main/admin.html.twig', [
-            'newUsers' => $newUsers
-        ]);
-    }
-
-    /**
-     * Fonction qui accepte un user
-     *
-     * @Route("/admin/accepter/{id}/", name="admin-accept")
-     * @Security("is_granted('ROLE_ADMIN')")
-     *
-     * @param \App\Entity\User $user
-     * @param \Doctrine\ORM\EntityManagerInterface $manager
-     */
-    public function acceptUser(User $user, EntityManagerInterface $manager)
-    {
-        $user->setIsVerified(1);
-        $manager->persist($user);
-        $manager->flush();
-
-        // ENVOYER MAIL
-
-        return $this->redirectToRoute('admin');
-    }
-
-    /**
-     * Fonction qui refuse un user
-     *
-     * @Route("/admin/refuser/{id}/", name="admin-refuse")
-     * @Security("is_granted('ROLE_ADMIN')")
-     *
-     * @param \App\Entity\User $user
-     * @param \Doctrine\ORM\EntityManagerInterface $manager
-     */
-    public function refuseUser(User $user, EntityManagerInterface $manager)
-    {
-        $manager->remove($user);
-        $manager->flush();
-
-        return $this->redirectToRoute('admin');
-    }
-
-    /**
-     * Permet à un user d'ajouter ou d'enlever sa participation
-     *
-     * @Route("/evenement/{id}/participation", name="event_participation")
-     *
-     * @param \App\Entity\Article $article
-     * @param \Doctrine\ORM\EntityManagerInterface $manager
-     * @param \App\Repository\ParticipationRepository $participationRepo
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function participation(Article $article, EntityManagerInterface $manager, ParticipationRepository $participationRepo) : Response
-    {
-        // On récupère l'user
-        $user = $this->getUser();
-
-        // S'il n'est pas connecté
-        if(!$user){
-            // Tableau JSON avec le code d'erreur et le message
-            return $this->json([
-                'code' => 403,
-                'message' => 'Il faut être connecté'
-            ], 403);
-        } else {
-
-            // Si l'user participe déjà, on retire sa participation
-            if($article->willCome($user)){
-
-                $participation = $participationRepo->findOneBy([
-                    'article' => $article,
-                    'user' => $user
-                ]);
-
-                // On baisse le nb de participations
-                $participationsCounter = $article->getParticipationsCounter();
-                $article->setParticipationsCounter(--$participationsCounter);
-
-                // On enlève cette participation dans la BDD
-                $manager->remove($participation);
-                $manager->persist($article);
-                $manager->flush();
-
-                // Tableau JSON avec le code de succès et le message
-                return $this->json([
-                    'code' => 200,
-                    'message' => "Participation supprimée",
-                    'participations' => $article->getParticipationsCounter()
-                ], 200);
-
-            // Sinon, il ajoute sa participation
-            } else {
-
-                // On spécifie quel user participe
-                $participation = new Participation();
-                $participation
-                    ->setArticle($article)
-                    ->setUser($user)
-                ;
-
-                // On augmente le nb de participations
-                $participationsCounter = $article->getParticipationsCounter();
-                $article->setParticipationsCounter(++$participationsCounter);
-
-                // On ajoute sa participation dans la BDD
-                $manager->persist($participation);
-                $manager->persist($article);
-                $manager->flush();
-
-                // Tableau JSON avec le code de succès et le message
-                return $this->json([
-                    'code' => 200,
-                    'message' => 'Participation ajoutée',
-                    'participations' => $article->getParticipationsCounter()
-                ], 200);
-            }
-        }
+        return $this->render('main/admin.html.twig');
     }
 
     /**

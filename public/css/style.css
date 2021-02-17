@@ -1,10 +1,6 @@
 /* Fonts */
 
 @font-face{
-    font-family: 'The Micrander';
-    src: url('../fonts/TheMicrander.ttf');
-}
-@font-face{
     font-family: 'Vintage';
     src: url('../fonts/vintage.ttf');
 }
@@ -35,7 +31,7 @@
 
 /* Paramètres généraux */
 body{
-    background-color: #212121;
+    background-color: white;
 }
 
 .container-fluid, html{
@@ -43,38 +39,44 @@ body{
     min-height: 100%;
 }
 
+h1{
+    font-family: 'Oswald', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.bg-h1{
+    background-color: #FBAF5D;
+}
+
 /* Navbar */
 .navbar{
-    background-color: #212121;
+    background-color: white;
 }
 
 .navbar-title{
-    font-family: 'The Micrander', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 1.6rem;
+    font-family: 'Oswald', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1.3rem;
+}
+
+.undertitle{
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 0.8rem;
+    margin: -1vh;
 }
 
 .navbar-light .navbar-toggler-icon{
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgb%28255, 255, 255' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgb%280, 0, 0' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .navbar-brand img{
     max-height: 50px;
+    position: absolute;
 }
 
 .dropdown-menu{
-    background-color: #212121;
+    background-color: white;
     border: none;
     z-index: 1000;
     font-family: 'Oswald', 'Courier New', Courier, monospace;
-}
-
-.dropdown-item{
-    color:#f8f9fa;
-}
-
-.dropdown-item:focus, .dropdown-item:hover, .nav-link:focus, .nav-link:hover{
-    background-color: #3d3d3d;
-    color:#f8f9fa;
 }
 
 .benevole-button .navbar-networks{
@@ -85,54 +87,25 @@ body{
     font-family: 'Oswald', 'Courier New', Courier, monospace;
 }
 
-.dropdown-benevole .dropdown-item{
-    color: white !important;
+.bulles, .association-loisir{
+    padding-left: 45px;
+    z-index: 1000;
 }
-.dropdown-benevole .dropdown-item:hover{
-    background-color: #212121 !important;
-}
+
 
 /* Bannière */
 .banner{
     height: 100px;
 }
 
-.fun-title{
-    font-family: 'CaviarDreams', Arial, Helvetica, sans-serif;
-    font-size: 6vw;
-    margin-bottom: 0;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5), -1px -1px 2px rgba(0, 0, 0, 0.5);
-}
-
-/* Bouton de Don */
-
-.banner-img a{
-    width: fit-content;
-    right: 0;
-}
-
-.donation{
-    font-family: 'Vintage';
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    line-height: 0.5;
-    color: #CE0000;
-}
-.donation img{
-    width: 70px;
-}
-
 /* Bienvenue */
 .welcome-benevole{
-    background-image: url('../images/main/fondbulle.png');
+    background-color: #FBAF5D;
     background-position-x: center ;
 }
 
-.welcome{
-    background-color: rgba(255, 255, 255, 0.5);
+.welcome h2{
+    font-size: 1.5rem;
 }
 
 .welcome h2, p{
@@ -143,36 +116,24 @@ body{
 }
 
 .welcome a{
-    color: white;
-    background-color: #212121;
-    right: 0;
-    bottom: 0;
+    color: black;
+    background-color: white;
     font-family: 'Oswald', Arial, Helvetica, sans-serif;
-    letter-spacing: 0.1rem;
+    right: auto;
+    left: auto;
+}
+
+#contact_save{
+    font-family: 'Oswald', Arial, Helvetica, sans-serif;
+    background-color: #FBAF5D;
+    border: 1px solid #CED4DA;
 }
 
 /* Devenir Bénévole */
-.benevole{
-    color: white !important;
-}
-
-.benevole:hover{
-    background-size: 115%;
-}
-
-.benevole a{
-    color: white;
+.benevole-title{
+    font-size: 1.5rem !important;
     font-family: 'Oswald', Arial, Helvetica, sans-serif;
-}
-
-.benevole a h3{
-    font-family: 'Oswald';
-    font-size: 1.7rem;
-    background-color: black;
-}
-
-.benevole-button{
-    z-index: 1000;
+    cursor: pointer;
 }
 
 /* Cards */
@@ -198,18 +159,18 @@ body{
 }
 
 .card-img{
-    max-height: 40vh;
+    height: 40vh;
     object-fit: cover;
 }
 
 .card-body{
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .card-title{
     font-family: 'Oswald', Arial, Helvetica, sans-serif;
     font-size: 2rem;
-    color: rgb(231, 220, 220);
+    color: white;
     text-align: center;
 }
 
@@ -229,13 +190,13 @@ body{
 
 /* Footer */
 footer{
-    background-color: #212121;
+    background-color: #3D3D3D;
     bottom: 0;
     font-family: 'Oswald', 'Courier New', Courier, monospace;
 }
 
 .logo-nb{
-    height: 60px;
+    height: 40px;
     z-index: 0;
 }
 
@@ -244,15 +205,15 @@ footer{
 }
 
 .footer-title{
-    font-family: 'The Micrander', Arial, Helvetica, sans-serif;
+    font-family: 'Oswald', 'Courier New', Courier, monospace;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.1rem;
 }
 
 .address{
-    font-family: 'Oswald', 'Courier New', Courier, monospace;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.55rem;
 }
 
 /* Réseaux sociaux */
@@ -269,18 +230,15 @@ footer{
 }
 
 .fa-facebook-f{
-    background-color: #0E98BD;
+    background-color: #3b5998;
     padding: 8px 12px;
 }
 
-.fa-twitter{
-    background-color: #24A34C;
-    padding: 8px;
-}
 
 .fa-instagram{
-    background-color: #C7007F;
-    padding: 8px 10px;
+    background: #d6249f;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    padding: 8px 9px;
 }
 
 /* Page de création et modification d'article */
@@ -372,23 +330,11 @@ footer{
     font-weight: normal;
 }
 
-/* MOTIVATION ADMIN */
-.motivation{
-    cursor: pointer;
-}
-.motivation:hover{
-    text-decoration: underline;
-}
-
 
 /* MEDIA QUERIES */
 
 /* Taille tablette */
 @media screen and (min-width:768px){
-    .navbar-brand{
-        font-size: 4rem;
-        padding-left: 10vw;
-    }
 
     /* Bienvenue et Bénévole */
 
@@ -409,13 +355,6 @@ footer{
         text-decoration: none;
     }
 
-    .benevole{
-        color: white !important;
-    }
-    .benevole a h3{
-        background-color: black !important;
-    }
-
     .welcome{
         margin-left: 4vw;
         margin-top: 2vw;
@@ -428,7 +367,7 @@ footer{
         background-color: #212121;
         padding: 10px;
         color: white;
-}
+    }
 
     .card a{
         text-decoration: none !important;
@@ -440,6 +379,8 @@ footer{
 
     .card-img{
         min-height: 100%;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     .card-list, .list-title, .card-date{
@@ -451,31 +392,22 @@ footer{
         font-size: 1rem;
     }
 
-    /* Evénement */
-    .event-img{
-        max-height: 100vh;
-    }
 }
 
 
 /* Taille ordi */
 @media screen and (min-width: 1200px){
 
-    /* Bouton */
-    .donation{
-        position: absolute;
-        right: 2vw;
-    }
-
-    .donation img{
-        width: 140px;
-    }
-
     /* Navbar */
     .navbar{
         display: flex;
-        flex-direction: column;
         width: 100%;
+        height: 15vh;
+        position: relative;
+    }
+
+    .navbar-collapse{
+        align-self: flex-end;
     }
 
     .nav-item{
@@ -495,74 +427,74 @@ footer{
         color: black;
     }
 
-    .navbar-nav{
-        background-color: #212121;
-        position: relative;
-    }
-
     .navbar-title{
-        align-self: center;
-        font-size: 6rem;
-        text-shadow: 0.5px 0.5px 1px black;
         padding-left: 0;
+        align-self: start;
+        margin-left: 1rem;
+    }
+    .navbar-title .bulles{
+        font-size: 2.8rem;
+        padding-left: 110px;
+        padding-top: 5px;
+    }
+    .navbar-title .association-loisir{
+        font-size: 1.4rem;
+        font-family: 'Roboto', 'Courier New', Courier, monospace;
+        padding-left: 110px;
+        margin-top: -15px !important;
     }
     .navbar-title img{
-        max-height: 8vw;
+        max-height: 12vh;
     }
 
     .benevole-button .navbar-networks{
         display: flex;
         padding: 5px;
     }
+    .benevole-button .navbar-networks a{
+        margin-top: auto;
+        margin-bottom: auto;
+    }
 
     .benevole-button{
         display: flex;
-        position: fixed;
+        position: absolute;
         top: 0;
         right: 0;
-        border-bottom-left-radius: 20px;
         background-color: #3d3d3d !important;
-
+        padding-left: 80px;
     }
 
     .benevole-button .nav-link{
         margin: 0 2vw;
-        background-color: #3d3d3d !important;
+        background-color: #FAC40A !important;
 
     }
 
-    .benevole-button .nav-link:hover{
-        background-color: #212121;
-        border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        -ms-border-radius: 5px;
-        -o-border-radius: 5px;
-    }
-
-    .dropdown-benevole{
-        text-align: end;
-        right: 0;
-        left: auto;
-        background-color: #3D3D3D !important;
-    }
-
-    .dropdown-benevole a{
-        background-color: #3D3D3D !important;
-        color: white !important;
-    }
-
-    .dropdown-menu:not(.dropdown-benevole){
-        background-color: white !important;
+    .benevole-button:before{
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; top: 0;
+        border-bottom: 52px solid white;
+        border-right: 52px solid #3D3D3D;
+        width: 0;
     }
 
     .dropdown-menu a{
         background-color: white;
-        color: black !important;
+        color: black;
     }
 
-    .dropdown-item:focus, .dropdown-item:hover, .nav-link:focus, .nav-link:hover{
-        background-color: whitesmoke;
+    .dropdown-item:focus, .dropdown-item:hover, .nav-link:focus, .navbar .nav-link:hover:not(.benevole-link){
+        background-color: white;
+        color: #0078BD !important;
+    }
+
+    /* Image de bulles */
+    .img-bulles{
+        max-height: 40vh;
+        width: 100%;
+        object-fit: cover;
     }
 
     /* Bienvenue et welcome */
@@ -570,7 +502,7 @@ footer{
         display: flex;
         align-items: center;
         justify-content: space-around;
-        height: 50vh;
+        height: 45vh;
     }
 
     .welcome{
@@ -581,33 +513,41 @@ footer{
     }
 
     .welcome h2{
-        font-size: 4rem;
+        font-size: 2.5rem;
         align-self: center;
     }
 
     .welcome p{
-        font-size: 2vw;
+        font-size: 1.3vw;
+        text-align: center;
     }
 
     .welcome a {
         position: relative !important;
         align-self: flex-end;
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .benevole{
-        position: relative;
+        transform: scaleY(0.95);
+        -webkit-transform: scaleY(0.95);
+        -moz-transform: scaleY(0.95);
+        -ms-transform: scaleY(0.95);
+        -o-transform: scaleY(0.95);
     }
 
     .benevole a h3{
-        font-size: 3rem;
+        font-size: 2rem;
     }
 
-    /* DON */
-    .donation{
-        right: auto;
-        bottom: -40px;
+    .benevole label{
+        display: none;
     }
+
+    .benevole input, .benevole textarea{
+        background-color: #DADADA;
+    }
+
 
     /* Cards */
 
@@ -641,21 +581,15 @@ footer{
 
     /* Footer */
     .logo-nb{
-        height: 10vh;
-    }
-
-    .footer-infos{
-        padding-left: 60px !important;
+        height: 8vh;
     }
 
     .footer-title{
-        font-family: 'The Micrander', Arial, Helvetica, sans-serif;
         color: white;
-        font-size: 2.3rem;
+        font-size: 2rem;
     }
 
     .address{
-        font-family: 'Letter Gothic Std', Arial, Helvetica, sans-serif;
         color: white;
         font-size: 1rem;
     }
@@ -666,7 +600,7 @@ footer{
 
     .sitemap ul li a{
         text-decoration: none;
-        font-size: 1.5rem;
+        font-size: 1rem;
         color: white;
         padding: 5px 12px;
         border-radius: 5px;
@@ -685,4 +619,66 @@ footer{
         margin: 0.5vw;
     }
 
+    /* Page d'événement */
+
+    .event-title{
+        font-size: 2rem;
+    }
+
+}
+
+/* GOOGLE RECAPTCHA */
+.g-recaptcha{
+    transform:scale(0.93);
+    -webkit-transform:scale(0.93);
+    transform-origin:0 0;
+    -webkit-transform-origin:0 0;
+    -moz-transform:scale(0.93);
+    -ms-transform:scale(0.93);
+    -o-transform:scale(0.93);
+}
+@media screen and (min-width: 365px){
+    .g-recaptcha{
+        transform:scale(0.95);
+        -webkit-transform:scale(0.95);
+        transform-origin:0 0;
+        -webkit-transform-origin:0 0;
+        -moz-transform:scale(0.95);
+        -ms-transform:scale(0.95);
+        -o-transform:scale(0.95);
+    }
+}
+@media screen and (min-width: 375px){
+    .g-recaptcha{
+        transform:scale(0.98);
+        -webkit-transform:scale(0.98);
+        transform-origin:0 0;
+        -webkit-transform-origin:0 0;
+        -moz-transform:scale(0.98);
+        -ms-transform:scale(0.98);
+        -o-transform:scale(0.98);
+    }
+}
+@media screen and (min-width: 380px){
+    .g-recaptcha{
+        transform:scale(1);
+        -webkit-transform:scale(1);
+        transform-origin:0 0;
+        -webkit-transform-origin:0 0;
+        -moz-transform:scale(1);
+        -ms-transform:scale(1);
+        -o-transform:scale(1);
+    }
+    .g-recaptcha-parent{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.dropdown-toggle[aria-expanded="true"]:after {
+    transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
 }

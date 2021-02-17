@@ -12,9 +12,21 @@
     </head>
     <body class="d-flex flex-column h-100 bg-grade">
 
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="w-100 bg-danger">
+                <p class="text-body text-center mt-2" style="font-size: large;">Vous êtes actuellement connecté en tant qu'administrateur ( {{ app.user.email }} ). <a href="{{ path('app_logout') }}" class="text-body">Se déconnecter</a></p>
+            </div>
+        {% endif %}
+
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-xl navbar-dark px-2 py-0 sticky-top">
-            <a class="navbar-brand navbar-title my-xl-4" href="{{ path('main') }}"><img src="{{asset('images/main/logobullessite.png')}}" alt="bulles">Les Bulles de Liberté</a>
+        <nav class="navbar navbar-expand-xl navbar-light px-2 py-0 sticky-top">
+            <a class="navbar-brand navbar-title my-xl-2 d-flex" href="{{ path('main') }}">
+                <img src="{{asset('images/main/logobullessite.png')}}" alt="bulles">
+                <div class="d-flex flex-column mt-2 mb-3">
+                    <p class="m-0 bulles">LES BULLES DE LIBERTÉ</p>
+                    <p class="undertitle text-right pr-2 association-loisir">Association Loisir pour Tous</p>
+                </div>
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -22,69 +34,49 @@
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav ml-auto mr-xl-auto mt-2 mb-xl-0">
                     <li class="nav-item active">
-                        <a class="nav-link text-light" href="{{ path('main') }}">ACCUEIL<span class="sr-only">(current)</span></a>
+                        <a class="nav-link text-body" href="{{ path('main') }}">ACCUEIL<span class="sr-only">(current)</span></a>
                     </li>
 
                     <li class="nav-item d-xl-none">
-                        <a class="nav-link text-light" href="{{ path('donation') }}">FAIRE UN DON</a>
+                        <a class="nav-link text-body" href="{{ path('contact') }}">CONTACT</a>
                     </li>
 
-                    <li class="nav-item dropdown benevole-button">
-                        <div class="navbar-networks">
-                            <a href="https://www.facebook.com/lesbullesdeliberte/" title="Lien vers notre page Facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" title="Lien vers notre compte Instagram"><i class="fab fa-instagram"></i></a>
-                        </div>
-                        <a class="nav-link dropdown-toggle text-light w-100 benevole-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% if app.user %}{{ app.user.firstname }} {{ app.user.name }}{% else %}ESPACE BÉNÉVOLE{% endif %}</a>
-                        <div class="dropdown-menu my-0 dropdown-benevole" aria-labelledby="navbarDropdown">
-                            {% if app.user %}
-                                {% if is_granted('ROLE_ADMIN') %}<a class="dropdown-item" href="{{ path('admin') }}">ADMIN</a>{% endif %}
-                                <a class="dropdown-item" href="{{ path('reunions') }}">RÉUNIONS</a>
-                                <a class="dropdown-item" href="{{ path('profil') }}">PROFIL</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ path('app_logout') }}">SE DÉCONNECTER</a>
-                            {% else %}
-                                <a class="dropdown-item" href="{{ path('app_register') }}">S'INSCRIRE</a>
-                                <a class="dropdown-item" href="{{ path('app_login') }}">SE CONNECTER</a>
-                            {% endif %}
-                        </div>
-                    </li>
+                    <div class="corner">
+                        <li class="nav-item dropdown benevole-button">
+                            <div class="navbar-networks">
+                                <a href="https://www.facebook.com/lesbullesdeliberte/" title="Lien vers notre page Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" title="Lien vers notre compte Instagram"><i class="fab fa-instagram"></i></a>
+                            </div>
+                            <a class="nav-link text-body benevole-link" href="{{ path('donation') }}">FAIRE UN DON</a>
+                        </li>
+                    </div>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ÉVÉNEMENTS</a>
+                        <a class="nav-link dropdown-toggle text-body" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ÉVÉNEMENTS</a>
                         <div class="dropdown-menu my-0" aria-labelledby="navbarDropdown2">
-                            <a class="dropdown-item" href="{{ path('future_list') }}">À VENIR</a>
-                            <a class="dropdown-item" href="{{ path('past_list') }}">PASSÉS</a>
+                            <a class="dropdown-item text-body" href="{{ path('future_list') }}">À VENIR</a>
+                            <a class="dropdown-item text-body" href="{{ path('past_list') }}">PASSÉS</a>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a class="dropdown-item" href="{{ path('new_article') }}">AJOUTER</a>
+                                <a class="dropdown-item text-danger" href="{{ path('new_article') }}">AJOUTER</a>
                             {% endif %}
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ path('galerie')}}">GALERIE</a>
+                        <a class="nav-link text-body" href="{{ path('galerie')}}">GALERIE</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">L'ASSOCIATION</a>
+                        <a class="nav-link dropdown-toggle text-body" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">L'ASSOCIATION</a>
                         <div class="dropdown-menu my-0" aria-labelledby="navbarDropdown3">
-                            <a class="dropdown-item" href="{{ path('presentation')}}">PRÉSENTATION</a>
-                            <a class="dropdown-item" href="{{ path('qui-sommes-nous')}}">QUI SOMMES-NOUS</a>
-                            <a class="dropdown-item" href="{{ path('coin-presse')}}">COIN PRESSE</a>
+                            <a class="dropdown-item text-body" href="{{ path('presentation')}}">PRÉSENTATION</a>
+                            <a class="dropdown-item text-body" href="{{ path('qui-sommes-nous')}}">QUI SOMMES-NOUS</a>
+                            <a class="dropdown-item text-body" href="{{ path('coin-presse')}}">COIN PRESSE</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="{{path('documentation')}}">DOCUMENTATION</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ path('contact') }}">CONTACT</a>
+                        <a class="nav-link text-body" href="{{path('documentation')}}">DOCUMENTATION</a>
                     </li>
                     <li class="nav-item d-none d-xl-block">
-                        <div class="banner-img w-100 h-100">
-                            <a href="{{ path('donation') }}"title="Lien vers la page de don">
-                                <!-- Bouton de don -->
-                                <div class="d-block bg-white donation m-0">
-                                    <img src="{{asset('images/main//faireundon.png')}}" alt="Faire un Don">
-                                </div>
-                            </a>
-                        </div>
+                        <a class="nav-link text-body" href="{{ path('contact') }}">CONTACT</a>
                     </li>
                 </ul>
             </div>
@@ -98,37 +90,37 @@
 
         <!-- Footer -->
         <footer class="w-100 position-absolute">
-            <div class="d-flex justify-content-between align-items-center p-2">
-                <img src="{{asset('images/main/logobullesnbsite.png')}}" alt="les-bulles-logo-nb" class="logo-nb position-absolute">
-                <div class="footer-infos">
-                    <p class="footer-title pl-4 mb-0">Les Bulles de Liberté</p>
-                    <p class="address pl-4 mb-0">10 Cité Fieux, 71100 SAINT-RÉMY</p>
+            <div class="d-flex align-items-center p-2">
+                <img src="{{asset('images/main/logobullessite.png')}}" alt="les-bulles-logo" class="logo-nb">
+                <div class="footer-infos ">
+                    <p class="footer-title pr-5 mb-0">LES BULLES DE LIBERTÉ</p>
+                    <p class="address pr-5 mb-0">10 Cité Fieux, 71100 SAINT-RÉMY</p>
                 </div>
                 <div class="sitemap d-none d-xl-block">
-                    <ul class="d-flex align-items-start">
-                        <li><a href="{{ path('main') }}">ACCUEIL</a></li>
+                    <ul class="d-flex align-items-baseline m-0">
+                        <li><a href="{{ path('main') }}" class="py-1">ACCUEIL</a></li>
                         <li>
-                            <div class="d-flex flex-column text-center">
-                                <a href="{{ path('future_list') }}" class="py-0">ÉVÉNEMENTS</a>
+                            <div class="d-flex flex-column text-center link-list">
+                                <a href="{{ path('future_list') }}" class="py-1">ÉVÉNEMENTS</a>
                                 <a href="{{ path('future_list') }}" class="py-0">à venir</a>
                                 <a href="{{ path('past_list') }}" class="py-0">passés</a>
                             </div>
                         </li>
-                        <li><a href="{{ path('galerie')}}">GALERIE</a></li>
+                        <li><a href="{{ path('galerie')}}" class="py-1">GALERIE</a></li>
                         <li>
-                            <div class="d-flex flex-column text-center">
-                                <a href="{{ path('presentation')}}" class="py-0">L'ASSOCIATION</a>
+                            <div class="d-flex flex-column text-center link-list">
+                                <a href="{{ path('presentation')}}" class="py-1">L'ASSOCIATION</a>
                                 <a href="{{ path('presentation')}}" class="py-0">Présentation</a>
                                 <a href="{{ path('qui-sommes-nous')}}" class="py-0">Qui sommes-nous</a>
                                 <a href="{{ path('coin-presse')}}" class="py-0">Coin Presse</a>
                             </div>
                         </li>
-                        <li><a href="{{path('documentation')}}">DOCUMENTATION</a></li>
-                        <li><a href="{{ path('contact') }}">CONTACT</a></li>
-                        <li><a href="{{ path('mentions') }}">MENTIONS LÉGALES</a></li>
+                        <li><a href="{{path('documentation')}}" class="py-1">DOCUMENTATION</a></li>
+                        <li><a href="{{ path('contact') }}" class="py-1">CONTACT</a></li>
+                        <li><a href="{{ path('mentions') }}" class="py-1">MENTIONS LÉGALES</a></li>
                     </ul>
                 </div>
-                <div class="social-networks d-flex">
+                <div class="social-networks d-flex ml-auto">
                     <a href="https://www.facebook.com/lesbullesdeliberte/"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                 </div>

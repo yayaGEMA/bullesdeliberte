@@ -46,7 +46,7 @@ class ArticleType extends AbstractType
                     new Length([
                         'min' => 5,
                         'minMessage' => 'Le champ doit contenir au moins {{ limit }} caractères',
-                        'max' => 10000,
+                        'max' => 50000,
                         'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
                     ]),
                 ]
@@ -56,17 +56,7 @@ class ArticleType extends AbstractType
                 'purify_html' => true,
                 'constraints' => [
                     new Length([
-                        'max' => 5000,
-                        'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
-                    ]),
-                ]
-            ])
-            ->add('missions', CKEditorType::class, [
-                'label' => 'Missions (bénévoles)',
-                'purify_html' => true,
-                'constraints' => [
-                    new Length([
-                        'max' => 5000,
+                        'max' => 50000,
                         'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
                     ]),
                 ]

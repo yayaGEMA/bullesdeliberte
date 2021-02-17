@@ -66,9 +66,9 @@ class ContactType extends AbstractType
                 ]
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'Envoyer',
+                'label' => 'ENVOYER',
                 'attr' => [
-                    'class' => 'btn btn-primary col-10 offset-1 col-md-6 offset-md-3'
+                    'class' => 'btn col-12 col-md-6 offset-md-3'
                 ]
             ])
         ;

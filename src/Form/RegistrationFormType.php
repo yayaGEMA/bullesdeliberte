@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -42,15 +41,6 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
 
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'En cochant cette case, vous acceptez nos Règles et Conditions',
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'Vous devez accepter nos Règles et Conditions.',
-                    ]),
-                ],
-            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Le mot de passe ne correspond pas à sa confirmation',
@@ -76,74 +66,6 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Votre mot de passe doit contenir obligatoirement une minuscule, une majuscule, un chiffre et un caractère spécial'
                     ])
                 ],
-            ])
-
-            //Champ prénom
-            ->add('firstname', TextType::class, [
-                'label' => 'Prénom*',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Merci de renseigner un prénom'
-                    ]),
-                    new Length([
-                        'min' => 2,
-                        'minMessage' => 'Ce champ doit contenir au moins {{ limit }} caractères',
-                        'max' => 50,
-                        'maxMessage' => 'Ce champ doit contenir au maximum {{ limit }} caractères'
-                    ]),
-                ]
-            ])
-
-            // Champ nom
-            ->add('name', TextType::class, [
-                'label' => 'Nom*',
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Merci de renseigner un nom de famille'
-                    ]),
-                    new Length([
-                        'min' => 2,
-                        'minMessage' => 'Ce champ doit contenir au moins {{ limit }} caractères',
-                        'max' => 50,
-                        'maxMessage' => 'Ce champ doit contenir au maximum {{ limit }} caractères'
-                    ]),
-                ]
-            ])
-
-            // Champ numéro de téléphone
-            ->add('phone', TextType::class, [
-                'label' => 'Numéro de téléphone',
-                'constraints' => [
-                    new Length([
-                        'max' => 20,
-                    ]),
-                    new Regex([
-                        'pattern' => "/^(?:(?:\+|00)33[\s.'-]{0,3}(?:\(0\)[\s.'-]{0,3})?|0)[1-9](?:(?:[\s.'-]?\d{2}){4}|\d{2}(?:[\s'.-]?\d{3}){2})$/",
-                        'message' => "Votre numéro de téléphone n'est pas valide."
-                    ]),
-                ]
-            ])
-
-            // Champ date de naissance
-            ->add('birthdate', BirthdayType::class, [
-                'label' => 'Date de naissance*',
-            ])
-
-            // Champ motivation
-            ->add('motivation', CKEditorType::class, [
-                'label' => 'Pour quelles raisons voulez-vous rejoindre les Bulles de Liberté ?*',
-                'purify_html' => true,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Merci de renseigner vos motivations (au moins 20 caractères)'
-                    ]),
-                    new Length([
-                        'min' => 20,
-                        'minMessage' => 'Le champ doit contenir au moins {{ limit }} caractères',
-                        'max' => 5000,
-                        'maxMessage' => 'Le champ doit contenir au maximum {{ limit }} caractères'
-                    ]),
-                ]
             ])
 
             // Bouton de validation
